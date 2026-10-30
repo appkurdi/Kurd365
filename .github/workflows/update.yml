@@ -1,27 +1,33 @@
-name: Auto Update Matches
+name: Update Live Matches
 
 on:
   schedule:
-      schedule:
-    - cron: '0 7 * * *'  # ئەمە واتە هەموو ڕۆژێک کاتژمێر ١٠ی بەیانی بە کاتی عێراق کار دەکات
-  workflow_dispatch: # ڕێگەت پێدەدات بە دەستیش کاری پێ بکەیت
+    # کارکردن لە کاتژمێر 10ی بەیانی بە کاتی عێراق (07:00 UTC)
+    - cron: '0 7 * * *'
+  workflow_dispatch: # ئەمە ڕێگەت پێدەدات لە گیتھەب بە دەستی خۆت کلیکی لێ بکەیت و کاری پێ بکەیت
+
+permissions:
+  contents: write
 
 jobs:
-  update-matches:
+  update-data:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
 
-      - name: Run Python script
+      - name: Run Python Script
         run: python main.py
 
       - name: Commit and Push changes
@@ -29,5 +35,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add live_matches.html
-          git diff --quiet && git diff --staged --quiet || git commit -m "ئەپدەیتکردنەوەی خشتەی یارییەکان"
+          git commit -m "ئەپدەیتکردنی یارییەکانی ئەمڕۆ لەلایەن سیستەمەوە" || echo "هیچ گۆڕانکارییەک نییە بۆ سەیڤکردن"
           git push
