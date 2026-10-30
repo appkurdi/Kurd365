@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
@@ -8,32 +7,38 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
         body { font-family: 'Cairo', Tahoma, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; }
+        
+        /* هێدەری سەرەوەی Kurd365 */
         .header { background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%); padding: 15px; text-align: center; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .header h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: 1px; }
+        
         .container { max-width: 700px; margin: 20px auto; padding: 0 10px; }
-        .league-card { background: white; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow: hidden; }
-        .league-header { background-color: #ffffff; padding: 12px 15px; border-bottom: 2px solid #f0f2f5; display: flex; align-items: center; color: #2c3e50; font-weight: bold; font-size: 16px; }
-        .league-header img { width: 25px; height: 25px; margin-left: 10px; }
-        .match-row { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #f9f9f9; }
-        .match-row:last-child { border-bottom: none; }
-        .team { display: flex; align-items: center; width: 35%; font-size: 14px; font-weight: 700; color: #333; }
-        .team.away { justify-content: flex-end; }
-        .team img { width: 30px; height: 30px; margin: 0 8px; }
-        .match-center { width: 30%; text-align: center; display: flex; flex-direction: column; align-items: center; }
-        .score-badge { background: #f0f2f5; padding: 4px 12px; border-radius: 20px; font-size: 15px; font-weight: bold; color: #1a1a1a; letter-spacing: 1px; direction: ltr; }
-        .status-min { color: #e74c3c; font-size: 12px; font-weight: bold; margin-top: 4px; }
-        .btn { margin-top: 8px; padding: 5px 12px; border-radius: 20px; text-decoration: none; color: white; font-size: 12px; font-weight: bold; transition: transform 0.2s; }
-        .btn:hover { transform: scale(1.05); }
-        .live { background: linear-gradient(45deg, #ff416c, #ff4b2b); box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3); animation: pulse 1.5s infinite; }
-        .upcoming { background-color: #3498db; }
-        .finished { background-color: #95a5a6; pointer-events: none; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        @media (max-width: 600px) {
-            .team span { font-size: 12px; }
-            .team img { width: 22px; height: 22px; }
-            .score-badge { font-size: 14px; padding: 3px 8px; }
-            .league-header { font-size: 14px; }
+        
+        /* دیزاینی دوگمەی پەخشی ڕاستەوخۆ */
+        .stream-btn-container { text-align: center; margin: 25px 0; }
+        .stream-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+            animation: pulse 1.5s infinite;
         }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 4px 20px rgba(255, 65, 108, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4); }
+        }
+
+        /* شاردنەوەی لۆگۆ و نوسینە زیادەکانی 365Scores بۆ ئەوەی پڕۆفیشناڵ بێت */
+        #powered-by, .powered-by, [id^="powered-by"] { display: none !important; }
+        
+        /* بۆشایی نێوان خولەکان */
+        .widget-wrapper { margin-bottom: 25px; border-radius: 12px; overflow: hidden; background: transparent; }
     </style>
 </head>
 <body>
@@ -41,143 +46,52 @@
         <h1>Kurd365</h1>
     </div>
     <div class="container">
+        
+        <!-- دوگمەی چوون بۆ سێرڤەری پەخش -->
+        <div class="stream-btn-container">
+            <a href="https://syriashdab.com/" target="_blank" class="stream-btn">
+                سەیرکردنی یارییەکان ڕاستەوخۆ 🔴
+            </a>
+        </div>
 
-        <div class="league-card">
-            <div class="league-header">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/6822" alt="خولی ئەستێرەکانی عێراق">
-                <span>خولی ئەستێرەکانی عێراق</span>
-            </div>
+        <!-- خولی عێراقی -->
+        <div class="widget-wrapper">
+            <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="6822" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+        </div>
         
-            <div class="match-row">
-                <div class="team home">
-                    <span>الكرمة</span>
-                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/78842" alt="الكرمة">
-                </div>
-                <div class="match-center">
-                    <div class="score-badge">0 - 0</div>
-                    
-                    <a href="#" class="btn finished" target="_blank">تەواوبوو</a>
-                </div>
-                <div class="team away">
-                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/11272" alt="دهوك">
-                    <span>دهوك</span>
-                </div>
-            </div>
-            
-            <div class="match-row">
-                <div class="team home">
-                    <span>كربلاء</span>
-                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/8243" alt="كربلاء">
-                </div>
-                <div class="match-center">
-                    <div class="score-badge">1 - 2</div>
-                    
-                    <a href="#" class="btn finished" target="_blank">تەواوبوو</a>
-                </div>
-                <div class="team away">
-                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/8244" alt="الطلبة">
-                    <span>الطلبة</span>
-                </div>
-            </div>
-            
-            <div class="match-row">
-                <div class="team home">
-                    <span>أربيل</span>
-                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/8254" alt="أربيل">
-                </div>
-                <div class="match-center">
-                    <div class="score-badge">- - -</div>
-                    
-                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
-                </div>
-                <div class="team away">
-                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/73672" alt="غاز الشمال">
-                    <span>غاز الشمال</span>
-                </div>
-            </div>
-            </div>
-        <div class="league-card">
-            <div class="league-header">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/34" alt="خولی فەڕەنسی">
-                <span>خولی فەڕەنسی</span>
-            </div>
-        
-            <div class="match-row">
-                <div class="team home">
-                    <span>فورتونا دوسيلدورف</span>
-                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/393" alt="فورتونا دوسيلدورف">
-                </div>
-                <div class="match-center">
-                    <div class="score-badge">- - -</div>
-                    
-                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
-                </div>
-                <div class="team away">
-                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/8524" alt="ميبين">
-                    <span>ميبين</span>
-                </div>
-            </div>
-            </div>
-        <div class="league-card">
-            <div class="league-header">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="خولی ئەڵمانی">
-                <span>خولی ئەڵمانی</span>
-            </div>
-        
-            <div class="match-row">
-                <div class="team home">
-                    <span>إلفيرسبيرغ</span>
-                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/418" alt="إلفيرسبيرغ">
-                </div>
-                <div class="match-center">
-                    <div class="score-badge">- - -</div>
-                    
-                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
-                </div>
-                <div class="team away">
-                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/352" alt="ماينز 05">
-                    <span>ماينز 05</span>
-                </div>
-            </div>
-            </div>
-        <div class="league-card">
-            <div class="league-header">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/11" alt="خولی ئیسپانی (لالیگا)">
-                <span>خولی ئیسپانی (لالیگا)</span>
-            </div>
-        
-            <div class="match-row">
-                <div class="team home">
-                    <span>فياريال</span>
-                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/133" alt="فياريال">
-                </div>
-                <div class="match-center">
-                    <div class="score-badge">- - -</div>
-                    
-                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
-                </div>
-                <div class="team away">
-                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/136" alt="إسبانيول">
-                    <span>إسبانيول</span>
-                </div>
-            </div>
-            </div>
+        <!-- چامپیۆنزلیگ -->
+        <div class="widget-wrapper">
+            <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="572" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+        </div>
+
+        <!-- خولی ئینگلیزی -->
+        <div class="widget-wrapper">
+            <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="7" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+        </div>
+
+        <!-- خولی ئیسپانی -->
+        <div class="widget-wrapper">
+            <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="11" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+        </div>
+
+        <!-- خولی ئیتاڵی -->
+        <div class="widget-wrapper">
+            <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="17" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+        </div>
+
+        <!-- خولی ئەڵمانی -->
+        <div class="widget-wrapper">
+            <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="25" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+        </div>
+
+        <!-- خولی فەڕەنسی -->
+        <div class="widget-wrapper">
+            <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="34" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+        </div>
+
     </div>
-    
-    <script>
-        setInterval(function() {
-            fetch(window.location.href, {cache: "no-store"})
-            .then(response => response.text())
-            .then(html => {
-                var parser = new DOMParser();
-                var doc = parser.parseFromString(html, 'text/html');
-                var newContainer = doc.querySelector('.container');
-                if (newContainer) {
-                    document.querySelector('.container').innerHTML = newContainer.innerHTML;
-                }
-            })
-            .catch(err => console.log("Error updating match data:", err));
-        }, 60000);
-    </script>
+
+    <!-- سکریپتی سەرەکی 365Scores کە داتاکان دەهێنێت -->
+    <script src="https://widgets.365scores.com/main.js"></script>
 </body>
 </html>
