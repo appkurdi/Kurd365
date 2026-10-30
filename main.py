@@ -1,23 +1,46 @@
 import requests
+from bs4 import BeautifulSoup
 from datetime import datetime
 
-# زانیارییەکانی پەیوەندیکردن بە API بە بەکارهێنانی کلیلەکەی خۆت
+# زانیارییەکانی API-Football
 api_key = "350fb25ebfcda5372357f8c8868450af" 
-url = "https://v3.football.api-sports.io/fixtures"
+api_url = "https://v3.football.api-sports.io/fixtures"
 today_date = datetime.today().strftime('%Y-%m-%d')
 
 params = {
     "date": today_date,
-    "timezone": "Asia/Baghdad" # کاتی یارییەکان بە کاتی عێراق
+    "timezone": "Asia/Baghdad"
 }
 
 headers = {
     'x-apisports-key': api_key
 }
 
-print("خەریکی هێنانی زانیاری یارییەکانی ئەمڕۆیە، تکایە چاوەڕێ بە...")
-response = requests.get(url, headers=headers, params=params)
+response = requests.get(api_url, headers=headers, params=params)
 data = response.json()
+
+# فانکشنی سکراپینگ بۆ دۆزینەوەی لینکی یارییەکە
+def get_stream_link(team_a_name, team_b_name):
+    try:
+        # سەردانیکردنی ماڵپەڕی سەرچاوە
+        source_url = "https://syriashdab.com/"
+        req = requests.get(source_url, timeout=10)
+        soup = BeautifulSoup(req.text, 'html.parser')
+        
+        # گەڕان بەناو هەموو لینکەکانی ماڵپەڕەکەدا
+        for a_tag in soup.find_all('a', href=True):
+            text = a_tag.text
+            # ئەگەر ناوی یەکێک لە تیمەکانی تێدابوو، لینکەکەی بهێنە
+            if team_a_name in text or team_b_name in text:
+                link = a_tag['href']
+                # دڵنیابوونەوە لەوەی لینکەکە تەواوە
+                if not link.startswith('http'):
+                    link = source_url.rstrip('/') + '/' + link.lstrip('/')
+                return link
+    except Exception as e:
+        print(f"Error fetching stream: {e}")
+    
+    return "#" # ئەگەر نەیدۆزیەوە یان کێشەیەک هەبوو
 
 # ئامادەکردنی بەشی سەرەوەی HTML
 html_content = """
@@ -47,8 +70,6 @@ html_content = """
 """
 
 matches = data.get('response', [])
-
-# خولە گرنگەکان (چامپیۆنزلیگ، پریمەرلیگ، لالیگا، هتد...)
 important_leagues = [2, 3, 4, 39, 140, 135, 78, 61, 29] 
 filtered_matches = [m for m in matches if m['league']['id'] in important_leagues]
 
@@ -58,19 +79,22 @@ else:
     for match in filtered_matches:
         team_a = match['teams']['home']['name']
         team_b = match['teams']['away']['name']
-        
-        # کاتی یارییەکە
         time = match['fixture']['date'][11:16] 
         status_short = match['fixture']['status']['short']
         
-        # گۆڵەکان ئەگەر یارییەکە دەستی پێکردبێت یان تەواو بووبێت
         goals_home = match['goals']['home'] if match['goals']['home'] is not None else "-"
         goals_away = match['goals']['away'] if match['goals']['away'] is not None else "-"
         
+        stream_link = "#"
+        
         if status_short in ['1H', '2H', 'HT', 'ET', 'P', 'BT']:
-            btn_text = "ڕاستەوخۆ 🔴"
+            btn_text = "سەیرکردن 🔴"
             btn_class = "live"
             display_time = f"{goals_home} - {goals_away}<br><span style='color:red;font-size:12px;'>{match['fixture']['status']['elapsed']}'</span>"
+            
+            # لە کاتی یارییەکەدا، بگەڕێ بەدوای لینکەکەدا
+            stream_link = get_stream_link(team_a, team_b)
+            
         elif status_short in ['FT', 'AET', 'PEN']:
             btn_text = "تەواوبوو 🏁"
             btn_class = "finished"
@@ -80,14 +104,13 @@ else:
             btn_class = "upcoming"
             display_time = time
 
-        stream_link = "#" # دواتر فێری دانانی لینکی m3u8 دەبین
-
         html_content += f"""
             <div class="match-card">
                 <div class="team">{team_a}</div>
                 <div class="time-score">{display_time}</div>
                 <div class="team">{team_b}</div>
-                <a href="{stream_link}" class="btn {btn_class}">{btn_text}</a>
+                <!-- کردنەوەی لینکەکە لە پەنجەرەیەکی نوێدا ئەگەر دۆزرایەوە -->
+                <a href="{stream_link}" class="btn {btn_class}" target="_blank">{btn_text}</a>
             </div>
         """
 
@@ -97,8 +120,7 @@ html_content += """
 </html>
 """
 
-# پاشەکەوتکردنی فایلەکە
 with open("live_matches.html", "w", encoding="utf-8") as file:
     file.write(html_content)
 
-print(f"سەرکەوتوو بوو! فایلی live_matches.html دروستکرا و ({len(filtered_matches)}) یاری گرنگی ئەمڕۆی تێدایە.")
+print("فایلی خشتەی یارییەکان بە سەرکەوتوویی لەگەڵ لینکەکان دروستکرا.")
