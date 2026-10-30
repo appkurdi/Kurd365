@@ -108,7 +108,6 @@ kurdish_leagues = {
 matches_added = 0
 
 for match in matches:
-    # کاتی یاری
     try:
         start_time_str = match.get('startTime', '')
         match_time = datetime.fromisoformat(start_time_str.replace('Z', '+00:00'))
@@ -122,7 +121,6 @@ for match in matches:
     league_name = kurdish_leagues.get(league_id)
     if not league_name: continue
 
-    # دۆزینەوەی ناوی کەناڵ لە 365Scores
     tv_networks = match.get('tvNetworks', [])
     channel_name = tv_networks[0].get('name') if tv_networks else "پەخشی ئۆنلاین"
 
@@ -131,7 +129,6 @@ for match in matches:
     home_logo = f"https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/{match['homeCompetitor']['id']}"
     away_logo = f"https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/{match['awayCompetitor']['id']}"
     
-    # هێنانی لینک
     stream_link = get_stream_link(home_team, away_team)
     matches_added += 1
 
@@ -148,7 +145,6 @@ for match in matches:
             </div>
             <div class="status-footer">
                 <div class="countdown-timer"></div>
-                <!-- کاتێک کلیک دەکرێت، فەنکشنی openPlayer کار دەکات بۆ کردنەوەی پلەیەرەکە -->
                 <button class="stream-btn" onclick="openPlayer('{stream_link}', '{home_team} vs {away_team}')">سەیرکردنی ڕاستەوخۆ 🔴</button>
                 <div class="finished-btn">تەواوبوو</div>
             </div>
@@ -161,7 +157,6 @@ if matches_added == 0:
 html_content += """
     </div>
 
-    <!-- پلەیەرە ناوخۆییەکە (بە شاراوەیی دەمێنێتەوە تا کلیکی لێ دەکرێت) -->
     <div id="player-modal">
         <div class="player-header">
             <div class="player-title" id="player-title-text">یاری ڕاستەوخۆ</div>
@@ -173,7 +168,6 @@ html_content += """
     </div>
 
     <script>
-        // سیستەمی ژمێرەری کات
         function updateCountdowns() {
             const now = new Date().getTime();
             document.querySelectorAll('.match-card').forEach(card => {
@@ -191,10 +185,8 @@ html_content += """
                     timerEl.innerHTML = `کات ماوە: ${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
                     timerEl.style.display = 'block'; streamBtn.style.display = 'none'; finishedBtn.style.display = 'none';
                 } else if (diff <= 0 && diff > -7200000) { 
-                    // یارییەکە دەستی پێکردووە
                     timerEl.style.display = 'none'; finishedBtn.style.display = 'none'; streamBtn.style.display = 'inline-block';
                 } else {
-                    // یارییەکە تەواو بووە
                     timerEl.style.display = 'none'; streamBtn.style.display = 'none'; finishedBtn.style.display = 'inline-block';
                 }
             });
@@ -202,7 +194,6 @@ html_content += """
         updateCountdowns();
         setInterval(updateCountdowns, 1000);
 
-        // سیستەمی پلەیەر
         const modal = document.getElementById('player-modal');
         const iframe = document.getElementById('video-iframe');
         const titleText = document.getElementById('player-title-text');
@@ -215,12 +206,12 @@ html_content += """
             titleText.innerText = title;
             iframe.src = link;
             modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // بۆ ئەوەی شاشەی پشتەوە سکڕۆڵ نەبێت
+            document.body.style.overflow = 'hidden';
         }
 
         function closePlayer() {
             modal.style.display = 'none';
-            iframe.src = ""; // کوژاندنەوەی ڤیدیۆکە بۆ ئەوەی دەنگی نەیەت
+            iframe.src = ""; 
             document.body.style.overflow = 'auto';
         }
     </script>
@@ -228,5 +219,6 @@ html_content += """
 </html>
 """
 
-with open("live_matches.html", "w", encoding="utf-8") as file:
+# لێرەدا فایلەکە بەناوی index.html دروست دەبێت
+with open("index.html", "w", encoding="utf-8") as file:
     file.write(html_content)
