@@ -71,7 +71,7 @@
                 </div>
                 <div class="match-center">
                     <div class="score-badge">0 - 0</div>
-                    <div class='status-min'>28'</div>
+                    <div class='status-min'>45'</div>
                     <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
                 </div>
                 <div class="team away">
@@ -86,9 +86,9 @@
                     <img src="https://media.api-sports.io/football/teams/20464.png" alt="Karbala">
                 </div>
                 <div class="match-center">
-                    <div class="score-badge">17:45</div>
-                    
-                    <a href="#" class="btn upcoming" target="_blank">چاوەڕوانکراو</a>
+                    <div class="score-badge">0 - 0</div>
+                    <div class='status-min'>2'</div>
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
                 </div>
                 <div class="team away">
                     <img src="https://media.api-sports.io/football/teams/11067.png" alt="Al Talaba">
@@ -211,5 +211,22 @@
             </div>
             </div>
     </div>
+    
+    <script>
+        // ئەم کۆدە هەر ٦٠ چرکە جارێک داتای نوێ دەهێنێت بەبێ ڕیفرێشکردنی شاشەکە
+        setInterval(function() {
+            fetch(window.location.href, {cache: "no-store"})
+            .then(response => response.text())
+            .then(html => {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, 'text/html');
+                var newContainer = doc.querySelector('.container');
+                if (newContainer) {
+                    document.querySelector('.container').innerHTML = newContainer.innerHTML;
+                }
+            })
+            .catch(err => console.log("Error updating match data:", err));
+        }, 60000); // 60000 milliseconds = 1 minute
+    </script>
 </body>
 </html>
