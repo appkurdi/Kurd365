@@ -180,6 +180,23 @@ else:
 
 html_content += """
     </div>
+    
+    <script>
+        // ئەم کۆدە هەر ٦٠ چرکە جارێک داتای نوێ دەهێنێت بەبێ ڕیفرێشکردنی شاشەکە
+        setInterval(function() {
+            fetch(window.location.href, {cache: "no-store"})
+            .then(response => response.text())
+            .then(html => {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, 'text/html');
+                var newContainer = doc.querySelector('.container');
+                if (newContainer) {
+                    document.querySelector('.container').innerHTML = newContainer.innerHTML;
+                }
+            })
+            .catch(err => console.log("Error updating match data:", err));
+        }, 60000); // 60000 milliseconds = 1 minute
+    </script>
 </body>
 </html>
 """
