@@ -8,42 +8,26 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
         body { font-family: 'Cairo', Tahoma, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; }
-        
-        /* دیزاینی هێدەری Kurd365 */
         .header { background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%); padding: 15px; text-align: center; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .header h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: 1px; }
-        
         .container { max-width: 700px; margin: 20px auto; padding: 0 10px; }
-        
-        /* دیزاینی خولەکان */
         .league-card { background: white; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow: hidden; }
         .league-header { background-color: #ffffff; padding: 12px 15px; border-bottom: 2px solid #f0f2f5; display: flex; align-items: center; color: #2c3e50; font-weight: bold; font-size: 16px; }
         .league-header img { width: 25px; height: 25px; margin-left: 10px; }
-        
-        /* دیزاینی ڕیزی یارییەکان */
         .match-row { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #f9f9f9; }
         .match-row:last-child { border-bottom: none; }
-        
-        /* دیزاینی تیمەکان و لۆگۆکانیان */
         .team { display: flex; align-items: center; width: 35%; font-size: 14px; font-weight: 700; color: #333; }
         .team.away { justify-content: flex-end; }
         .team img { width: 30px; height: 30px; margin: 0 8px; }
-        
-        /* دیزاینی کات و ئەنجام */
         .match-center { width: 30%; text-align: center; display: flex; flex-direction: column; align-items: center; }
         .score-badge { background: #f0f2f5; padding: 4px 12px; border-radius: 20px; font-size: 15px; font-weight: bold; color: #1a1a1a; letter-spacing: 1px; direction: ltr; }
         .status-min { color: #e74c3c; font-size: 12px; font-weight: bold; margin-top: 4px; }
-        
-        /* دیزاینی دوگمەکان */
         .btn { margin-top: 8px; padding: 5px 12px; border-radius: 20px; text-decoration: none; color: white; font-size: 12px; font-weight: bold; transition: transform 0.2s; }
         .btn:hover { transform: scale(1.05); }
         .live { background: linear-gradient(45deg, #ff416c, #ff4b2b); box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3); animation: pulse 1.5s infinite; }
         .upcoming { background-color: #3498db; }
         .finished { background-color: #95a5a6; pointer-events: none; }
-        
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        
-        /* گونجاندن بۆ شاشەی مۆبایل */
         @media (max-width: 600px) {
             .team span { font-size: 12px; }
             .team img { width: 22px; height: 22px; }
@@ -60,160 +44,1147 @@
 
         <div class="league-card">
             <div class="league-header">
-                <img src="https://media.api-sports.io/football/leagues/542.png" alt="Iraqi League">
-                <span>Iraqi League</span>
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/17" alt="خولی ئیتاڵی">
+                <span>خولی ئیتاڵی</span>
             </div>
         
             <div class="match-row">
                 <div class="team home">
-                    <span>Al-Karma</span>
-                    <img src="https://media.api-sports.io/football/teams/25063.png" alt="Al-Karma">
+                    <span>ساسولو</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/266" alt="ساسولو">
                 </div>
                 <div class="match-center">
-                    <div class="score-badge">0 - 0</div>
-                    <div class='status-min'>45'</div>
+                    <div class="score-badge">-</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/236" alt="لاتسيو">
+                    <span>لاتسيو</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>تورينو</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/235" alt="تورينو">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">-</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/6117" alt="كومو">
+                    <span>كومو</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>روما</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/225" alt="روما">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">-</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/243" alt="كالياري">
+                    <span>كالياري</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>فينيزيا</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/308" alt="فينيزيا">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">-</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/224" alt="إنتر ميلان">
+                    <span>إنتر ميلان</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>بارما</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/241" alt="بارما">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">-</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/229" alt="أودينيزي">
+                    <span>أودينيزي</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>ميلان</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/227" alt="ميلان">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">-</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/245" alt="بولونيا">
+                    <span>بولونيا</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>مونزا</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/293" alt="مونزا">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">-</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/234" alt="نابولي">
+                    <span>نابولي</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>جنوى</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/231" alt="جنوى">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">-</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/226" alt="يوفنتوس">
+                    <span>يوفنتوس</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>فروزينوني</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/254" alt="فروزينوني">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">-</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/246" alt="ليتشي">
+                    <span>ليتشي</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>فيورنتينا</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/228" alt="فيورنتينا">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">-</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/232" alt="أتالانتا">
+                    <span>أتالانتا</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>بولونيا</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/245" alt="بولونيا">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
                     <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
                 </div>
                 <div class="team away">
-                    <img src="https://media.api-sports.io/football/teams/20463.png" alt="Duhok">
-                    <span>Duhok</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/293" alt="مونزا">
+                    <span>مونزا</span>
                 </div>
             </div>
             
             <div class="match-row">
                 <div class="team home">
-                    <span>Karbala</span>
-                    <img src="https://media.api-sports.io/football/teams/20464.png" alt="Karbala">
+                    <span>أودينيزي</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/229" alt="أودينيزي">
                 </div>
                 <div class="match-center">
-                    <div class="score-badge">0 - 0</div>
-                    <div class='status-min'>2'</div>
+                    <div class="score-badge">- - -</div>
+                    
                     <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
                 </div>
                 <div class="team away">
-                    <img src="https://media.api-sports.io/football/teams/11067.png" alt="Al Talaba">
-                    <span>Al Talaba</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/225" alt="روما">
+                    <span>روما</span>
                 </div>
             </div>
             
             <div class="match-row">
                 <div class="team home">
-                    <span>Al Shorta</span>
-                    <img src="https://media.api-sports.io/football/teams/28571.png" alt="Al Shorta">
+                    <span>ميلان</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/227" alt="ميلان">
                 </div>
                 <div class="match-center">
-                    <div class="score-badge">19:30</div>
+                    <div class="score-badge">- - -</div>
                     
-                    <a href="#" class="btn upcoming" target="_blank">چاوەڕوانکراو</a>
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
                 </div>
                 <div class="team away">
-                    <img src="https://media.api-sports.io/football/teams/25062.png" alt="Newroz">
-                    <span>Newroz</span>
-                </div>
-            </div>
-            </div>
-        <div class="league-card">
-            <div class="league-header">
-                <img src="https://media.api-sports.io/football/leagues/61.png" alt="Ligue 1">
-                <span>Ligue 1</span>
-            </div>
-        
-            <div class="match-row">
-                <div class="team home">
-                    <span>Le Havre</span>
-                    <img src="https://media.api-sports.io/football/teams/111.png" alt="Le Havre">
-                </div>
-                <div class="match-center">
-                    <div class="score-badge">21:00</div>
-                    
-                    <a href="#" class="btn upcoming" target="_blank">چاوەڕوانکراو</a>
-                </div>
-                <div class="team away">
-                    <img src="https://media.api-sports.io/football/teams/85.png" alt="Paris Saint Germain">
-                    <span>Paris Saint Germain</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/224" alt="إنتر ميلان">
+                    <span>إنتر ميلان</span>
                 </div>
             </div>
             
             <div class="match-row">
                 <div class="team home">
-                    <span>Nice</span>
-                    <img src="https://media.api-sports.io/football/teams/84.png" alt="Nice">
+                    <span>كومو</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/6117" alt="كومو">
                 </div>
                 <div class="match-center">
-                    <div class="score-badge">21:00</div>
+                    <div class="score-badge">- - -</div>
                     
-                    <a href="#" class="btn upcoming" target="_blank">چاوەڕوانکراو</a>
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
                 </div>
                 <div class="team away">
-                    <img src="https://media.api-sports.io/football/teams/94.png" alt="Rennes">
-                    <span>Rennes</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/308" alt="فينيزيا">
+                    <span>فينيزيا</span>
                 </div>
             </div>
             
             <div class="match-row">
                 <div class="team home">
-                    <span>Lille</span>
-                    <img src="https://media.api-sports.io/football/teams/79.png" alt="Lille">
+                    <span>لاتسيو</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/236" alt="لاتسيو">
                 </div>
                 <div class="match-center">
-                    <div class="score-badge">23:05</div>
+                    <div class="score-badge">- - -</div>
                     
-                    <a href="#" class="btn upcoming" target="_blank">چاوەڕوانکراو</a>
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
                 </div>
                 <div class="team away">
-                    <img src="https://media.api-sports.io/football/teams/116.png" alt="Lens">
-                    <span>Lens</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/243" alt="كالياري">
+                    <span>كالياري</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>فروزينوني</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/254" alt="فروزينوني">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/235" alt="تورينو">
+                    <span>تورينو</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>ليتشي</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/246" alt="ليتشي">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/231" alt="جنوى">
+                    <span>جنوى</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>يوفنتوس</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/226" alt="يوفنتوس">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/234" alt="نابولي">
+                    <span>نابولي</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>ساسولو</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/266" alt="ساسولو">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/228" alt="فيورنتينا">
+                    <span>فيورنتينا</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>أتالانتا</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/232" alt="أتالانتا">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/241" alt="بارما">
+                    <span>بارما</span>
                 </div>
             </div>
             </div>
         <div class="league-card">
             <div class="league-header">
-                <img src="https://media.api-sports.io/football/leagues/78.png" alt="Bundesliga">
-                <span>Bundesliga</span>
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/6822" alt="خولی ئەستێرەکانی عێراق">
+                <span>خولی ئەستێرەکانی عێراق</span>
             </div>
         
             <div class="match-row">
                 <div class="team home">
-                    <span>SV Elversberg</span>
-                    <img src="https://media.api-sports.io/football/teams/1660.png" alt="SV Elversberg">
+                    <span>الموصل</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/67503" alt="الموصل">
                 </div>
                 <div class="match-center">
-                    <div class="score-badge">22:30</div>
+                    <div class="score-badge">-</div>
                     
-                    <a href="#" class="btn upcoming" target="_blank">چاوەڕوانکراو</a>
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
                 </div>
                 <div class="team away">
-                    <img src="https://media.api-sports.io/football/teams/164.png" alt="FSV Mainz 05">
-                    <span>FSV Mainz 05</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/67505" alt="الجولان">
+                    <span>الجولان</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>النفط</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/11275" alt="النفط">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">-</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/11279" alt="الكهرباء">
+                    <span>الكهرباء</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>القوة الجوية</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/11283" alt="القوة الجوية">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">-</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">دواخرا</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/11674" alt="الميناء">
+                    <span>الميناء</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>الكرمة</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/78842" alt="الكرمة">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">0.0 - 0.0</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">تەواوبوو</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/11272" alt="دهوك">
+                    <span>دهوك</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>كربلاء</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/8243" alt="كربلاء">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">0.0 - 2.0</div>
+                    
+                    <a href="#" class="btn finished" target="_blank">تەواوبوو</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/8244" alt="الطلبة">
+                    <span>الطلبة</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>أربيل</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/8254" alt="أربيل">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/73672" alt="غاز الشمال">
+                    <span>غاز الشمال</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>نفط ميسان</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/8250" alt="نفط ميسان">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/11273" alt="زاخو">
+                    <span>زاخو</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>الزوراء</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/8248" alt="الزوراء">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/69086" alt="ديالى">
+                    <span>ديالى</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>الكرخ</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/15981" alt="الكرخ">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/78841" alt="الغراف">
+                    <span>الغراف</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>الشرطة</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/8246" alt="الشرطة">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/67500" alt="نوروز">
+                    <span>نوروز</span>
                 </div>
             </div>
             </div>
         <div class="league-card">
             <div class="league-header">
-                <img src="https://media.api-sports.io/football/leagues/140.png" alt="La Liga">
-                <span>La Liga</span>
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/34" alt="خولی فەڕەنسی">
+                <span>خولی فەڕەنسی</span>
             </div>
         
             <div class="match-row">
                 <div class="team home">
-                    <span>Villarreal</span>
-                    <img src="https://media.api-sports.io/football/teams/533.png" alt="Villarreal">
+                    <span>فورتونا دوسيلدورف</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/393" alt="فورتونا دوسيلدورف">
                 </div>
                 <div class="match-center">
-                    <div class="score-badge">23:00</div>
+                    <div class="score-badge">- - -</div>
                     
-                    <a href="#" class="btn upcoming" target="_blank">چاوەڕوانکراو</a>
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
                 </div>
                 <div class="team away">
-                    <img src="https://media.api-sports.io/football/teams/540.png" alt="Espanyol">
-                    <span>Espanyol</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/8524" alt="ميبين">
+                    <span>ميبين</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>هافيلسة</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/7568" alt="هافيلسة">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/369" alt="إنغولشتات">
+                    <span>إنغولشتات</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>يان ريغنسبورغ</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/414" alt="يان ريغنسبورغ">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/344" alt="هانزا روستوك">
+                    <span>هانزا روستوك</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>فيرل</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/407" alt="فيرل">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/356" alt="فيهين فيسبادن">
+                    <span>فيهين فيسبادن</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>دويسبورج</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/347" alt="دويسبورج">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/409" alt="شتوتغارت (2)">
+                    <span>شتوتغارت (2)</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>هوفنهايم (2)</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/9934" alt="هوفنهايم (2)">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/9715" alt="فيكتوريا كولن">
+                    <span>فيكتوريا كولن</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>فورتونا كولن</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/9266" alt="فورتونا كولن">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/11828" alt="فارزبورغر كيكرز">
+                    <span>فارزبورغر كيكرز</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>زاربروكن</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/7551" alt="زاربروكن">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/9930" alt="فالتهوف مانهايم">
+                    <span>فالتهوف مانهايم</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>زونينوف جروساسباخ</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/9912" alt="زونينوف جروساسباخ">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/402" alt="روت فايس إيسن">
+                    <span>روت فايس إيسن</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>ألمانيا آخن</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/357" alt="ألمانيا آخن">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/423" alt="مونستر">
+                    <span>مونستر</span>
+                </div>
+            </div>
+            </div>
+        <div class="league-card">
+            <div class="league-header">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="خولی ئەڵمانی">
+                <span>خولی ئەڵمانی</span>
+            </div>
+        
+            <div class="match-row">
+                <div class="team home">
+                    <span>إلفيرسبيرغ</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/418" alt="إلفيرسبيرغ">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/352" alt="ماينز 05">
+                    <span>ماينز 05</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>شالكة</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/335" alt="شالكة">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/7171" alt="لايبزيج">
+                    <span>لايبزيج</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>فيردر بريمن</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/332" alt="فيردر بريمن">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/351" alt="هوفنهايم">
+                    <span>هوفنهايم</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>بوروسيا مونشنجلادباخ</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/349" alt="بوروسيا مونشنجلادباخ">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/366" alt="بادربورن">
+                    <span>بادربورن</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>أوغسبورغ</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/358" alt="أوغسبورغ">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/354" alt="فرايبورج">
+                    <span>فرايبورج</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>باير ليفركوزن</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/333" alt="باير ليفركوزن">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/338" alt="شتوتجارت">
+                    <span>شتوتجارت</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>بايرن ميونخ</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/331" alt="بايرن ميونخ">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/341" alt="بوروسيا دورتموند">
+                    <span>بوروسيا دورتموند</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>يونيون برلين</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/392" alt="يونيون برلين">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/350" alt="كولن">
+                    <span>كولن</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>آينتراخت فرانكفورت</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/337" alt="آينتراخت فرانكفورت">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/334" alt="هامبورج">
+                    <span>هامبورج</span>
+                </div>
+            </div>
+            </div>
+        <div class="league-card">
+            <div class="league-header">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/11" alt="خولی ئیسپانی (لالیگا)">
+                <span>خولی ئیسپانی (لالیگا)</span>
+            </div>
+        
+            <div class="match-row">
+                <div class="team home">
+                    <span>فياريال</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/133" alt="فياريال">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/136" alt="إسبانيول">
+                    <span>إسبانيول</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>ليفانتي</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/150" alt="ليفانتي">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/134" alt="أتلتيكو مدريد">
+                    <span>أتلتيكو مدريد</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>رايو فاييكانو</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/174" alt="رايو فاييكانو">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/158" alt="سيلتا فيجو">
+                    <span>سيلتا فيجو</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>ريال بيتيس</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/146" alt="ريال بيتيس">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/152" alt="مالقا">
+                    <span>مالقا</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>برشلونة</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/132" alt="برشلونة">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/168" alt="ألافيس">
+                    <span>ألافيس</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>خيتافي</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/140" alt="خيتافي">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/135" alt="إشبيلية">
+                    <span>إشبيلية</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>راسينج سانتاندير</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/137" alt="راسينج سانتاندير">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/131" alt="ريال مدريد">
+                    <span>ريال مدريد</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>إلتشي</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/156" alt="إلتشي">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/139" alt="فالنسيا">
+                    <span>فالنسيا</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>أتلتيك بلباو</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/144" alt="أتلتيك بلباو">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/154" alt="ريال سوسيداد">
+                    <span>ريال سوسيداد</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>ديبورتيفو لاكورونيا</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/148" alt="ديبورتيفو لاكورونيا">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/143" alt="أوساسونا">
+                    <span>أوساسونا</span>
+                </div>
+            </div>
+            </div>
+        <div class="league-card">
+            <div class="league-header">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="خولی ئینگلیزی (پریمەرلیگ)">
+                <span>خولی ئینگلیزی (پریمەرلیگ)</span>
+            </div>
+        
+            <div class="match-row">
+                <div class="team home">
+                    <span>تشيلسي</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/106" alt="تشيلسي">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/105" alt="مانشستر يونايتد">
+                    <span>مانشستر يونايتد</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>مانشستر سيتي</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/110" alt="مانشستر سيتي">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/38" alt="برايتون">
+                    <span>برايتون</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>هال سيتي</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/11" alt="هال سيتي">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/9" alt="إبسويتش تاون">
+                    <span>إبسويتش تاون</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>كوفنتري سيتي</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/24" alt="كوفنتري سيتي">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/117" alt="سندرلاند">
+                    <span>سندرلاند</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>برينتفورد</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/63" alt="برينتفورد">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/29" alt="نوتنجهام فورست">
+                    <span>نوتنجهام فورست</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>بورنموث</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/50" alt="بورنموث">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/36" alt="ليدز يونايتد">
+                    <span>ليدز يونايتد</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>توتنهام هوتسبر</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/114" alt="توتنهام هوتسبر">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/10" alt="كريستال بالاس">
+                    <span>كريستال بالاس</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>أستون فيلا</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/109" alt="أستون فيلا">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/120" alt="فولهام">
+                    <span>فولهام</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>ليفربول</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/108" alt="ليفربول">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/104" alt="أرسنال">
+                    <span>أرسنال</span>
+                </div>
+            </div>
+            
+            <div class="match-row">
+                <div class="team home">
+                    <span>نيوكاسل يونايتد</span>
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/116" alt="نيوكاسل يونايتد">
+                </div>
+                <div class="match-center">
+                    <div class="score-badge">- - -</div>
+                    
+                    <a href="#" class="btn live" target="_blank">ڕاستەوخۆ 🔴</a>
+                </div>
+                <div class="team away">
+                    <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitors/107" alt="إيفرتون">
+                    <span>إيفرتون</span>
                 </div>
             </div>
             </div>
     </div>
     
     <script>
-        // ئەم کۆدە هەر ٦٠ چرکە جارێک داتای نوێ دەهێنێت بەبێ ڕیفرێشکردنی شاشەکە
         setInterval(function() {
             fetch(window.location.href, {cache: "no-store"})
             .then(response => response.text())
@@ -226,7 +1197,7 @@
                 }
             })
             .catch(err => console.log("Error updating match data:", err));
-        }, 60000); // 60000 milliseconds = 1 minute
+        }, 60000);
     </script>
 </body>
 </html>
