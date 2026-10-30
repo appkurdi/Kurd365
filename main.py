@@ -1,8 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime, timedelta, timezone
 
-# ئایدی خولەکان لە 365Scores
-# 6822(عێراق)، 572(چامپیۆنزلیگ)، 7(ئینگلتەرا)، 11(ئیسپانیا)، 17(ئیتاڵیا)، 25(ئەڵمانیا)، 34(فەڕەنسا)، 573(یۆرۆپالیگ)
+# دیاریکردنی کاتی بەغدا (بۆ ئەوەی تەنها یارییەکانی ئەمڕۆی عێراق بهێنێت)
+baghdad_tz = timezone(timedelta(hours=3))
+today_date = datetime.now(baghdad_tz).strftime('%Y-%m-%d')
+
 comps = "7,11,17,25,34,572,573,6822"
 url = f"https://webws.365scores.com/web/games/current/?appTypeId=5&langId=27&timezoneName=Asia/Baghdad&competitions={comps}"
 
@@ -25,7 +28,6 @@ def get_stream_link(team_a_name, team_b_name):
         
         for a_tag in soup.find_all('a', href=True):
             text = a_tag.text
-            # ئێستا ناوەکان بە عەرەبین لە 365Scores، بۆیە بە ئاسانی لەگەڵ ستریمەکە یەکدەگرنەوە
             if team_a_name in text or team_b_name in text:
                 link = a_tag['href']
                 if not link.startswith('http'):
@@ -84,7 +86,6 @@ matches = data.get('games', [])
 leagues_data_json = {comp['id']: comp for comp in data.get('competitions', [])}
 leagues_dict = {}
 
-# وەرگێڕانی ناوەکانی 365Scores بۆ کوردی جوان
 kurdish_leagues = {
     6822: "خولی ئەستێرەکانی عێراق",
     572: "خولی یانە پاڵەوانەکانی ئەوروپا",
@@ -97,8 +98,22 @@ kurdish_leagues = {
 }
 
 for match in matches:
+    # وەرگرتن و فلتەرکردنی کاتی یارییەکە بۆ ئەوەی تەنها یارییەکانی ئەمڕۆ بهێنێت
+    start_time_str = match.get('startTime', '')
+    try:
+        match_time = datetime.fromisoformat(start_time_str.replace('Z', '+00:00'))
+        match_baghdad = match_time.astimezone(baghdad_tz)
+        match_date = match_baghdad.strftime('%Y-%m-%d')
+        display_time = match_baghdad.strftime('%H:%M')
+    except Exception as e:
+        match_date = ""
+        display_time = match.get('statusText', '')
+        
+    # ئەگەر یارییەکە بۆ ئەمڕۆ نەبوو، وازی لێ بهێنە و مەیهێنە ناو خشتەکەوە
+    if match_date and match_date != today_date:
+        continue
+
     league_id = match.get('competitionId')
-    
     league_name = kurdish_leagues.get(league_id)
     if not league_name and league_id in leagues_data_json:
         league_name = leagues_data_json[league_id].get('name')
@@ -136,11 +151,18 @@ else:
             
             status_group = match.get('statusGroup', 1)
             
-            goals_home = match['homeCompetitor'].get('score', -1)
-            goals_away = match['awayCompetitor'].get('score', -1)
-            
-            if goals_home == -1: goals_home = "-"
-            if goals_away == -1: goals_away = "-"
+            # چارەسەری کێشەی (0.0) و گۆڕینی بۆ ژمارەی تەواو
+            try:
+                g_home = match['homeCompetitor'].get('score', -1)
+                goals_home = str(int(g_home)) if g_home != -1 else "-"
+            except:
+                goals_home = "-"
+                
+            try:
+                g_away = match['awayCompetitor'].get('score', -1)
+                goals_away = str(int(g_away)) if g_away != -1 else "-"
+            except:
+                goals_away = "-"
             
             stream_link = "#"
             status_text = ""
@@ -166,12 +188,7 @@ else:
             else:  # Scheduled (1)
                 btn_text = "چاوەڕوانکراو"
                 btn_class = "upcoming"
-                start_time = match.get('startTime', '')
-                if 'T' in start_time:
-                    # گۆڕینی کاتەکە بۆ کاتی ئاسایی
-                    score_display = start_time.split('T')[1][:5]
-                else:
-                    score_display = match.get('statusText', '')
+                score_display = display_time
 
             html_content += f"""
             <div class="match-row">
