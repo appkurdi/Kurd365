@@ -2,7 +2,8 @@ name: Auto Update Matches
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # هەر ٣٠ خولەک جارێک کار دەکات
+      schedule:
+    - cron: '0 7 * * *'  # ئەمە واتە هەموو ڕۆژێک کاتژمێر ١٠ی بەیانی بە کاتی عێراق کار دەکات
   workflow_dispatch: # ڕێگەت پێدەدات بە دەستیش کاری پێ بکەیت
 
 jobs:
