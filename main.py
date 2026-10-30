@@ -6,7 +6,8 @@ from datetime import datetime, timedelta, timezone
 baghdad_tz = timezone(timedelta(hours=3))
 today_date = datetime.now(baghdad_tz).strftime('%Y-%m-%d')
 
-comps = "7,11,17,25,34,572,573,6822"
+# ژمارە 34 لابرا کە تایبەت بوو بە خولی پلە سێی ئەڵمانیا
+comps = "7,11,17,25,572,573,6822"
 url = f"https://webws.365scores.com/web/games/current/?appTypeId=5&langId=27&timezoneName=Asia/Baghdad&competitions={comps}"
 
 headers = {
@@ -20,21 +21,18 @@ except Exception as e:
     print("Error fetching data:", e)
     data = {}
 
-# فەنکشنی زۆر زیرەک بۆ هێنانی خودی ڤیدیۆی پەخشەکە بێ ڕیکلام
 def get_smart_stream_link(team_a, team_b):
     try:
         base_url = "https://syriashdab.com/"
         req = requests.get(base_url, timeout=10)
         soup = BeautifulSoup(req.text, 'html.parser')
         
-        # پاککردنەوە و دابەشکردنی ناوی یانەکان بۆ دۆزینەوەی ئاسانتر (نموونە: لابردنی 'نادي' و 'ال')
         ignore_words = ["نادي", "ال", "اف", "سي", "فريق"]
         words_a = [w for w in team_a.split() if len(w) > 2 and w not in ignore_words]
         words_b = [w for w in team_b.split() if len(w) > 2 and w not in ignore_words]
         
         match_page_url = ""
         
-        # قۆناغی یەکەم: دۆزینەوەی لینکی یارییەکە لە پەڕەی سەرەکی
         for a_tag in soup.find_all('a', href=True):
             text = a_tag.get_text(separator=' ', strip=True)
             href = a_tag['href']
@@ -49,7 +47,6 @@ def get_smart_stream_link(team_a, team_b):
                 match_page_url = href if href.startswith('http') else base_url.rstrip('/') + '/' + href.lstrip('/')
                 break
         
-        # قۆناغی دووەم: چوونە ناو پەڕەی یارییەکە و دەرهێنانی تەنها ڤیدیۆکە (iframe)
         if match_page_url:
             page_req = requests.get(match_page_url, timeout=10)
             page_soup = BeautifulSoup(page_req.text, 'html.parser')
@@ -57,11 +54,10 @@ def get_smart_stream_link(team_a, team_b):
             iframes = page_soup.find_all('iframe')
             for iframe in iframes:
                 src = iframe.get('src', '')
-                # دوورکەوتنەوە لە ئایفرەیمی ڕیکلام و سۆشیاڵ میدیا
                 if src and "facebook" not in src and "twitter" not in src and "youtube" not in src:
-                    return src # ئەمە لینکی ڤیدیۆ ڕاستەقینەکەیە!
+                    return src
             
-            return match_page_url # ئەگەر ئایفرەیمی نەدۆزیەوە، لینکی پەڕەکە خۆی دەگەڕێنێتەوە
+            return match_page_url
             
     except Exception as e:
         pass
@@ -114,7 +110,6 @@ html_content = """
 
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 65, 108, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0); } }
 
-        /* پلەیەر */
         #player-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; }
         .player-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #111; border-bottom: 1px solid #222;}
         .player-title { color: white; font-weight: 800; font-size: 15px; }
@@ -132,8 +127,8 @@ html_content = """
 
 matches = data.get('games', [])
 kurdish_leagues = {
-    6822: "خولی عێراق", 572: "چامپیۆنزلیگ", 7: "پریمەرلیگ", 
-    11: "لالیگا", 17: "خولی ئیتاڵی", 25: "خولی ئەڵمانی", 34: "خولی فەڕەنسی"
+    6822: "خولی ئەستێرەکانی عێراق", 572: "چامپیۆنزلیگ", 7: "پریمەرلیگ", 
+    11: "لالیگا", 17: "خولی ئیتاڵی", 25: "خولی ئەڵمانی"
 }
 
 matches_added = 0
@@ -152,14 +147,12 @@ for match in matches:
     league_name = kurdish_leagues.get(league_id)
     if not league_name: continue
 
-    # دۆزینەوەی ناوی کەناڵ زۆر بەوردی
     channel_name = "پەخشی ڕاستەوخۆ"
     tv_networks = match.get('tvNetworks', [])
     if tv_networks:
         channel_name = tv_networks[0].get('name', 'beIN Sports')
     
-    # ئەگەر کەناڵەکەی نەزانی و خولەکە گەورە بوو، خۆی کەناڵی بۆ دادەنێت
-    if channel_name == "پەخشی ڕاستەوخۆ" and league_id in [572, 7, 11, 34]:
+    if channel_name == "پەخشی ڕاستەوخۆ" and league_id in [572, 7, 11, 25]:
         channel_name = "beIN Sports 📺"
     elif channel_name == "پەخشی ڕاستەوخۆ" and league_id == 6822:
         channel_name = "Al Iraqiya Sports 📺"
@@ -169,7 +162,6 @@ for match in matches:
     home_logo = f"https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/{match['homeCompetitor']['id']}"
     away_logo = f"https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/{match['awayCompetitor']['id']}"
     
-    # هێنانە دەرەوەی خودی پلەیەری ڤیدیۆکە
     stream_link = get_smart_stream_link(home_team, away_team)
     matches_added += 1
 
@@ -209,7 +201,6 @@ html_content += """
             <button class="close-btn" onclick="closePlayer()">×</button>
         </div>
         <div class="iframe-container">
-            <!-- زیادکردنی تایبەتمەندی بۆ ئیشکردنی پلەیەر بەبێ کێشە -->
             <iframe id="video-iframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no"></iframe>
         </div>
     </div>
