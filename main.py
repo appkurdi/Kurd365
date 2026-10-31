@@ -1,8 +1,8 @@
 import requests
-from bs4 import BeautifulSoup
 from datetime import datetime, timedelta, timezone
 import json
 
+# تەنیا ڕێکخستنی کات و بەروار
 baghdad_tz = timezone(timedelta(hours=3))
 today_date = datetime.now(baghdad_tz).strftime('%Y-%m-%d')
 
@@ -18,51 +18,6 @@ try:
     data = response.json()
 except Exception as e:
     data = {}
-
-def get_smart_stream_link(team_a, team_b):
-    sources = [
-        "https://www.livesports088.is/",
-        "https://syriashdab.com/", 
-        "https://score808.live/", 
-        "https://yalla-shoot.video/",
-        "https://live.kora-star.tv/", 
-        "https://www.kooora365.com/", 
-        "https://as-goal.com/"
-    ]
-    ignore_words = ["نادي", "ال", "اف", "سي", "فريق"]
-    words_a = [w for w in team_a.split() if len(w) > 2 and w not in ignore_words]
-    words_b = [w for w in team_b.split() if len(w) > 2 and w not in ignore_words]
-    
-    for base_url in sources:
-        try:
-            req = requests.get(base_url, headers=headers, timeout=8)
-            soup = BeautifulSoup(req.text, 'html.parser')
-            match_page_url = ""
-            
-            for a_tag in soup.find_all('a', href=True):
-                text = a_tag.get_text(separator=' ', strip=True)
-                href = a_tag['href']
-                match_found = any(w in text for w in words_a + words_b)
-                if match_found and not any(bad in href for bad in ["facebook", "twitter", "bet"]):
-                    match_page_url = href if href.startswith('http') else base_url.rstrip('/') + '/' + href.lstrip('/')
-                    break
-            
-            if match_page_url:
-                page_req = requests.get(match_page_url, headers=headers, timeout=8)
-                page_soup = BeautifulSoup(page_req.text, 'html.parser')
-                
-                best_src = ""
-                for iframe in page_soup.find_all('iframe'):
-                    src = iframe.get('src') or iframe.get('data-src') or ""
-                    if src and not any(bad in src.lower() for bad in ["facebook", "twitter", "youtube", "ads", "betting", "banner"]):
-                        if src.startswith('//'):
-                            src = 'https:' + src
-                        best_src = src
-                        break 
-                
-                return best_src if best_src else match_page_url
-        except: continue
-    return ""
 
 html_content = f"""<!DOCTYPE html>
 <html lang="ku" dir="rtl">
@@ -128,19 +83,15 @@ html_content = f"""<!DOCTYPE html>
         .match-minute {{ font-size: 11px; font-weight: 700; color: #ff0844; background: rgba(255,8,68,0.1); padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(255,8,68,0.2); transition: all 0.3s ease;}}
         .match-ft {{ color: var(--text-sub); background: rgba(255,255,255,0.05); border-color: var(--card-border); }}
         .pulse-dot-small {{ width: 5px; height: 5px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }}
-        /* ئەنیمەیشنی گۆڕینی ئەنجام */
         .score-updated {{ animation: flash-score 1s ease-out; }}
         @keyframes flash-score {{ 0% {{ color: #00f2fe; transform: scale(1.1); }} 100% {{ color: var(--text-main); transform: scale(1); }} }}
 
-        .channel-tag {{ margin-top: 6px; font-size: 10px; font-weight: 700; background: rgba(0, 242, 254, 0.08); color: var(--accent); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(0, 242, 254, 0.15); text-align: center; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px;}}
-        .channel-tag img {{ width: 14px; height: 14px; object-fit: contain; }}
-        
         .action-area {{ padding: 12px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; min-height: 52px; }}
-        .countdown {{ font-size: 13px; font-weight: 800; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 6px 14px; border-radius: 15px;}}
-        .btn-live {{ background: var(--live-btn); color: white; padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; transition: 0.2s; }}
-        .btn-live:active {{ transform: scale(0.95); }}
-        .btn-disabled {{ background: #1f2937; color: #6b7280; border: 1px solid #374151; box-shadow: none; animation: none; padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 800; cursor: not-allowed; }}
-        .btn-finished {{ background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--card-border); }}
+        
+        /* دیزاینی نوێ بۆ دۆخی یارییەکان لە شوێنی دوگمەی لایڤ */
+        .countdown {{ font-size: 13px; font-weight: 800; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 6px 14px; border-radius: 15px; border: 1px solid rgba(0, 242, 254, 0.15);}}
+        .btn-live-status {{ background: rgba(255, 8, 68, 0.15); color: #ff0844; padding: 6px 20px; border-radius: 20px; font-size: 13px; font-weight: 800; border: 1px solid rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; }}
+        .btn-finished {{ background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 6px 20px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--card-border); }}
         
         @keyframes pulse-live {{ 0% {{ box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); }} 70% {{ box-shadow: 0 0 0 8px rgba(255, 8, 68, 0); }} 100% {{ box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); }} }}
         
@@ -149,14 +100,7 @@ html_content = f"""<!DOCTYPE html>
         .nav-item svg {{ width: 22px; height: 22px; fill: currentColor; }}
         .nav-item.active {{ color: var(--accent); }}
         
-        .modal {{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; }}
-        .modal-header {{ display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(15,15,15,0.95); border-bottom: 1px solid #222;}}
-        .modal-title {{ color: white; font-weight: 700; font-size: 14px; }}
-        .close-modal {{ color: white; font-size: 26px; font-weight: 300; cursor: pointer; background: none; border: none; line-height: 1;}}
-        .modal-body {{ flex: 1; width: 100%; background: #000; position: relative; }}
-        .modal-body iframe {{ width: 100%; height: 100%; border: none; }}
     </style>
-    <!-- پارامێتەری پێویست بۆ جاڤاسکڕیپت -->
     <script>
         const API_URL = "{url}";
     </script>
@@ -247,24 +191,17 @@ for match in matches:
     if status_group == 2:
         display_minute = f"{game_time_str}'" if game_time_str.isdigit() else game_time_str
         if not display_minute: display_minute = "ڕاستەوخۆ"
-        score_html = f'<div class="match-score" id="score-{match_id}" dir="ltr">{home_score} - {away_score}</div><div class="match-minute" id="minute-{match_id}" dir="ltr">{display_minute} <span class="pulse-dot-small"></span></div>'
+        score_html = f'<div class="match-score" id="score-{match_id}" dir="ltr">{away_score} - {home_score}</div><div class="match-minute" id="minute-{match_id}" dir="ltr">{display_minute} <span class="pulse-dot-small"></span></div>'
+        # دۆخی ڕاستەوخۆ لە جیاتی دوگمەی لینک
+        action_html = f'<div class="btn-live-status">لە کاتی یاریدایە</div>'
     elif status_group == 3:
-        score_html = f'<div class="match-score" id="score-{match_id}" dir="ltr">{home_score} - {away_score}</div><div class="match-minute match-ft" id="minute-{match_id}">تەواوبوو</div>'
+        score_html = f'<div class="match-score" id="score-{match_id}" dir="ltr">{away_score} - {home_score}</div><div class="match-minute match-ft" id="minute-{match_id}">تەواوبوو</div>'
+        action_html = f'<div class="btn-finished">کۆتایی هات</div>'
     else:
         score_html = f'<div class="match-time" id="score-{match_id}">{display_time}</div><div id="minute-{match_id}" style="display:none;"></div>'
+        action_html = f'<div class="countdown" data-time="{match_timestamp}"></div>'
     
-    stream_link = get_smart_stream_link(home_team, away_team)
     matches_added += 1
-
-    if status_group == 3:
-        btn_html = f"""<div class="btn-finished">کۆتایی هات</div>"""
-    elif status_group == 2:
-        if not stream_link or stream_link == "#":
-            btn_html = f"""<button class="btn-disabled" disabled>لینک ئامادە نییە</button>"""
-        else:
-             btn_html = f"""<button class="btn-live" onclick="openPlayer('{stream_link}', '{home_team} - {away_team}')">ڕاستەوخۆ 🔴</button>"""
-    else:
-        btn_html = f"""<div class="countdown" data-time="{match_timestamp}"></div>"""
 
     html_content += f"""
         <div class="match-card" data-match-id="{match_id}" data-status="{status_group}">
@@ -276,15 +213,11 @@ for match in matches:
                 <div class="team"><img src="{home_logo}"><span>{home_team}</span></div>
                 <div class="match-info" id="info-{match_id}">
                     {score_html}
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="{away_logo}"><span>{away_team}</span></div>
             </div>
             <div class="action-area">
-                {btn_html}
+                {action_html}
             </div>
         </div>
     """
@@ -297,13 +230,7 @@ html_content += """
     <div class="bottom-nav">
         <a href="#" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M12 3L4 9v12h5v-7h6v7h5V9z"/></svg><span>یارییەکان</span></a>
         <a href="https://t.me/mtv_ibrahim_app" target="_blank" class="nav-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.97 1.25-5.56 3.67-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.41-1.43-.87.03-.24.36-.48 1-.74 3.92-1.7 6.54-2.83 7.86-3.38 3.74-1.56 4.51-1.83 5.02-1.84.11 0 .36.03.52.16.13.11.17.26.19.37.02.05.02.26.01.4z"/></svg><span>تێلیگرام</span></a>
-        <a href="#" class="nav-item" onclick="alert('Kurd365 Live App\\nپەخشی ڕاستەوخۆ')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg><span>دەربارە</span></a>
-    </div>
-    <div id="videoModal" class="modal">
-        <div class="modal-header"><div class="modal-title" id="modalTitle" dir="ltr">Live Match</div><button class="close-modal" onclick="closePlayer()">&times;</button></div>
-        <div class="modal-body">
-            <iframe id="videoIframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
-        </div>
+        <a href="#" class="nav-item" onclick="alert('Kurd365 Live App\\nتایبەت بە ئەنجامی یارییەکان')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg><span>دەربارە</span></a>
     </div>
     
     <script>
@@ -344,13 +271,9 @@ html_content += """
             });
         }
         updateUI(); setInterval(updateUI, 1000);
-        function openPlayer(link, title) { document.getElementById('modalTitle').innerText = title; document.getElementById('videoIframe').src = link; document.getElementById('videoModal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-        function closePlayer() { document.getElementById('videoModal').style.display = 'none'; document.getElementById('videoIframe').src = ""; document.body.style.overflow = 'auto'; }
         
-        // --- سیستەمی نوێکردنەوەی ڕاستەوخۆ (هەر 10 چرکە جارێک) ---
         async function fetchLiveScores() {
             try {
-                // ناردنی داواکاری ڕاستەوخۆ بۆ سێرڤەری 365
                 const response = await fetch(API_URL);
                 const data = await response.json();
                 
@@ -362,7 +285,6 @@ html_content += """
                         const cardEl = document.querySelector(`.match-card[data-match-id="${matchId}"]`);
                         
                         if (scoreEl && minuteEl && cardEl) {
-                            const currentStatus = parseInt(cardEl.getAttribute('data-status'));
                             let statusGroup = game.statusGroup || 1;
                             
                             let homeScore = -1, awayScore = -1;
@@ -375,35 +297,45 @@ html_content += """
                             else if (statusGroup === 1 && homeScore >= 0) { statusGroup = 2; }
                             if (gameTime.includes("'") || gameTime.includes("+") || gameTime.match(/^\d+$/) || gameTime.toUpperCase().includes("HT")) { statusGroup = 2; }
                             
-                            // ئەگەر یارییەکە لایڤ بێت
+                            const actionArea = cardEl.querySelector('.action-area');
+
                             if (statusGroup === 2) {
                                 let displayMinute = gameTime.match(/^\d+$/) ? `${gameTime}'` : gameTime;
                                 if (!displayMinute) displayMinute = "ڕاستەوخۆ";
                                 
-                                const newScore = `${homeScore} - ${awayScore}`;
-                                // ئەگەر گۆڵێک کرا، ئەنیمەیشنی بۆ بکە
+                                const newScore = `${awayScore} - ${homeScore}`;
+                                
                                 if (scoreEl.innerText !== newScore && scoreEl.innerText.includes('-')) {
                                     scoreEl.classList.remove('score-updated');
-                                    void scoreEl.offsetWidth; // Trigger reflow
+                                    void scoreEl.offsetWidth; 
                                     scoreEl.classList.add('score-updated');
                                 }
                                 
                                 scoreEl.innerText = newScore;
-                                scoreEl.className = 'match-score'; // گۆڕینی دیزاین لە کاتژمێرەوە بۆ ئەنجام
+                                scoreEl.className = 'match-score'; 
                                 
                                 minuteEl.innerHTML = `${displayMinute} <span class="pulse-dot-small"></span>`;
                                 minuteEl.className = 'match-minute';
                                 minuteEl.style.display = 'inline-flex';
                                 cardEl.setAttribute('data-status', '2');
+
+                                // گۆڕینی دوگمەی خوارەوە بۆ دۆخی لایڤ بەبێ دەستکاری پەڕەکە
+                                if(actionArea && !actionArea.querySelector('.btn-live-status')) {
+                                    actionArea.innerHTML = `<div class="btn-live-status">لە کاتی یاریدایە</div>`;
+                                }
                             } 
-                            // ئەگەر یارییەکە تەواو بوو
                             else if (statusGroup === 3) {
-                                scoreEl.innerText = `${homeScore} - ${awayScore}`;
+                                scoreEl.innerText = `${awayScore} - ${homeScore}`;
                                 scoreEl.className = 'match-score';
                                 minuteEl.innerHTML = `تەواوبوو`;
                                 minuteEl.className = 'match-minute match-ft';
                                 minuteEl.style.display = 'inline-flex';
                                 cardEl.setAttribute('data-status', '3');
+
+                                // گۆڕینی دوگمەی خوارەوە بۆ تەواوبوو
+                                if(actionArea && !actionArea.querySelector('.btn-finished')) {
+                                    actionArea.innerHTML = `<div class="btn-finished">کۆتایی هات</div>`;
+                                }
                             }
                         }
                     });
@@ -413,9 +345,7 @@ html_content += """
             }
         }
 
-        // کارپێکردنی سیستەمی لایڤەکە هەموو 10 چرکە جارێک
         setInterval(fetchLiveScores, 10000);
-        // هەرکە پەڕەکە کرایەوە یەکجار داوای بکە
         setTimeout(fetchLiveScores, 2000);
     </script>
 </body>
@@ -423,7 +353,7 @@ html_content += """
 """
 
 sw_js = """
-const CACHE_NAME = 'kurd365-cache-v1';
+const CACHE_NAME = 'kurd365-cache-v2';
 const urlsToCache = [ './', './index.html', './manifest.json', './video.mp4', 'https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png' ];
 self.addEventListener('install', event => { self.skipWaiting(); event.waitUntil( caches.open(CACHE_NAME).then(cache => { return cache.addAll(urlsToCache); }) ); });
 self.addEventListener('fetch', event => { event.respondWith( caches.match(event.request).then(response => { if (response) { return response; } return fetch(event.request); }) ); });
