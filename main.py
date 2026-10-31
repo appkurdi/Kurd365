@@ -6,7 +6,7 @@ import json
 baghdad_tz = timezone(timedelta(hours=3))
 today_date = datetime.now(baghdad_tz).strftime('%Y-%m-%d')
 
-comps = "7,11,17,25,572,573,6822"
+comps = "7,11,17,25,34,572,573,6822"
 url = f"https://webws.365scores.com/web/games/current/?appTypeId=5&langId=27&timezoneName=Asia/Baghdad&competitions={comps}"
 
 headers = {
@@ -74,13 +74,13 @@ html_content = """<!DOCTYPE html>
         :root { --bg-color: #080808; --card-bg: rgba(26, 26, 28, 0.6); --card-border: rgba(255, 255, 255, 0.06); --text-main: #ffffff; --text-sub: #9ca3af; --accent: #00f2fe; --accent-gradient: linear-gradient(135deg, #4facfe, #00f2fe); --live-btn: linear-gradient(135deg, #ff0844, #ffb199); }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-top: 0; padding-bottom: 85px; min-height: 100vh; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-top: 0; padding-bottom: 85px; min-height: 100vh; overflow-x: hidden; }
         
-        .hero-section { position: relative; width: 100%; height: 250px; overflow: hidden; display: flex; flex-direction: column; background-color: #111; }
-        .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translateX(-50%) translateY(-50%); z-index: 1; object-fit: cover; opacity: 0.6; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,1) 100%); z-index: 2; }
+        .hero-section { position: relative; width: 100%; height: 260px; overflow: hidden; display: flex; flex-direction: column; background-color: #080808; }
+        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 1; opacity: 0.75; transition: opacity 1.5s ease; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(8,8,8,0.2) 0%, rgba(8,8,8,1) 100%); z-index: 2; transition: background 1.5s ease; }
         
-        .hero-content { position: relative; z-index: 3; width: 100%; max-width: 500px; margin: 0 auto; padding: 20px 15px; display: flex; justify-content: space-between; align-items: flex-start; margin-top: env(safe-area-inset-top); }
+        .hero-content { position: relative; z-index: 4; width: 100%; max-width: 500px; margin: 0 auto; padding: 20px 15px; display: flex; justify-content: space-between; align-items: flex-start; margin-top: env(safe-area-inset-top); }
         .logo-wrapper { display: flex; align-items: center; gap: 8px; }
         .header-logo { width: 35px; height: 35px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,242,254,0.4)); }
         .hero-content h1 { font-size: 26px; font-weight: 900; letter-spacing: 0.5px; color: #fff; margin: 0; display: flex; align-items: center; font-family: system-ui, -apple-system, sans-serif; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
@@ -88,7 +88,13 @@ html_content = """<!DOCTYPE html>
         .live-indicator { display: flex; align-items: center; gap: 6px; background: rgba(255, 8, 68, 0.2); border: 1px solid rgba(255, 8, 68, 0.3); padding: 5px 12px; border-radius: 15px; font-size: 11px; font-weight: 800; color: #ff0844; letter-spacing: 1px; backdrop-filter: blur(5px); box-shadow: 0 2px 10px rgba(255, 8, 68, 0.2); }
         .pulse-dot { width: 6px; height: 6px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }
         
-        .container { max-width: 500px; margin: -50px auto 0; padding: 0 12px; position: relative; z-index: 10; }
+        .hero-end-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: all 1.5s ease-in-out; transform: translateY(10px); }
+        .hero-end-screen.active { opacity: 1; transform: translateY(0); }
+        .end-logo { width: 65px; height: 65px; margin-bottom: 5px; filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6)); }
+        .end-title { font-size: 34px; font-weight: 900; margin: 0; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: system-ui, -apple-system, sans-serif; }
+        .end-subtitle { font-size: 13px; font-weight: 700; color: #e2e8f0; margin-top: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); background: rgba(0,0,0,0.4); padding: 5px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        
+        .container { max-width: 500px; margin: -40px auto 0; padding: 0 12px; position: relative; z-index: 10; }
         .date-title { font-size: 15px; font-weight: 800; margin-bottom: 15px; color: #fff; display: flex; align-items: center; gap: 8px; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
         .date-title::before { content: ''; display: block; width: 4px; height: 16px; background: var(--accent); border-radius: 4px; box-shadow: 0 0 8px var(--accent); }
         
@@ -135,11 +141,16 @@ html_content = """<!DOCTYPE html>
 <body>
     
     <div class="hero-section">
-        <!-- ڤیدیۆکە لەناو گیتھەبی خۆتەوە دەخوێنێتەوە -->
-        <video class="hero-video" autoplay loop muted playsinline>
+        <video id="heroVideo" class="hero-video" autoplay muted playsinline>
             <source src="video.mp4" type="video/mp4">
         </video>
-        <div class="hero-overlay"></div>
+        <div class="hero-overlay" id="heroOverlay"></div>
+        
+        <div class="hero-end-screen" id="endScreen">
+            <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Kurd365" class="end-logo">
+            <h2 class="end-title">Kurd365</h2>
+            <div class="end-subtitle">چێژ لە ساتی یارییەکان ببینە.. ڕاستەوخۆ و بێ پچڕان!</div>
+        </div>
         
         <div class="hero-content">
             <div class="logo-wrapper">
@@ -163,7 +174,8 @@ english_leagues = {
     7: "Premier League", 
     11: "La Liga", 
     17: "Serie A", 
-    25: "Bundesliga"
+    25: "Bundesliga",
+    34: "Ligue 1"
 }
 matches_added = 0
 
@@ -234,7 +246,38 @@ html_content += """
         <div class="modal-header"><div class="modal-title" id="modalTitle" dir="ltr">Live Match</div><button class="close-modal" onclick="closePlayer()">&times;</button></div>
         <div class="modal-body"><iframe id="videoIframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no"></iframe></div>
     </div>
+    
     <script>
+        const hVideo = document.getElementById('heroVideo');
+        const endSc = document.getElementById('endScreen');
+        const hOverlay = document.getElementById('heroOverlay');
+        
+        if(hVideo) {
+            hVideo.addEventListener('ended', function() {
+                // هەنگاوی ١: ڤیدیۆکە تەڵخ دەبێت و سکرینەکە تاریک دەبێت
+                hVideo.style.opacity = '0.1';
+                hOverlay.style.background = 'linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, rgba(8,8,8,1) 100%)';
+                
+                // هەنگاوی ٢: لۆگۆکە و نووسینەکە دەردەکەون
+                setTimeout(() => {
+                    endSc.classList.add('active');
+                }, 400);
+
+                // هەنگاوی ٣: دوای 4 چرکە ئەنیمەیشنەکە لادەچێت و ڤیدیۆکە دووبارە دەست پێ دەکاتەوە
+                setTimeout(() => {
+                    endSc.classList.remove('active'); // شاردنەوەی لۆگۆکە
+                    
+                    setTimeout(() => {
+                        hVideo.style.opacity = '0.75'; // گەڕاندنەوەی ڕووناکی ڤیدیۆکە
+                        hOverlay.style.background = 'linear-gradient(to bottom, rgba(8,8,8,0.2) 0%, rgba(8,8,8,1) 100%)';
+                        hVideo.currentTime = 0; // گەڕانەوە بۆ سەرەتای ڤیدیۆکە
+                        hVideo.play(); // لێدانی دووبارەی ڤیدیۆکە
+                    }, 1000); // چاوەڕێ دەکات تا لۆگۆکە بەتەواوی دیار نامێنێت
+                    
+                }, 4000); // لۆگۆکە 4 چرکە دەمێنێتەوە
+            });
+        }
+
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js');
         }
