@@ -20,7 +20,15 @@ except Exception as e:
     data = {}
 
 def get_smart_stream_link(team_a, team_b):
-    sources = ["https://www.livesports088.is/"]
+    sources = [
+        "https://www.livesports088.is/",
+        "https://syriashdab.com/", 
+        "https://score808.live/", 
+        "https://yalla-shoot.video/",
+        "https://live.kora-star.tv/", 
+        "https://www.kooora365.com/", 
+        "https://as-goal.com/"
+    ]
     ignore_words = ["نادي", "ال", "اف", "سي", "فريق"]
     words_a = [w for w in team_a.split() if len(w) > 2 and w not in ignore_words]
     words_b = [w for w in team_b.split() if len(w) > 2 and w not in ignore_words]
@@ -56,7 +64,7 @@ def get_smart_stream_link(team_a, team_b):
         except: continue
     return ""
 
-html_content = """<!DOCTYPE html>
+html_content = f"""<!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -75,76 +83,83 @@ html_content = """<!DOCTYPE html>
     <title>Kurd365 - ئەپی وەرزشی</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
-        :root { --bg-color: #080808; --card-bg: rgba(26, 26, 28, 0.6); --card-border: rgba(255, 255, 255, 0.06); --text-main: #ffffff; --text-sub: #9ca3af; --accent: #00f2fe; --accent-gradient: linear-gradient(135deg, #4facfe, #00f2fe); --live-btn: linear-gradient(135deg, #ff0844, #ffb199); }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        :root {{ --bg-color: #080808; --card-bg: rgba(26, 26, 28, 0.6); --card-border: rgba(255, 255, 255, 0.06); --text-main: #ffffff; --text-sub: #9ca3af; --accent: #00f2fe; --accent-gradient: linear-gradient(135deg, #4facfe, #00f2fe); --live-btn: linear-gradient(135deg, #ff0844, #ffb199); }}
+        * {{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }}
         
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-top: 0; padding-bottom: 85px; min-height: 100vh; overflow-x: hidden; }
+        body {{ font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-top: 0; padding-bottom: 85px; min-height: 100vh; overflow-x: hidden; }}
         
-        .hero-section { position: relative; width: 100%; height: 260px; overflow: hidden; display: flex; flex-direction: column; background-color: #080808; }
-        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 1; opacity: 0.75; transition: opacity 1.5s ease; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(8,8,8,0.2) 0%, rgba(8,8,8,1) 100%); z-index: 2; transition: background 1.5s ease; }
+        .hero-section {{ position: relative; width: 100%; height: 260px; overflow: hidden; display: flex; flex-direction: column; background-color: #080808; }}
+        .hero-video {{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 1; opacity: 0.75; transition: opacity 1.5s ease; }}
+        .hero-overlay {{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(8,8,8,0.2) 0%, rgba(8,8,8,1) 100%); z-index: 2; transition: background 1.5s ease; }}
         
-        .hero-content { position: relative; z-index: 4; width: 100%; max-width: 500px; margin: 0 auto; padding: 20px 15px; display: flex; justify-content: space-between; align-items: flex-start; margin-top: env(safe-area-inset-top); }
-        .logo-wrapper { display: flex; align-items: center; gap: 8px; }
-        .header-logo { width: 35px; height: 35px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,242,254,0.4)); }
-        .hero-content h1 { font-size: 26px; font-weight: 900; letter-spacing: 0.5px; color: #fff; margin: 0; display: flex; align-items: center; font-family: system-ui, -apple-system, sans-serif; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .hero-content h1 .highlight { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .live-indicator { display: flex; align-items: center; gap: 6px; background: rgba(255, 8, 68, 0.2); border: 1px solid rgba(255, 8, 68, 0.3); padding: 5px 12px; border-radius: 15px; font-size: 11px; font-weight: 800; color: #ff0844; letter-spacing: 1px; backdrop-filter: blur(5px); box-shadow: 0 2px 10px rgba(255, 8, 68, 0.2); }
-        .pulse-dot { width: 6px; height: 6px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }
+        .hero-content {{ position: relative; z-index: 4; width: 100%; max-width: 500px; margin: 0 auto; padding: 20px 15px; display: flex; justify-content: space-between; align-items: flex-start; margin-top: env(safe-area-inset-top); }}
+        .logo-wrapper {{ display: flex; align-items: center; gap: 8px; }}
+        .header-logo {{ width: 35px; height: 35px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,242,254,0.4)); }}
+        .hero-content h1 {{ font-size: 26px; font-weight: 900; letter-spacing: 0.5px; color: #fff; margin: 0; display: flex; align-items: center; font-family: system-ui, -apple-system, sans-serif; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }}
+        .hero-content h1 .highlight {{ background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }}
+        .live-indicator {{ display: flex; align-items: center; gap: 6px; background: rgba(255, 8, 68, 0.2); border: 1px solid rgba(255, 8, 68, 0.3); padding: 5px 12px; border-radius: 15px; font-size: 11px; font-weight: 800; color: #ff0844; letter-spacing: 1px; backdrop-filter: blur(5px); box-shadow: 0 2px 10px rgba(255, 8, 68, 0.2); }}
+        .pulse-dot {{ width: 6px; height: 6px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }}
         
-        .hero-end-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: all 1.5s ease-in-out; transform: translateY(10px); }
-        .hero-end-screen.active { opacity: 1; transform: translateY(0); }
-        .end-logo { width: 65px; height: 65px; margin-bottom: 5px; filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6)); }
-        .end-title { font-size: 34px; font-weight: 900; margin: 0; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: system-ui, -apple-system, sans-serif; }
-        .end-subtitle { font-size: 13px; font-weight: 700; color: #e2e8f0; margin-top: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); background: rgba(0,0,0,0.4); padding: 5px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .hero-end-screen {{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: all 1.5s ease-in-out; transform: translateY(10px); }}
+        .hero-end-screen.active {{ opacity: 1; transform: translateY(0); }}
+        .end-logo {{ width: 65px; height: 65px; margin-bottom: 5px; filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6)); }}
+        .end-title {{ font-size: 34px; font-weight: 900; margin: 0; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: system-ui, -apple-system, sans-serif; }}
+        .end-subtitle {{ font-size: 13px; font-weight: 700; color: #e2e8f0; margin-top: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); background: rgba(0,0,0,0.4); padding: 5px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }}
         
-        .container { max-width: 500px; margin: -40px auto 0; padding: 0 12px; position: relative; z-index: 10; }
-        .date-title { font-size: 15px; font-weight: 800; margin-bottom: 15px; color: #fff; display: flex; align-items: center; gap: 8px; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
-        .date-title::before { content: ''; display: block; width: 4px; height: 16px; background: var(--accent); border-radius: 4px; box-shadow: 0 0 8px var(--accent); }
+        .container {{ max-width: 500px; margin: -40px auto 0; padding: 0 12px; position: relative; z-index: 10; }}
+        .date-title {{ font-size: 15px; font-weight: 800; margin-bottom: 15px; color: #fff; display: flex; align-items: center; gap: 8px; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }}
+        .date-title::before {{ content: ''; display: block; width: 4px; height: 16px; background: var(--accent); border-radius: 4px; box-shadow: 0 0 8px var(--accent); }}
         
-        .match-card { background: var(--card-bg); border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); overflow: hidden; transition: transform 0.2s ease; }
+        .match-card {{ background: var(--card-bg); border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); overflow: hidden; transition: transform 0.2s ease; }}
         
-        .league-badge { display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.03); padding: 8px; border-bottom: 1px solid var(--card-border); }
-        .league-badge img { width: 20px; height: 20px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
-        .league-badge span { font-size: 12px; font-weight: 800; color: var(--text-sub); font-family: system-ui, sans-serif; letter-spacing: 0.3px; }
+        .league-badge {{ display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.03); padding: 8px; border-bottom: 1px solid var(--card-border); }}
+        .league-badge img {{ width: 20px; height: 20px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }}
+        .league-badge span {{ font-size: 12px; font-weight: 800; color: var(--text-sub); font-family: system-ui, sans-serif; letter-spacing: 0.3px; }}
         
-        .teams-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 15px 10px; }
-        .team { display: flex; flex-direction: column; align-items: center; width: 32%; gap: 8px; }
-        .team img { width: 45px; height: 45px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }
-        .team span { font-weight: 700; font-size: 11px; text-align: center; line-height: 1.4; }
+        .teams-wrapper {{ display: flex; justify-content: space-between; align-items: center; padding: 15px 10px; }}
+        .team {{ display: flex; flex-direction: column; align-items: center; width: 32%; gap: 8px; }}
+        .team img {{ width: 45px; height: 45px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }}
+        .team span {{ font-weight: 700; font-size: 11px; text-align: center; line-height: 1.4; }}
         
-        .match-info { width: 36%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .match-time { font-size: 20px; font-weight: 900; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}
+        .match-info {{ width: 36%; display: flex; flex-direction: column; align-items: center; justify-content: center; }}
+        .match-time {{ font-size: 20px; font-weight: 900; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}}
         
-        .match-score { font-size: 22px; font-weight: 900; color: var(--text-main); font-family: system-ui, sans-serif; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .match-minute { font-size: 11px; font-weight: 700; color: #ff0844; background: rgba(255,8,68,0.1); padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(255,8,68,0.2); }
-        .match-ft { color: var(--text-sub); background: rgba(255,255,255,0.05); border-color: var(--card-border); }
-        .pulse-dot-small { width: 5px; height: 5px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }
+        .match-score {{ font-size: 22px; font-weight: 900; color: var(--text-main); font-family: system-ui, sans-serif; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); transition: all 0.3s ease;}}
+        .match-minute {{ font-size: 11px; font-weight: 700; color: #ff0844; background: rgba(255,8,68,0.1); padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(255,8,68,0.2); transition: all 0.3s ease;}}
+        .match-ft {{ color: var(--text-sub); background: rgba(255,255,255,0.05); border-color: var(--card-border); }}
+        .pulse-dot-small {{ width: 5px; height: 5px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }}
+        /* ئەنیمەیشنی گۆڕینی ئەنجام */
+        .score-updated {{ animation: flash-score 1s ease-out; }}
+        @keyframes flash-score {{ 0% {{ color: #00f2fe; transform: scale(1.1); }} 100% {{ color: var(--text-main); transform: scale(1); }} }}
 
-        .channel-tag { margin-top: 6px; font-size: 10px; font-weight: 700; background: rgba(0, 242, 254, 0.08); color: var(--accent); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(0, 242, 254, 0.15); text-align: center; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px;}
-        .channel-tag img { width: 14px; height: 14px; object-fit: contain; }
+        .channel-tag {{ margin-top: 6px; font-size: 10px; font-weight: 700; background: rgba(0, 242, 254, 0.08); color: var(--accent); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(0, 242, 254, 0.15); text-align: center; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px;}}
+        .channel-tag img {{ width: 14px; height: 14px; object-fit: contain; }}
         
-        .action-area { padding: 12px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; min-height: 52px; }
-        .countdown { font-size: 13px; font-weight: 800; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 6px 14px; border-radius: 15px;}
-        .btn-live { display: none; background: var(--live-btn); color: white; padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; transition: 0.2s; }
-        .btn-live:active { transform: scale(0.95); }
-        .btn-disabled { background: #1f2937; color: #6b7280; border: 1px solid #374151; box-shadow: none; animation: none; padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 800; cursor: not-allowed; display: none;}
-        .btn-finished { display: none; background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--card-border); }
+        .action-area {{ padding: 12px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; min-height: 52px; }}
+        .countdown {{ font-size: 13px; font-weight: 800; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 6px 14px; border-radius: 15px;}}
+        .btn-live {{ background: var(--live-btn); color: white; padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; transition: 0.2s; }}
+        .btn-live:active {{ transform: scale(0.95); }}
+        .btn-disabled {{ background: #1f2937; color: #6b7280; border: 1px solid #374151; box-shadow: none; animation: none; padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 800; cursor: not-allowed; }}
+        .btn-finished {{ background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--card-border); }}
         
-        @keyframes pulse-live { 0% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); } 70% { box-shadow: 0 0 0 8px rgba(255, 8, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); } }
+        @keyframes pulse-live {{ 0% {{ box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); }} 70% {{ box-shadow: 0 0 0 8px rgba(255, 8, 68, 0); }} 100% {{ box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); }} }}
         
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 65px; background: rgba(12, 12, 12, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; align-items: center; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-sub); text-decoration: none; font-size: 10px; font-weight: 700; transition: 0.3s ease; }
-        .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
-        .nav-item.active { color: var(--accent); }
+        .bottom-nav {{ position: fixed; bottom: 0; left: 0; width: 100%; height: 65px; background: rgba(12, 12, 12, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; align-items: center; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }}
+        .nav-item {{ display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-sub); text-decoration: none; font-size: 10px; font-weight: 700; transition: 0.3s ease; }}
+        .nav-item svg {{ width: 22px; height: 22px; fill: currentColor; }}
+        .nav-item.active {{ color: var(--accent); }}
         
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(15,15,15,0.95); border-bottom: 1px solid #222;}
-        .modal-title { color: white; font-weight: 700; font-size: 14px; }
-        .close-modal { color: white; font-size: 26px; font-weight: 300; cursor: pointer; background: none; border: none; line-height: 1;}
-        .modal-body { flex: 1; width: 100%; background: #000; position: relative; }
-        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .modal {{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; }}
+        .modal-header {{ display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(15,15,15,0.95); border-bottom: 1px solid #222;}}
+        .modal-title {{ color: white; font-weight: 700; font-size: 14px; }}
+        .close-modal {{ color: white; font-size: 26px; font-weight: 300; cursor: pointer; background: none; border: none; line-height: 1;}}
+        .modal-body {{ flex: 1; width: 100%; background: #000; position: relative; }}
+        .modal-body iframe {{ width: 100%; height: 100%; border: none; }}
     </style>
+    <!-- پارامێتەری پێویست بۆ جاڤاسکڕیپت -->
+    <script>
+        const API_URL = "{url}";
+    </script>
 </head>
 <body>
     
@@ -171,7 +186,7 @@ html_content = """<!DOCTYPE html>
         </div>
     </div>
     
-    <div class="container">
+    <div class="container" id="matchesContainer">
         <div class="date-title">یارییەکانی ئەمڕۆ</div>
 """
 
@@ -200,6 +215,7 @@ for match in matches:
     league_name = english_leagues.get(league_id)
     if not league_name: continue
     
+    match_id = match.get('id')
     league_logo = f"https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/{league_id}"
     
     home_team = match['homeCompetitor']['name']
@@ -207,7 +223,6 @@ for match in matches:
     home_logo = f"https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/{match['homeCompetitor']['id']}"
     away_logo = f"https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/{match['awayCompetitor']['id']}"
     
-    # 1. چارەسەری فۆرماتی گۆڵەکان: گۆڕین بۆ ژمارەی تەواو
     home_score_raw = match['homeCompetitor'].get('score', -1)
     away_score_raw = match['awayCompetitor'].get('score', -1)
     
@@ -221,8 +236,9 @@ for match in matches:
     status_group = match.get('statusGroup', 1)
     game_time_str = str(match.get('gameTimeDisplay', match.get('gameTime', '')))
     
-    # 2. چارەسەری هەڵەی تەواوبوونی یاری: ئەگەر گۆڵ هەبوو یان خولەک هەبوو، بیکە بە لایڤ
-    if status_group == 1 and home_score != -1:
+    if home_score == -1 or away_score == -1:
+        status_group = 1
+    elif status_group == 1 and home_score >= 0 and away_score >= 0:
         status_group = 2
         
     if "'" in game_time_str or "+" in game_time_str or game_time_str.isdigit() or "HT" in game_time_str.upper():
@@ -231,29 +247,34 @@ for match in matches:
     if status_group == 2:
         display_minute = f"{game_time_str}'" if game_time_str.isdigit() else game_time_str
         if not display_minute: display_minute = "ڕاستەوخۆ"
-        score_html = f'<div class="match-score" dir="ltr">{home_score} - {away_score}</div><div class="match-minute" dir="ltr">{display_minute} <span class="pulse-dot-small"></span></div>'
+        score_html = f'<div class="match-score" id="score-{match_id}" dir="ltr">{home_score} - {away_score}</div><div class="match-minute" id="minute-{match_id}" dir="ltr">{display_minute} <span class="pulse-dot-small"></span></div>'
     elif status_group == 3:
-        score_html = f'<div class="match-score" dir="ltr">{home_score} - {away_score}</div><div class="match-minute match-ft">تەواوبوو</div>'
+        score_html = f'<div class="match-score" id="score-{match_id}" dir="ltr">{home_score} - {away_score}</div><div class="match-minute match-ft" id="minute-{match_id}">تەواوبوو</div>'
     else:
-        score_html = f'<div class="match-time">{display_time}</div>'
+        score_html = f'<div class="match-time" id="score-{match_id}">{display_time}</div><div id="minute-{match_id}" style="display:none;"></div>'
     
     stream_link = get_smart_stream_link(home_team, away_team)
     matches_added += 1
 
-    if not stream_link or stream_link == "#":
-        btn_html, has_link = f"""<button class="btn-disabled" disabled>لینک ئامادە نییە</button>""", "false"
+    if status_group == 3:
+        btn_html = f"""<div class="btn-finished">کۆتایی هات</div>"""
+    elif status_group == 2:
+        if not stream_link or stream_link == "#":
+            btn_html = f"""<button class="btn-disabled" disabled>لینک ئامادە نییە</button>"""
+        else:
+             btn_html = f"""<button class="btn-live" onclick="openPlayer('{stream_link}', '{home_team} - {away_team}')">ڕاستەوخۆ 🔴</button>"""
     else:
-        btn_html, has_link = f"""<button class="btn-live" onclick="openPlayer('{stream_link}', '{home_team} - {away_team}')">ڕاستەوخۆ 🔴</button>""", "true"
+        btn_html = f"""<div class="countdown" data-time="{match_timestamp}"></div>"""
 
     html_content += f"""
-        <div class="match-card" data-time="{match_timestamp}" data-haslink="{has_link}" data-status="{status_group}">
+        <div class="match-card" data-match-id="{match_id}" data-status="{status_group}">
             <div class="league-badge" dir="ltr">
                 <img src="{league_logo}" alt="{league_name}">
                 <span>{league_name}</span>
             </div>
             <div class="teams-wrapper">
                 <div class="team"><img src="{home_logo}"><span>{home_team}</span></div>
-                <div class="match-info">
+                <div class="match-info" id="info-{match_id}">
                     {score_html}
                     <div class="channel-tag" dir="ltr">
                         <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
@@ -263,9 +284,7 @@ for match in matches:
                 <div class="team"><img src="{away_logo}"><span>{away_team}</span></div>
             </div>
             <div class="action-area">
-                <div class="countdown"></div>
                 {btn_html}
-                <div class="btn-finished">کۆتایی هات</div>
             </div>
         </div>
     """
@@ -296,9 +315,7 @@ html_content += """
             hVideo.addEventListener('ended', function() {
                 hVideo.style.opacity = '0.1';
                 hOverlay.style.background = 'linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, rgba(8,8,8,1) 100%)';
-                
                 setTimeout(() => { endSc.classList.add('active'); }, 400);
-
                 setTimeout(() => {
                     endSc.classList.remove('active');
                     setTimeout(() => {
@@ -315,36 +332,91 @@ html_content += """
         
         function updateUI() {
             const now = new Date().getTime();
-            document.querySelectorAll('.match-card').forEach(card => {
-                const diff = parseInt(card.getAttribute('data-time')) - now;
-                const status = parseInt(card.getAttribute('data-status'));
-                const hL = card.getAttribute('data-haslink') === 'true';
-                const tEl = card.querySelector('.countdown'), lB = card.querySelector('.btn-live'), dB = card.querySelector('.btn-disabled'), fB = card.querySelector('.btn-finished');
-                
-                if (status === 3) {
-                    tEl.style.display = 'none'; if(lB) lB.style.display = 'none'; if(dB) dB.style.display = 'none'; fB.style.display = 'inline-block';
-                } else if (status === 2) {
-                    tEl.style.display = 'none'; fB.style.display = 'none'; 
-                    if(hL && lB) { lB.style.display = 'inline-block'; if(dB) dB.style.display = 'none'; }
-                    else if(dB) { dB.style.display = 'inline-block'; if(lB) lB.style.display = 'none'; }
+            document.querySelectorAll('.countdown').forEach(tEl => {
+                const diff = parseInt(tEl.getAttribute('data-time')) - now;
+                if (diff > 0) {
+                    let h = Math.floor(diff / 3600000), m = Math.floor((diff % 3600000) / 60000), s = Math.floor((diff % 60000) / 1000);
+                    tEl.innerHTML = `⏳ ${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
+                    tEl.style.display = 'inline-block';
                 } else {
-                    if (diff > 0) {
-                        let h = Math.floor(diff / 3600000), m = Math.floor((diff % 3600000) / 60000), s = Math.floor((diff % 60000) / 1000);
-                        tEl.innerHTML = `⏳ ${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
-                        tEl.style.display = 'inline-block'; if(lB) lB.style.display = 'none'; if(dB) dB.style.display = 'none'; fB.style.display = 'none';
-                    } else if (diff <= 0 && diff > -9000000) { // لە کاتی یاریدایە ئەگەر کەمتر لە 2.5 کاتژمێری پێچووبێت و کۆتایی نەهاتبێت
-                        tEl.style.display = 'none'; fB.style.display = 'none'; 
-                        if(hL && lB) { lB.style.display = 'inline-block'; if(dB) dB.style.display = 'none'; }
-                        else if(dB) { dB.style.display = 'inline-block'; if(lB) lB.style.display = 'none'; }
-                    } else {
-                        tEl.style.display = 'none'; if(lB) lB.style.display = 'none'; if(dB) dB.style.display = 'none'; fB.style.display = 'inline-block';
-                    }
+                    tEl.style.display = 'none';
                 }
             });
         }
         updateUI(); setInterval(updateUI, 1000);
         function openPlayer(link, title) { document.getElementById('modalTitle').innerText = title; document.getElementById('videoIframe').src = link; document.getElementById('videoModal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
         function closePlayer() { document.getElementById('videoModal').style.display = 'none'; document.getElementById('videoIframe').src = ""; document.body.style.overflow = 'auto'; }
+        
+        // --- سیستەمی نوێکردنەوەی ڕاستەوخۆ (هەر 10 چرکە جارێک) ---
+        async function fetchLiveScores() {
+            try {
+                // ناردنی داواکاری ڕاستەوخۆ بۆ سێرڤەری 365
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                if (data && data.games) {
+                    data.games.forEach(game => {
+                        const matchId = game.id;
+                        const scoreEl = document.getElementById(`score-${matchId}`);
+                        const minuteEl = document.getElementById(`minute-${matchId}`);
+                        const cardEl = document.querySelector(`.match-card[data-match-id="${matchId}"]`);
+                        
+                        if (scoreEl && minuteEl && cardEl) {
+                            const currentStatus = parseInt(cardEl.getAttribute('data-status'));
+                            let statusGroup = game.statusGroup || 1;
+                            
+                            let homeScore = -1, awayScore = -1;
+                            try { homeScore = parseInt(parseFloat(game.homeCompetitor.score)); } catch(e){}
+                            try { awayScore = parseInt(parseFloat(game.awayCompetitor.score)); } catch(e){}
+                            
+                            let gameTime = (game.gameTimeDisplay || game.gameTime || '').toString();
+                            
+                            if (homeScore === -1 || awayScore === -1) { statusGroup = 1; }
+                            else if (statusGroup === 1 && homeScore >= 0) { statusGroup = 2; }
+                            if (gameTime.includes("'") || gameTime.includes("+") || gameTime.match(/^\d+$/) || gameTime.toUpperCase().includes("HT")) { statusGroup = 2; }
+                            
+                            // ئەگەر یارییەکە لایڤ بێت
+                            if (statusGroup === 2) {
+                                let displayMinute = gameTime.match(/^\d+$/) ? `${gameTime}'` : gameTime;
+                                if (!displayMinute) displayMinute = "ڕاستەوخۆ";
+                                
+                                const newScore = `${homeScore} - ${awayScore}`;
+                                // ئەگەر گۆڵێک کرا، ئەنیمەیشنی بۆ بکە
+                                if (scoreEl.innerText !== newScore && scoreEl.innerText.includes('-')) {
+                                    scoreEl.classList.remove('score-updated');
+                                    void scoreEl.offsetWidth; // Trigger reflow
+                                    scoreEl.classList.add('score-updated');
+                                }
+                                
+                                scoreEl.innerText = newScore;
+                                scoreEl.className = 'match-score'; // گۆڕینی دیزاین لە کاتژمێرەوە بۆ ئەنجام
+                                
+                                minuteEl.innerHTML = `${displayMinute} <span class="pulse-dot-small"></span>`;
+                                minuteEl.className = 'match-minute';
+                                minuteEl.style.display = 'inline-flex';
+                                cardEl.setAttribute('data-status', '2');
+                            } 
+                            // ئەگەر یارییەکە تەواو بوو
+                            else if (statusGroup === 3) {
+                                scoreEl.innerText = `${homeScore} - ${awayScore}`;
+                                scoreEl.className = 'match-score';
+                                minuteEl.innerHTML = `تەواوبوو`;
+                                minuteEl.className = 'match-minute match-ft';
+                                minuteEl.style.display = 'inline-flex';
+                                cardEl.setAttribute('data-status', '3');
+                            }
+                        }
+                    });
+                }
+            } catch (error) {
+                console.log("هەڵە لە نوێکردنەوەی ئەنجامەکان:", error);
+            }
+        }
+
+        // کارپێکردنی سیستەمی لایڤەکە هەموو 10 چرکە جارێک
+        setInterval(fetchLiveScores, 10000);
+        // هەرکە پەڕەکە کرایەوە یەکجار داوای بکە
+        setTimeout(fetchLiveScores, 2000);
     </script>
 </body>
 </html>
