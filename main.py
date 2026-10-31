@@ -1,6 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
-import re
+from datetime import datetime, timedelta, timezone
+
+# ڕێکخستنی کات
+baghdad_tz = timezone(timedelta(hours=3))
+today_date = datetime.now(baghdad_tz).strftime('%Y-%m-%d')
 
 html_top = """<!DOCTYPE html>
 <html lang="ku" dir="rtl">
@@ -66,10 +70,8 @@ html_top = """<!DOCTYPE html>
         .modal-title { color: white; font-weight: 700; font-size: 14px; }
         .close-modal { color: white; font-size: 26px; font-weight: 300; cursor: pointer; background: none; border: none; line-height: 1;}
         .modal-body { flex: 1; width: 100%; background: #000; position: relative; }
-        .modal-body iframe, .modal-body video { width: 100%; height: 100%; border: none; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
     </style>
-    <!-- کتێبخانەی HLS بۆ لێدانی ڕاستەوخۆی m3u8 -->
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
     
@@ -96,34 +98,28 @@ headers = {
     "Referer": "https://alwanlive.stream/"
 }
 
-# گەڕان بەدوای لینکی ڕاستەقینەدا بۆ هەموو کەناڵەکان
+# گەڕان تەنیا بەدوای لینکی iframe پلەیەرەکەدا
 for i in range(1, 11):
     channel_title = f"ئەلوان سپۆرت {i}"
     target_url = f"https://alwanlive.stream/?channel={i}&server=1"
     
-    # وەکو یەدەگ سەرەتا لینکە گشتییەکە دادەنێین
-    stream_link = target_url
+    stream_link = target_url # بە شێوەیەکی بنەڕەتی هەمان لینکەکە دادەنێین ئەگەر هیچی نەدۆزیەوە
     
     try:
         req = requests.get(target_url, headers=headers, timeout=10)
+        soup = BeautifulSoup(req.text, 'html.parser')
         
-        # ١. هەوڵدەدات لینکی m3u8 بدۆزێتەوە
-        m3u8_match = re.search(r'(https?://[^\s"\'<>]+?\.m3u8[^\s"\'<>]*)', req.text)
-        if m3u8_match:
-            stream_link = m3u8_match.group(1)
-        else:
-            # ٢. ئەگەر نەبوو، هەوڵدەدات لینکی iframe پلەیەرەکە بدۆزێتەوە
-            soup = BeautifulSoup(req.text, 'html.parser')
-            for iframe in soup.find_all('iframe'):
-                src = iframe.get('src', '')
-                if src and not any(bad in src.lower() for bad in ['ad', 'facebook', 'twitter']):
-                    if src.startswith('//'):
-                        stream_link = 'https:' + src
-                    elif src.startswith('/'):
-                        stream_link = 'https://alwanlive.stream' + src
-                    else:
-                        stream_link = src
-                    break
+        for iframe in soup.find_all('iframe'):
+            src = iframe.get('src', '')
+            # دوورکەوتنەوە لەو ئایفرێمانەی ڕیکلامن
+            if src and not any(bad in src.lower() for bad in ['ad', 'facebook', 'twitter']):
+                if src.startswith('//'):
+                    stream_link = 'https:' + src
+                elif src.startswith('/'):
+                    stream_link = 'https://alwanlive.stream' + src
+                else:
+                    stream_link = src
+                break
     except Exception as e:
         pass
     
@@ -161,10 +157,8 @@ html_bottom = """
             <button class="close-modal" onclick="closePlayer()">&times;</button>
         </div>
         <div class="modal-body">
-            <!-- ئەگەر لینکەکە iframe بوو ئەمە کار دەکات -->
-            <iframe id="videoIframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no" style="display: none;"></iframe>
-            <!-- ئەگەر لینکەکە m3u8 بوو ئەمە کار دەکات -->
-            <video id="videoPlayer" controls autoplay style="display: none;"></video>
+            <!-- لێرەدا ساندبۆکسەکەمان داناوە بۆ ئەوەی ڕێگری بکات لە ڕیکلام و پۆپ-ئەپ، بەڵام ڕێگە بە ڤیدیۆکە بدات کار بکات -->
+            <iframe id="videoIframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no" sandbox="allow-scripts allow-same-origin" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
     </div>
     
@@ -176,41 +170,12 @@ html_bottom = """
             document.getElementById('videoModal').style.display = 'flex'; 
             document.body.style.overflow = 'hidden'; 
             
-            const iframe = document.getElementById('videoIframe');
-            const video = document.getElementById('videoPlayer');
-            
-            // زیرەکی جاڤاسکڕیپت: زانینی جۆری لینکەکە
-            if (link.includes('.m3u8')) {
-                iframe.style.display = 'none';
-                video.style.display = 'block';
-                
-                if (Hls.isSupported()) {
-                    var hls = new Hls();
-                    hls.loadSource(link);
-                    hls.attachMedia(video);
-                    hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                        video.play();
-                    });
-                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                    video.src = link;
-                    video.addEventListener('loadedmetadata', function() {
-                        video.play();
-                    });
-                }
-            } else {
-                video.style.display = 'none';
-                iframe.style.display = 'block';
-                iframe.src = link;
-            }
+            document.getElementById('videoIframe').src = link;
         }
         
         function closePlayer() { 
             document.getElementById('videoModal').style.display = 'none'; 
             document.getElementById('videoIframe').src = ""; 
-            
-            const video = document.getElementById('videoPlayer');
-            video.pause();
-            video.removeAttribute('src');
             
             document.body.style.overflow = 'auto'; 
         }
@@ -223,7 +188,7 @@ with open("index.html", "w", encoding="utf-8") as file:
     file.write(html_top + cards_html + html_bottom)
 
 sw_js = """
-const CACHE_NAME = 'kurd365-cache-channels-v3';
+const CACHE_NAME = 'kurd365-cache-channels-v4';
 const urlsToCache = [ './', './index.html', './manifest.json', './video.mp4', 'https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png' ];
 self.addEventListener('install', event => { self.skipWaiting(); event.waitUntil( caches.open(CACHE_NAME).then(cache => { return cache.addAll(urlsToCache); }) ); });
 self.addEventListener('fetch', event => { event.respondWith( caches.match(event.request).then(response => { if (response) { return response; } return fetch(event.request); }) ); });
