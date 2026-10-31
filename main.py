@@ -6,7 +6,6 @@ from datetime import datetime, timedelta, timezone
 baghdad_tz = timezone(timedelta(hours=3))
 today_date = datetime.now(baghdad_tz).strftime('%Y-%m-%d')
 
-# ژمارە 34 لابرا کە تایبەت بوو بە خولی پلە سێی ئەڵمانیا
 comps = "7,11,17,25,572,573,6822"
 url = f"https://webws.365scores.com/web/games/current/?appTypeId=5&langId=27&timezoneName=Asia/Baghdad&competitions={comps}"
 
@@ -21,47 +20,59 @@ except Exception as e:
     print("Error fetching data:", e)
     data = {}
 
+# مەکینەی گەڕانی فرە-سەرچاوە بە زیادکردنی ماڵپەڕە جیهانییەکان
 def get_smart_stream_link(team_a, team_b):
-    try:
-        base_url = "https://syriashdab.com/"
-        req = requests.get(base_url, timeout=10)
-        soup = BeautifulSoup(req.text, 'html.parser')
-        
-        ignore_words = ["نادي", "ال", "اف", "سي", "فريق"]
-        words_a = [w for w in team_a.split() if len(w) > 2 and w not in ignore_words]
-        words_b = [w for w in team_b.split() if len(w) > 2 and w not in ignore_words]
-        
-        match_page_url = ""
-        
-        for a_tag in soup.find_all('a', href=True):
-            text = a_tag.get_text(separator=' ', strip=True)
-            href = a_tag['href']
+    # لیستی سەرچاوەکان (لێرەدا Score808 و سەرچاوە جیهانییەکانی ترمان زیادکردووە)
+    sources = [
+        "https://syriashdab.com/",
+        "https://score808.live/",          # سەرچاوەی زەبەلاحی جیهانی
+        "https://yalla-shoot.video/",      # یەڵا شووت
+        "https://live.kora-star.tv/",      # کۆرە ستار
+        "https://www.kooora365.com/",      # کوورە 365
+        "https://as-goal.com/"             # ئەس گۆڵ (سەرچاوەیەکی یەدەگی زۆر بەهێز)
+    ]
+    
+    ignore_words = ["نادي", "ال", "اف", "سي", "فريق"]
+    words_a = [w for w in team_a.split() if len(w) > 2 and w not in ignore_words]
+    words_b = [w for w in team_b.split() if len(w) > 2 and w not in ignore_words]
+    
+    for base_url in sources:
+        try:
+            req = requests.get(base_url, headers=headers, timeout=8)
+            soup = BeautifulSoup(req.text, 'html.parser')
             
-            match_found = False
-            for w in words_a + words_b:
-                if w in text:
-                    match_found = True
+            match_page_url = ""
+            
+            for a_tag in soup.find_all('a', href=True):
+                text = a_tag.get_text(separator=' ', strip=True)
+                href = a_tag['href']
+                
+                match_found = False
+                for w in words_a + words_b:
+                    if w in text:
+                        match_found = True
+                        break
+                
+                if match_found and ("facebook" not in href and "twitter" not in href):
+                    match_page_url = href if href.startswith('http') else base_url.rstrip('/') + '/' + href.lstrip('/')
                     break
             
-            if match_found and ("facebook" not in href and "twitter" not in href):
-                match_page_url = href if href.startswith('http') else base_url.rstrip('/') + '/' + href.lstrip('/')
-                break
-        
-        if match_page_url:
-            page_req = requests.get(match_page_url, timeout=10)
-            page_soup = BeautifulSoup(page_req.text, 'html.parser')
+            if match_page_url:
+                page_req = requests.get(match_page_url, headers=headers, timeout=8)
+                page_soup = BeautifulSoup(page_req.text, 'html.parser')
+                
+                iframes = page_soup.find_all('iframe')
+                for iframe in iframes:
+                    src = iframe.get('src', '')
+                    if src and "facebook" not in src and "twitter" not in src and "youtube" not in src:
+                        return src # سەرکەوتوو بوو! ڤیدیۆکەی دۆزییەوە لە یەکێک لەم سەرچاوانە
+                
+                return match_page_url
+                
+        except Exception as e:
+            continue # ئەگەر ئەم ماڵپەڕە کێشەی هەبوو یان دابەزیبوو، ڕاستەوخۆ دەچێتە سەرچاوەی دواتر
             
-            iframes = page_soup.find_all('iframe')
-            for iframe in iframes:
-                src = iframe.get('src', '')
-                if src and "facebook" not in src and "twitter" not in src and "youtube" not in src:
-                    return src
-            
-            return match_page_url
-            
-    except Exception as e:
-        pass
-    return ""
+    return "" # ئەگەر بە دەگمەن هەموو سەرچاوەکان شکستیان هێنا
 
 html_content = """
 <!DOCTYPE html>
