@@ -20,16 +20,14 @@ except Exception as e:
     print("Error fetching data:", e)
     data = {}
 
-# مەکینەی گەڕانی فرە-سەرچاوە بە زیادکردنی ماڵپەڕە جیهانییەکان
 def get_smart_stream_link(team_a, team_b):
-    # لیستی سەرچاوەکان (لێرەدا Score808 و سەرچاوە جیهانییەکانی ترمان زیادکردووە)
     sources = [
         "https://syriashdab.com/",
-        "https://score808.live/",          # سەرچاوەی زەبەلاحی جیهانی
-        "https://yalla-shoot.video/",      # یەڵا شووت
-        "https://live.kora-star.tv/",      # کۆرە ستار
-        "https://www.kooora365.com/",      # کوورە 365
-        "https://as-goal.com/"             # ئەس گۆڵ (سەرچاوەیەکی یەدەگی زۆر بەهێز)
+        "https://score808.live/",
+        "https://yalla-shoot.video/",
+        "https://live.kora-star.tv/",
+        "https://www.kooora365.com/",
+        "https://as-goal.com/"
     ]
     
     ignore_words = ["نادي", "ال", "اف", "سي", "فريق"]
@@ -40,19 +38,15 @@ def get_smart_stream_link(team_a, team_b):
         try:
             req = requests.get(base_url, headers=headers, timeout=8)
             soup = BeautifulSoup(req.text, 'html.parser')
-            
             match_page_url = ""
-            
             for a_tag in soup.find_all('a', href=True):
                 text = a_tag.get_text(separator=' ', strip=True)
                 href = a_tag['href']
-                
                 match_found = False
                 for w in words_a + words_b:
                     if w in text:
                         match_found = True
                         break
-                
                 if match_found and ("facebook" not in href and "twitter" not in href):
                     match_page_url = href if href.startswith('http') else base_url.rstrip('/') + '/' + href.lstrip('/')
                     break
@@ -60,80 +54,163 @@ def get_smart_stream_link(team_a, team_b):
             if match_page_url:
                 page_req = requests.get(match_page_url, headers=headers, timeout=8)
                 page_soup = BeautifulSoup(page_req.text, 'html.parser')
-                
                 iframes = page_soup.find_all('iframe')
                 for iframe in iframes:
                     src = iframe.get('src', '')
                     if src and "facebook" not in src and "twitter" not in src and "youtube" not in src:
-                        return src # سەرکەوتوو بوو! ڤیدیۆکەی دۆزییەوە لە یەکێک لەم سەرچاوانە
-                
+                        return src
                 return match_page_url
-                
-        except Exception as e:
-            continue # ئەگەر ئەم ماڵپەڕە کێشەی هەبوو یان دابەزیبوو، ڕاستەوخۆ دەچێتە سەرچاوەی دواتر
-            
-    return "" # ئەگەر بە دەگمەن هەموو سەرچاوەکان شکستیان هێنا
+        except:
+            continue
+    return ""
 
 html_content = """
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kurd365 - پەخشی ڕاستەوخۆ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- PWA & Web App Meta Tags -->
+    <meta name="theme-color" content="#0d0d0d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Kurd365">
+    
+    <title>Kurd365 - ئەپی وەرزشی</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
         
         :root {
-            --primary-bg: #0d0d0d; --secondary-bg: #1a1a1c; --card-bg: #242426;
-            --text-main: #ffffff; --text-muted: #8e8e93; --accent: #00f2fe;
-            --live-btn: linear-gradient(135deg, #ff416c, #ff4b2b);
-            --border-color: #38383a;
+            --bg-color: #080808;
+            --card-bg: rgba(26, 26, 28, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-sub: #9ca3af;
+            --accent: #00f2fe;
+            --accent-gradient: linear-gradient(135deg, #4facfe, #00f2fe);
+            --live-btn: linear-gradient(135deg, #ff0844, #ffb199);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--primary-bg); color: var(--text-main); padding-top: 70px; padding-bottom: 30px; }
         
-        .navbar { position: fixed; top: 0; left: 0; width: 100%; height: 60px; z-index: 100; background: rgba(13, 13, 13, 0.9); backdrop-filter: blur(15px); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border-color); }
-        .navbar h1 { font-size: 24px; font-weight: 900; background: linear-gradient(135deg, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            padding-top: 80px; 
+            padding-bottom: 90px; 
+            min-height: 100vh;
+        }
         
-        .container { max-width: 700px; margin: 0 auto; padding: 0 10px; }
-        .page-title { font-size: 18px; font-weight: 800; margin: 10px 0 20px 0; text-align: center; color: var(--text-muted); }
+        /* هێدەری سەرەوە - دیزاینی شووشەیی (Glassmorphism) */
+        .header { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 65px; z-index: 100; 
+            background: rgba(8, 8, 8, 0.75); 
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: center; 
+            border-bottom: 1px solid var(--card-border); 
+        }
+        .header h1 { 
+            font-size: 26px; font-weight: 900; letter-spacing: 1px;
+            background: var(--accent-gradient); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+        }
+        
+        .container { max-width: 600px; margin: 0 auto; padding: 0 15px; }
+        .date-title { font-size: 16px; font-weight: 800; margin-bottom: 20px; color: var(--text-sub); display: flex; align-items: center; gap: 8px;}
+        .date-title::before { content: ''; display: block; width: 4px; height: 16px; background: var(--accent); border-radius: 4px; }
 
-        .match-card { background: var(--secondary-bg); border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
-        .league-name { background: rgba(255,255,255,0.03); padding: 8px; font-size: 13px; font-weight: 700; color: var(--text-muted); text-align: center; border-bottom: 1px solid var(--border-color); }
+        /* کارتی یارییەکان - ڕێسپۆنسڤ و مۆدێرن */
+        .match-card { 
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            margin-bottom: 20px; 
+            border: 1px solid var(--card-border); 
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            overflow: hidden; 
+            transition: transform 0.2s ease;
+        }
+        .match-card:active { transform: scale(0.98); }
         
-        .teams-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 10px; }
-        .team { display: flex; flex-direction: column; align-items: center; width: 30%; gap: 8px; }
-        .team img { width: 45px; height: 45px; }
-        .team span { font-weight: 800; font-size: 12px; text-align: center; line-height: 1.3; }
+        .league-badge { 
+            background: rgba(255,255,255,0.03); 
+            padding: 10px; font-size: 12px; font-weight: 800; 
+            color: var(--text-sub); text-align: center; 
+            border-bottom: 1px solid var(--card-border); 
+        }
         
-        .match-center { width: 40%; display: flex; flex-direction: column; align-items: center; }
-        .match-time { font-size: 22px; font-weight: 900; margin-bottom: 5px; }
-        .tv-channel { font-size: 11px; background: rgba(0, 242, 254, 0.1); padding: 4px 10px; border-radius: 8px; color: var(--accent); font-weight: bold; border: 1px solid rgba(0, 242, 254, 0.2); text-align: center;}
-
-        .status-footer { padding: 12px; background: rgba(0,0,0,0.3); border-top: 1px solid var(--border-color); text-align: center; min-height: 60px; display: flex; justify-content: center; align-items: center; }
-        .countdown-timer { font-size: 15px; font-weight: 800; color: var(--accent); direction: ltr; display: none; }
+        .teams-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 20px 15px; }
+        .team { display: flex; flex-direction: column; align-items: center; width: 33%; gap: 10px; }
+        .team img { width: 55px; height: 55px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }
+        .team span { font-weight: 800; font-size: 13px; text-align: center; line-height: 1.4; }
         
-        .stream-btn { display: none; background: var(--live-btn); color: white; padding: 8px 20px; border-radius: 30px; font-size: 14px; font-weight: 800; border: none; cursor: pointer; animation: pulse 1.5s infinite; }
-        .stream-btn.disabled { background: #333; color: #888; animation: none; box-shadow: none; cursor: not-allowed; border: 1px solid #444; }
-        .finished-btn { display: none; background: rgba(255, 255, 255, 0.1); color: #ccc; padding: 8px 25px; border-radius: 20px; font-size: 14px; font-weight: bold; border: 1px solid rgba(255,255,255,0.2); }
+        .match-info { width: 34%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .match-time { font-size: 24px; font-weight: 900; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}
+        .channel-tag { 
+            margin-top: 8px; font-size: 10px; font-weight: 700;
+            background: rgba(0, 242, 254, 0.1); color: var(--accent); 
+            padding: 4px 10px; border-radius: 12px; 
+            border: 1px solid rgba(0, 242, 254, 0.2); 
+            text-align: center; white-space: nowrap;
+        }
 
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 65, 108, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0); } }
+        .action-area { 
+            padding: 15px; background: rgba(0,0,0,0.2); 
+            border-top: 1px solid var(--card-border); 
+            display: flex; justify-content: center; align-items: center; min-height: 65px;
+        }
+        
+        .countdown { font-size: 14px; font-weight: 800; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 8px 16px; border-radius: 20px;}
+        
+        .btn-live { 
+            display: none; background: var(--live-btn); color: white; 
+            padding: 10px 28px; border-radius: 30px; font-size: 14px; font-weight: 800; 
+            border: none; cursor: pointer; 
+            box-shadow: 0 4px 15px rgba(255, 8, 68, 0.4);
+            animation: pulse-live 2s infinite; 
+            transition: 0.2s;
+        }
+        .btn-live:active { transform: scale(0.95); }
+        
+        .btn-disabled { background: #1f2937; color: #6b7280; border: 1px solid #374151; box-shadow: none; animation: none; padding: 10px 28px; border-radius: 30px; font-size: 14px; font-weight: 800; cursor: not-allowed; display: none;}
+        .btn-finished { display: none; background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 10px 28px; border-radius: 30px; font-size: 14px; font-weight: 700; border: 1px solid var(--card-border); }
 
-        #player-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; }
-        .player-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #111; border-bottom: 1px solid #222;}
-        .player-title { color: white; font-weight: 800; font-size: 15px; }
-        .close-btn { color: white; font-size: 28px; font-weight: bold; cursor: pointer; background: none; border: none; }
-        .iframe-container { flex: 1; width: 100%; background: #000; position: relative; }
-        .iframe-container iframe { width: 100%; height: 100%; border: none; }
+        @keyframes pulse-live { 0% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 8, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); } }
+
+        /* شریتی خوارەوە (Bottom Navigation) تایبەت بە ئەپ */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 70px;
+            background: rgba(15, 15, 15, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--card-border);
+            display: flex; justify-content: space-around; align-items: center;
+            z-index: 100; padding-bottom: env(safe-area-inset-bottom);
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            color: var(--text-sub); text-decoration: none; font-size: 11px; font-weight: 700;
+            transition: 0.3s ease;
+        }
+        .nav-item svg { width: 24px; height: 24px; fill: currentColor; }
+        .nav-item.active { color: var(--accent); }
+
+        /* پلەیەری ڤیدیۆ مۆدێرن */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(20,20,20,0.9); border-bottom: 1px solid #333;}
+        .modal-title { color: white; font-weight: 800; font-size: 15px; }
+        .close-modal { color: white; font-size: 30px; font-weight: 300; cursor: pointer; background: none; border: none; line-height: 1;}
+        .modal-body { flex: 1; width: 100%; background: #000; position: relative; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
 
-    <div class="navbar"><h1>Kurd365</h1></div>
+    <div class="header"><h1>Kurd365</h1></div>
+    
     <div class="container">
-        <h2 class="page-title">خشتەی یارییەکانی ئەمڕۆ</h2>
+        <div class="date-title">یارییەکانی ئەمڕۆ</div>
 """
 
 matches = data.get('games', [])
@@ -177,84 +254,118 @@ for match in matches:
     matches_added += 1
 
     if not stream_link or stream_link == "#":
-        btn_html = f"""<button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>"""
+        btn_html = f"""<button class="btn-disabled" disabled>لینک ئامادە نییە</button>"""
+        has_link = "false"
     else:
-        btn_html = f"""<button class="stream-btn" onclick="openPlayer('{stream_link}', '{home_team} vs {away_team}')">سەیرکردنی ڕاستەوخۆ 🔴</button>"""
+        btn_html = f"""<button class="btn-live" onclick="openPlayer('{stream_link}', '{home_team} - {away_team}')">ڕاستەوخۆ 🔴</button>"""
+        has_link = "true"
 
     html_content += f"""
-        <div class="match-card" data-time="{match_timestamp}">
-            <div class="league-name">{league_name}</div>
-            <div class="teams-container">
+        <div class="match-card" data-time="{match_timestamp}" data-haslink="{has_link}">
+            <div class="league-badge">{league_name}</div>
+            <div class="teams-wrapper">
                 <div class="team"><img src="{home_logo}"><span>{home_team}</span></div>
-                <div class="match-center">
+                <div class="match-info">
                     <div class="match-time">{display_time}</div>
-                    <div class="tv-channel" dir="ltr">{channel_name}</div>
+                    <div class="channel-tag" dir="ltr">{channel_name}</div>
                 </div>
                 <div class="team"><img src="{away_logo}"><span>{away_team}</span></div>
             </div>
-            <div class="status-footer">
-                <div class="countdown-timer"></div>
+            <div class="action-area">
+                <div class="countdown"></div>
                 {btn_html}
-                <div class="finished-btn">یاری تەواوبوو</div>
+                <div class="btn-finished">یاری تەواوبوو</div>
             </div>
         </div>
     """
 
 if matches_added == 0:
-    html_content += "<p style='text-align:center; color: #888;'>هیچ یارییەکی گرنگ بۆ ئەمڕۆ نییە.</p>"
+    html_content += """
+    <div style="text-align:center; margin-top: 50px; color: var(--text-sub);">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:15px; opacity:0.5;"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+        <h3>هیچ یارییەکی گرنگ بۆ ئەمڕۆ نییە</h3>
+    </div>
+    """
 
 html_content += """
     </div>
 
-    <div id="player-modal">
-        <div class="player-header">
-            <div class="player-title" id="player-title-text" dir="ltr">Live Match</div>
-            <button class="close-btn" onclick="closePlayer()">×</button>
+    <!-- شریتی خوارەوەی ئەپڵیکەیشن -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <svg viewBox="0 0 24 24"><path d="M12 3L4 9v12h5v-7h6v7h5V9z"/></svg>
+            <span>یارییەکان</span>
+        </a>
+        <a href="https://t.me/mtv_ibrahim_app" target="_blank" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.97 1.25-5.56 3.67-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.41-1.43-.87.03-.24.36-.48 1-.74 3.92-1.7 6.54-2.83 7.86-3.38 3.74-1.56 4.51-1.83 5.02-1.84.11 0 .36.03.52.16.13.11.17.26.19.37.02.05.02.26.01.4z"/></svg>
+            <span>تێلیگرام</span>
+        </a>
+        <a href="#" class="nav-item" onclick="alert('Kurd365 Live App\\nپەخشی ڕاستەوخۆی یارییەکان\\nگەشەپێدەر: ئیبراهیم')">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <span>دەربارە</span>
+        </a>
+    </div>
+
+    <!-- پلەیەری ڕاستەوخۆ -->
+    <div id="videoModal" class="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="modalTitle" dir="ltr">Live Match</div>
+            <button class="close-modal" onclick="closePlayer()">&times;</button>
         </div>
-        <div class="iframe-container">
-            <iframe id="video-iframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no"></iframe>
+        <div class="modal-body">
+            <iframe id="videoIframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no"></iframe>
         </div>
     </div>
 
     <script>
-        function updateCountdowns() {
+        function updateUI() {
             const now = new Date().getTime();
             document.querySelectorAll('.match-card').forEach(card => {
                 const matchTime = parseInt(card.getAttribute('data-time'));
+                const hasLink = card.getAttribute('data-haslink') === 'true';
                 const diff = matchTime - now;
                 
-                const timerEl = card.querySelector('.countdown-timer');
-                const streamBtn = card.querySelector('.stream-btn');
-                const finishedBtn = card.querySelector('.finished-btn');
+                const timerEl = card.querySelector('.countdown');
+                const liveBtn = card.querySelector('.btn-live');
+                const disabledBtn = card.querySelector('.btn-disabled');
+                const finishedBtn = card.querySelector('.btn-finished');
 
                 if (diff > 0) {
                     let h = Math.floor(diff / (1000 * 60 * 60));
                     let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                     let s = Math.floor((diff % (1000 * 60)) / 1000);
-                    timerEl.innerHTML = `کاتی ماوە: ${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
-                    timerEl.style.display = 'block'; 
-                    if(streamBtn) streamBtn.style.display = 'none'; 
+                    timerEl.innerHTML = `⏳ ${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
+                    timerEl.style.display = 'inline-block'; 
+                    if(liveBtn) liveBtn.style.display = 'none'; 
+                    if(disabledBtn) disabledBtn.style.display = 'none';
                     finishedBtn.style.display = 'none';
                 } else if (diff <= 0 && diff > -7200000) { 
                     timerEl.style.display = 'none'; 
                     finishedBtn.style.display = 'none'; 
-                    if(streamBtn) streamBtn.style.display = 'inline-block';
+                    if(hasLink && liveBtn) {
+                        liveBtn.style.display = 'inline-block';
+                        if(disabledBtn) disabledBtn.style.display = 'none';
+                    } else if(disabledBtn) {
+                        disabledBtn.style.display = 'inline-block';
+                        if(liveBtn) liveBtn.style.display = 'none';
+                    }
                 } else {
                     timerEl.style.display = 'none'; 
-                    if(streamBtn) streamBtn.style.display = 'none'; 
+                    if(liveBtn) liveBtn.style.display = 'none'; 
+                    if(disabledBtn) disabledBtn.style.display = 'none';
                     finishedBtn.style.display = 'inline-block';
                 }
             });
         }
-        updateCountdowns();
-        setInterval(updateCountdowns, 1000);
+        updateUI();
+        setInterval(updateUI, 1000);
 
-        const modal = document.getElementById('player-modal');
-        const iframe = document.getElementById('video-iframe');
-        const titleText = document.getElementById('player-title-text');
+        const modal = document.getElementById('videoModal');
+        const iframe = document.getElementById('videoIframe');
+        const mTitle = document.getElementById('modalTitle');
 
         function openPlayer(link, title) {
-            titleText.innerText = title;
+            mTitle.innerText = title;
             iframe.src = link;
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
