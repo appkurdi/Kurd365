@@ -45,7 +45,6 @@
 
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 65, 108, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0); } }
 
-        /* پلەیەر */
         #player-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; }
         .player-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #111; border-bottom: 1px solid #222;}
         .player-title { color: white; font-weight: 800; font-size: 15px; }
@@ -72,7 +71,7 @@
             </div>
             <div class="status-footer">
                 <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
+                <button class="stream-btn" onclick="openPlayer('https://as-goal.net/koora-news/european-football/preview-of-the-manchester-city-vs-brighton/', 'تشيلسي vs مانشستر يونايتد')">سەیرکردنی ڕاستەوخۆ 🔴</button>
                 <div class="finished-btn">یاری تەواوبوو</div>
             </div>
         </div>
@@ -94,93 +93,8 @@
             </div>
         </div>
     
-        <div class="match-card" data-time="1793451600000">
-            <div class="league-name">خولی فەڕەنسی</div>
-            <div class="teams-container">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/7568"><span>هافيلسة</span></div>
-                <div class="match-center">
-                    <div class="match-time">16:00</div>
-                    <div class="tv-channel" dir="ltr">beIN Sports 📺</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/369"><span>إنغولشتات</span></div>
-            </div>
-            <div class="status-footer">
-                <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
-                <div class="finished-btn">یاری تەواوبوو</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-time="1793451600000">
-            <div class="league-name">خولی فەڕەنسی</div>
-            <div class="teams-container">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/414"><span>يان ريغنسبورغ</span></div>
-                <div class="match-center">
-                    <div class="match-time">16:00</div>
-                    <div class="tv-channel" dir="ltr">beIN Sports 📺</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/344"><span>هانزا روستوك</span></div>
-            </div>
-            <div class="status-footer">
-                <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
-                <div class="finished-btn">یاری تەواوبوو</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-time="1793451600000">
-            <div class="league-name">خولی فەڕەنسی</div>
-            <div class="teams-container">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/407"><span>فيرل</span></div>
-                <div class="match-center">
-                    <div class="match-time">16:00</div>
-                    <div class="tv-channel" dir="ltr">beIN Sports 📺</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/356"><span>فيهين فيسبادن</span></div>
-            </div>
-            <div class="status-footer">
-                <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
-                <div class="finished-btn">یاری تەواوبوو</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-time="1793451600000">
-            <div class="league-name">خولی فەڕەنسی</div>
-            <div class="teams-container">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/347"><span>دويسبورج</span></div>
-                <div class="match-center">
-                    <div class="match-time">16:00</div>
-                    <div class="tv-channel" dir="ltr">beIN Sports 📺</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/409"><span>شتوتغارت (2)</span></div>
-            </div>
-            <div class="status-footer">
-                <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
-                <div class="finished-btn">یاری تەواوبوو</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-time="1793451600000">
-            <div class="league-name">خولی فەڕەنسی</div>
-            <div class="teams-container">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/9934"><span>هوفنهايم (2)</span></div>
-                <div class="match-center">
-                    <div class="match-time">16:00</div>
-                    <div class="tv-channel" dir="ltr">beIN Sports 📺</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/9715"><span>فيكتوريا كولن</span></div>
-            </div>
-            <div class="status-footer">
-                <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
-                <div class="finished-btn">یاری تەواوبوو</div>
-            </div>
-        </div>
-    
         <div class="match-card" data-time="1793453400000">
-            <div class="league-name">خولی عێراق</div>
+            <div class="league-name">خولی ئەستێرەکانی عێراق</div>
             <div class="teams-container">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/8250"><span>نفط ميسان</span></div>
                 <div class="match-center">
@@ -214,7 +128,7 @@
         </div>
     
         <div class="match-card" data-time="1793455200000">
-            <div class="league-name">خولی عێراق</div>
+            <div class="league-name">خولی ئەستێرەکانی عێراق</div>
             <div class="teams-container">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/8248"><span>الزوراء</span></div>
                 <div class="match-center">
@@ -236,7 +150,7 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/335"><span>شالكة</span></div>
                 <div class="match-center">
                     <div class="match-time">17:30</div>
-                    <div class="tv-channel" dir="ltr">پەخشی ڕاستەوخۆ</div>
+                    <div class="tv-channel" dir="ltr">beIN Sports 📺</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/7171"><span>لايبزيج</span></div>
             </div>
@@ -253,7 +167,7 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/332"><span>فيردر بريمن</span></div>
                 <div class="match-center">
                     <div class="match-time">17:30</div>
-                    <div class="tv-channel" dir="ltr">پەخشی ڕاستەوخۆ</div>
+                    <div class="tv-channel" dir="ltr">beIN Sports 📺</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/351"><span>هوفنهايم</span></div>
             </div>
@@ -270,7 +184,7 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/349"><span>بوروسيا مونشنجلادباخ</span></div>
                 <div class="match-center">
                     <div class="match-time">17:30</div>
-                    <div class="tv-channel" dir="ltr">پەخشی ڕاستەوخۆ</div>
+                    <div class="tv-channel" dir="ltr">beIN Sports 📺</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/366"><span>بادربورن</span></div>
             </div>
@@ -287,7 +201,7 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/358"><span>أوغسبورغ</span></div>
                 <div class="match-center">
                     <div class="match-time">17:30</div>
-                    <div class="tv-channel" dir="ltr">پەخشی ڕاستەوخۆ</div>
+                    <div class="tv-channel" dir="ltr">beIN Sports 📺</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/354"><span>فرايبورج</span></div>
             </div>
@@ -304,13 +218,13 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/333"><span>باير ليفركوزن</span></div>
                 <div class="match-center">
                     <div class="match-time">17:30</div>
-                    <div class="tv-channel" dir="ltr">پەخشی ڕاستەوخۆ</div>
+                    <div class="tv-channel" dir="ltr">beIN Sports 📺</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/338"><span>شتوتجارت</span></div>
             </div>
             <div class="status-footer">
                 <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
+                <button class="stream-btn" onclick="openPlayer('https://as-goal.net/koora-news/european-football/bayern-munich-eye-arsenal-captain-martin-odegaard/', 'باير ليفركوزن vs شتوتجارت')">سەیرکردنی ڕاستەوخۆ 🔴</button>
                 <div class="finished-btn">یاری تەواوبوو</div>
             </div>
         </div>
@@ -327,7 +241,7 @@
             </div>
             <div class="status-footer">
                 <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
+                <button class="stream-btn" onclick="openPlayer('https://as-goal.net/koora-news/european-football/preview-of-the-manchester-city-vs-brighton/', 'مانشستر سيتي vs برايتون')">سەیرکردنی ڕاستەوخۆ 🔴</button>
                 <div class="finished-btn">یاری تەواوبوو</div>
             </div>
         </div>
@@ -344,7 +258,7 @@
             </div>
             <div class="status-footer">
                 <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
+                <button class="stream-btn" onclick="openPlayer('https://as-goal.net/koora-news/european-football/preview-of-the-manchester-city-vs-brighton/', 'هال سيتي vs إبسويتش تاون')">سەیرکردنی ڕاستەوخۆ 🔴</button>
                 <div class="finished-btn">یاری تەواوبوو</div>
             </div>
         </div>
@@ -361,7 +275,7 @@
             </div>
             <div class="status-footer">
                 <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
+                <button class="stream-btn" onclick="openPlayer('https://as-goal.net/koora-news/european-football/preview-of-the-manchester-city-vs-brighton/', 'كوفنتري سيتي vs سندرلاند')">سەیرکردنی ڕاستەوخۆ 🔴</button>
                 <div class="finished-btn">یاری تەواوبوو</div>
             </div>
         </div>
@@ -395,7 +309,7 @@
             </div>
             <div class="status-footer">
                 <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
+                <button class="stream-btn" onclick="openPlayer('https://as-goal.net/koora-news/european-football/preview-of-the-chelsea-vs-manchester-united/', 'بورنموث vs ليدز يونايتد')">سەیرکردنی ڕاستەوخۆ 🔴</button>
                 <div class="finished-btn">یاری تەواوبوو</div>
             </div>
         </div>
@@ -417,25 +331,8 @@
             </div>
         </div>
     
-        <div class="match-card" data-time="1793460600000">
-            <div class="league-name">خولی فەڕەنسی</div>
-            <div class="teams-container">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/9266"><span>فورتونا كولن</span></div>
-                <div class="match-center">
-                    <div class="match-time">18:30</div>
-                    <div class="tv-channel" dir="ltr">beIN Sports 📺</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/11828"><span>فارزبورغر كيكرز</span></div>
-            </div>
-            <div class="status-footer">
-                <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
-                <div class="finished-btn">یاری تەواوبوو</div>
-            </div>
-        </div>
-    
         <div class="match-card" data-time="1793462400000">
-            <div class="league-name">خولی عێراق</div>
+            <div class="league-name">خولی ئەستێرەکانی عێراق</div>
             <div class="teams-container">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/15981"><span>الكرخ</span></div>
                 <div class="match-center">
@@ -452,7 +349,7 @@
         </div>
     
         <div class="match-card" data-time="1793464200000">
-            <div class="league-name">خولی عێراق</div>
+            <div class="league-name">خولی ئەستێرەکانی عێراق</div>
             <div class="teams-container">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/8246"><span>الشرطة</span></div>
                 <div class="match-center">
@@ -525,13 +422,13 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/331"><span>بايرن ميونخ</span></div>
                 <div class="match-center">
                     <div class="match-time">20:30</div>
-                    <div class="tv-channel" dir="ltr">پەخشی ڕاستەوخۆ</div>
+                    <div class="tv-channel" dir="ltr">beIN Sports 📺</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/341"><span>بوروسيا دورتموند</span></div>
             </div>
             <div class="status-footer">
                 <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
+                <button class="stream-btn" onclick="openPlayer('https://as-goal.net/koora-news/european-football/bayern-munich-eye-arsenal-captain-martin-odegaard/', 'بايرن ميونخ vs بوروسيا دورتموند')">سەیرکردنی ڕاستەوخۆ 🔴</button>
                 <div class="finished-btn">یاری تەواوبوو</div>
             </div>
         </div>
@@ -548,7 +445,7 @@
             </div>
             <div class="status-footer">
                 <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
+                <button class="stream-btn" onclick="openPlayer('https://as-goal.net/koora-news/european-football/preview-of-the-ac-milan-vs-inter-milan/', 'ميلان vs إنتر ميلان')">سەیرکردنی ڕاستەوخۆ 🔴</button>
                 <div class="finished-btn">یاری تەواوبوو</div>
             </div>
         </div>
@@ -582,7 +479,7 @@
             </div>
             <div class="status-footer">
                 <div class="countdown-timer"></div>
-                <button class="stream-btn disabled" disabled>لینک ئامادە نییە 🚫</button>
+                <button class="stream-btn" onclick="openPlayer('https://as-goal.net/koora-news/european-football/match-preview-barcelona-vs-alaves/', 'برشلونة vs ألافيس')">سەیرکردنی ڕاستەوخۆ 🔴</button>
                 <div class="finished-btn">یاری تەواوبوو</div>
             </div>
         </div>
@@ -595,7 +492,6 @@
             <button class="close-btn" onclick="closePlayer()">×</button>
         </div>
         <div class="iframe-container">
-            <!-- زیادکردنی تایبەتمەندی بۆ ئیشکردنی پلەیەر بەبێ کێشە -->
             <iframe id="video-iframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no"></iframe>
         </div>
     </div>
