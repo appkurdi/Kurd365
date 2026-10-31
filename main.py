@@ -20,14 +20,9 @@ except Exception as e:
     data = {}
 
 def get_smart_stream_link(team_a, team_b):
+    # لێرەدا تەنها ئەو ماڵپەڕەی تۆ داوات کرد هێڵراوەتەوە
     sources = [
-        "https://www.livesports088.is/",
-        "https://syriashdab.com/", 
-        "https://score808.live/", 
-        "https://yalla-shoot.video/",
-        "https://live.kora-star.tv/", 
-        "https://www.kooora365.com/", 
-        "https://as-goal.com/"
+        "https://www.livesports088.is/"
     ]
     ignore_words = ["نادي", "ال", "اف", "سي", "فريق"]
     words_a = [w for w in team_a.split() if len(w) > 2 and w not in ignore_words]
@@ -150,7 +145,6 @@ html_content = """<!DOCTYPE html>
         .modal-title { color: white; font-weight: 700; font-size: 14px; }
         .close-modal { color: white; font-size: 26px; font-weight: 300; cursor: pointer; background: none; border: none; line-height: 1;}
         .modal-body { flex: 1; width: 100%; background: #000; position: relative; }
-        /* بەکارهێنانی sandbox بۆ ڕێگریکردن لە ڕیکلام و پەنجەرەی نوێ */
         .modal-body iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
@@ -261,7 +255,6 @@ html_content += """
     <div id="videoModal" class="modal">
         <div class="modal-header"><div class="modal-title" id="modalTitle" dir="ltr">Live Match</div><button class="close-modal" onclick="closePlayer()">&times;</button></div>
         <div class="modal-body">
-            <!-- زیادکردنی sandbox بۆ ڕێگریکردن لە ڕیکلام (تەنها ڕێگە بە کارکردنی سکرێپت و ڤیدیۆ دەدات) -->
             <iframe id="videoIframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
         </div>
     </div>
