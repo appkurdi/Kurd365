@@ -78,7 +78,8 @@ html_content = f"""<!DOCTYPE html>
         .match-info {{ width: 36%; display: flex; flex-direction: column; align-items: center; justify-content: center; }}
         .match-time {{ font-size: 20px; font-weight: 900; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}}
         
-        .match-score {{ font-size: 22px; font-weight: 900; color: var(--text-main); font-family: system-ui, sans-serif; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); transition: all 0.3s ease;}}
+        /* دڵنیابوونەوە لە ئاڕاستەی LTR بۆ ئەنجامەکان */
+        .match-score {{ font-size: 22px; font-weight: 900; color: var(--text-main); font-family: system-ui, sans-serif; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); transition: all 0.3s ease; direction: ltr !important; unicode-bidi: bidi-override; }}
         
         .match-minute {{ font-size: 11px; font-weight: 700; color: #ff0844; background: rgba(255,8,68,0.1); padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; border: 1px solid rgba(255,8,68,0.2); transition: all 0.3s ease; direction: ltr !important; unicode-bidi: bidi-override; }}
         
@@ -97,6 +98,7 @@ html_content = f"""<!DOCTYPE html>
         .nav-item {{ display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-sub); text-decoration: none; font-size: 10px; font-weight: 700; transition: 0.3s ease; }}
         .nav-item svg {{ width: 22px; height: 22px; fill: currentColor; }}
         .nav-item.active {{ color: var(--accent); }}
+        
     </style>
     <script>
         const API_URL = "{url}";
@@ -177,22 +179,26 @@ for match in matches:
     status_group = match.get('statusGroup', 1)
     game_time_str = str(match.get('gameTimeDisplay', match.get('gameTime', '')))
     
-    if home_score == -1 or away_score == -1:
+    # مەرجی توندتر بۆ زانینی تەواوبوونی یاری
+    if status_group == 3 or "FT" in game_time_str.upper() or "کۆتایی" in game_time_str or game_time_str == "90'":
+        status_group = 3
+    elif home_score == -1 or away_score == -1:
         status_group = 1
     elif status_group == 1 and home_score >= 0 and away_score >= 0:
         status_group = 2
         
-    if "'" in game_time_str or "+" in game_time_str or game_time_str.isdigit() or "HT" in game_time_str.upper():
+    if status_group != 3 and ("'" in game_time_str or "+" in game_time_str or game_time_str.isdigit() or "HT" in game_time_str.upper()):
         status_group = 2
         
-    # ئەگەر یارییەکە تەواو بووبێت (status_group == 3)، هەرگیز کارتی بۆ دروست مەکە
+    # ئەگەر یارییەکە بەڕاستی تەواو بووبێت، هەرگیز کارتی بۆ دروست مەکە
     if status_group == 3:
         continue
         
     if status_group == 2:
         display_minute = f"{game_time_str}'" if game_time_str.isdigit() else game_time_str
         if not display_minute: display_minute = "ڕاستەوخۆ"
-        score_html = f'<div class="match-score" id="score-{match_id}" dir="ltr">{away_score} - {home_score}</div><div class="match-minute" id="minute-{match_id}"><span class="pulse-dot-small" style="margin-left: 4px;"></span> {display_minute}</div>'
+        # ڕێکخستنی ئەنجام بۆ home - away، چونکە CSS کردی بە LTR ئیدی پێویست بە پێچەوانەکردنەوە ناکات
+        score_html = f'<div class="match-score" id="score-{match_id}" dir="ltr">{home_score} - {away_score}</div><div class="match-minute" id="minute-{match_id}"><span class="pulse-dot-small" style="margin-right: 4px;"></span> {display_minute}</div>'
         action_html = f'<div class="btn-live-status">لە کاتی یاریدایە</div>'
     else:
         score_html = f'<div class="match-time" id="score-{match_id}">{display_time}</div><div id="minute-{match_id}" style="display:none;"></div>'
@@ -220,7 +226,6 @@ for match in matches:
     """
 
 if matches_added == 0:
-    # گۆڕینی تێکستی بەتاڵ بۆ ئەوەی گونجاو بێت، چونکە یارییە تەواوبووەکان پیشان نادرێن
     html_content += """<div style="text-align:center; margin-top:40px; color:var(--text-sub); font-size:14px;"><h3>هیچ یارییەکی ڕاستەوخۆ یان چاوەڕوانکراو نەماوە</h3></div>"""
 
 html_content += """
@@ -291,9 +296,18 @@ html_content += """
                             
                             let gameTime = (game.gameTimeDisplay || game.gameTime || '').toString();
                             
-                            if (homeScore === -1 || awayScore === -1) { statusGroup = 1; }
-                            else if (statusGroup === 1 && homeScore >= 0) { statusGroup = 2; }
-                            if (gameTime.includes("'") || gameTime.includes("+") || gameTime.match(/^\d+$/) || gameTime.toUpperCase().includes("HT")) { statusGroup = 2; }
+                            // مەرجی توندتر بۆ زانینی تەواوبوونی یاری لە کاتی سەیرکردندا
+                            if (statusGroup === 3 || gameTime.toUpperCase().includes("FT") || gameTime.includes("کۆتایی") || gameTime === "90'") {
+                                statusGroup = 3;
+                            } else if (homeScore === -1 || awayScore === -1) { 
+                                statusGroup = 1; 
+                            } else if (statusGroup === 1 && homeScore >= 0) { 
+                                statusGroup = 2; 
+                            }
+                            
+                            if (statusGroup !== 3 && (gameTime.includes("'") || gameTime.includes("+") || gameTime.match(/^\d+$/) || gameTime.toUpperCase().includes("HT"))) { 
+                                statusGroup = 2; 
+                            }
                             
                             const actionArea = cardEl.querySelector('.action-area');
 
@@ -301,7 +315,8 @@ html_content += """
                                 let displayMinute = gameTime.match(/^\d+$/) ? `${gameTime}'` : gameTime;
                                 if (!displayMinute) displayMinute = "ڕاستەوخۆ";
                                 
-                                const newScore = `${awayScore} - ${homeScore}`;
+                                // ڕێکخستنی ئەنجام بۆ home - away
+                                const newScore = `${homeScore} - ${awayScore}`;
                                 
                                 if (scoreEl.innerText !== newScore && scoreEl.innerText.includes('-')) {
                                     scoreEl.classList.remove('score-updated');
@@ -312,7 +327,7 @@ html_content += """
                                 scoreEl.innerText = newScore;
                                 scoreEl.className = 'match-score'; 
                                 
-                                minuteEl.innerHTML = `<span class="pulse-dot-small" style="margin-left: 4px;"></span> ${displayMinute}`;
+                                minuteEl.innerHTML = `<span class="pulse-dot-small" style="margin-right: 4px;"></span> ${displayMinute}`;
                                 minuteEl.className = 'match-minute';
                                 minuteEl.style.display = 'inline-flex';
                                 cardEl.setAttribute('data-status', '2');
@@ -321,7 +336,7 @@ html_content += """
                                     actionArea.innerHTML = `<div class="btn-live-status">لە کاتی یاریدایە</div>`;
                                 }
                             } 
-                            // ئەگەر یارییەکە لەکاتی سەیرکردنی بەکارهێنەردا تەواو بوو، با بە شێوەیەکی نەرم ون بێت (Fade out)
+                            // ئەگەر یارییەکە تەواو بوو، با کارتی یارییەکە بشاردرێتەوە
                             else if (statusGroup === 3) {
                                 cardEl.style.opacity = '0';
                                 cardEl.style.transform = 'scale(0.8)';
