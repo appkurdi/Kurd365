@@ -65,8 +65,9 @@ html_content = """<!DOCTYPE html>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Kurd365">
     
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/807/807214.png">
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/807/807214.png">
+    <!-- لۆگۆ تایبەتەکەی خۆت کرایە ئایکۆنی ئەپەکە -->
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png">
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png">
     
     <title>Kurd365 - ئەپی وەرزشی</title>
     <style>
@@ -75,11 +76,10 @@ html_content = """<!DOCTYPE html>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-top: 85px; padding-bottom: 85px; min-height: 100vh; }
         
-        /* دیزاینی نوێی هێدەرەکە */
         .header { position: fixed; top: 0; left: 0; width: 100%; height: 65px; z-index: 100; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); }
         .header-content { max-width: 500px; margin: 0 auto; padding: 0 15px; height: 100%; display: flex; justify-content: space-between; align-items: center; }
         .logo-wrapper { display: flex; align-items: center; gap: 8px; }
-        .header-logo { width: 26px; height: 26px; filter: drop-shadow(0 2px 4px rgba(0,242,254,0.3)); }
+        .header-logo { width: 32px; height: 32px; object-fit: contain; filter: drop-shadow(0 2px 5px rgba(0,242,254,0.3)); }
         .header h1 { font-size: 22px; font-weight: 900; letter-spacing: 0.5px; color: #fff; margin: 0; display: flex; align-items: center; font-family: system-ui, -apple-system, sans-serif;}
         .header h1 .highlight { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .live-indicator { display: flex; align-items: center; gap: 6px; background: rgba(255, 8, 68, 0.1); border: 1px solid rgba(255, 8, 68, 0.2); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 800; color: #ff0844; letter-spacing: 1px; }
@@ -92,7 +92,9 @@ html_content = """<!DOCTYPE html>
         .match-card { background: var(--card-bg); border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); overflow: hidden; transition: transform 0.2s ease; }
         .match-card:active { transform: scale(0.98); }
         
-        .league-badge { background: rgba(255,255,255,0.02); padding: 6px; font-size: 11px; font-weight: 700; color: var(--text-sub); text-align: center; border-bottom: 1px solid var(--card-border); }
+        .league-badge { display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.02); padding: 8px; border-bottom: 1px solid var(--card-border); }
+        .league-badge img { width: 22px; height: 22px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
+        .league-badge span { font-size: 12px; font-weight: 800; color: var(--text-sub); font-family: system-ui, sans-serif; letter-spacing: 0.3px; }
         
         .teams-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 10px; }
         .team { display: flex; flex-direction: column; align-items: center; width: 32%; gap: 6px; }
@@ -102,13 +104,11 @@ html_content = """<!DOCTYPE html>
         .match-info { width: 36%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .match-time { font-size: 18px; font-weight: 800; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}
         
-        .channel-tag { margin-top: 5px; font-size: 9.5px; font-weight: 700; background: rgba(0, 242, 254, 0.08); color: var(--accent); padding: 4px 10px; border-radius: 10px; border: 1px solid rgba(0, 242, 254, 0.15); text-align: center; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 4px;}
-        .channel-tag img { width: 12px; height: 12px; }
+        .channel-tag { margin-top: 5px; font-size: 10px; font-weight: 700; background: rgba(0, 242, 254, 0.08); color: var(--accent); padding: 4px 10px; border-radius: 10px; border: 1px solid rgba(0, 242, 254, 0.15); text-align: center; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px;}
+        .channel-tag img { width: 14px; height: 14px; object-fit: contain; }
         
         .action-area { padding: 10px; background: rgba(0,0,0,0.15); border-top: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; min-height: 48px; }
-        
         .countdown { font-size: 12px; font-weight: 700; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 5px 12px; border-radius: 15px;}
-        
         .btn-live { display: none; background: var(--live-btn); color: white; padding: 7px 22px; border-radius: 20px; font-size: 12px; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 3px 10px rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; transition: 0.2s; }
         .btn-live:active { transform: scale(0.95); }
         .btn-disabled { background: #1f2937; color: #6b7280; border: 1px solid #374151; box-shadow: none; animation: none; padding: 7px 22px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: not-allowed; display: none;}
@@ -131,11 +131,11 @@ html_content = """<!DOCTYPE html>
 </head>
 <body>
     
-    <!-- هێدەری نوێ و پڕۆفیشناڵ -->
     <div class="header">
         <div class="header-content">
             <div class="logo-wrapper">
-                <img src="https://cdn-icons-png.flaticon.com/512/807/807214.png" alt="Logo" class="header-logo">
+                <!-- لۆگۆ تایبەتەکەی خۆت لە هێدەر -->
+                <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Kurd365 Logo" class="header-logo">
                 <h1>Kurd<span class="highlight">365</span></h1>
             </div>
             <div class="live-indicator">
@@ -149,7 +149,14 @@ html_content = """<!DOCTYPE html>
 """
 
 matches = data.get('games', [])
-kurdish_leagues = {6822: "خولی عێراق", 572: "چامپیۆنزلیگ", 7: "پریمەرلیگ", 11: "لالیگا", 17: "خولی ئیتاڵی", 25: "خولی ئەڵمانی"}
+english_leagues = {
+    6822: "Iraq Stars League", 
+    572: "UEFA Champions League", 
+    7: "Premier League", 
+    11: "La Liga", 
+    17: "Serie A", 
+    25: "Bundesliga"
+}
 matches_added = 0
 
 for match in matches:
@@ -162,8 +169,10 @@ for match in matches:
     except: continue
 
     league_id = match.get('competitionId')
-    league_name = kurdish_leagues.get(league_id)
+    league_name = english_leagues.get(league_id)
     if not league_name: continue
+    
+    league_logo = f"https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/{league_id}"
     
     home_team = match['homeCompetitor']['name']
     away_team = match['awayCompetitor']['name']
@@ -180,12 +189,19 @@ for match in matches:
 
     html_content += f"""
         <div class="match-card" data-time="{match_timestamp}" data-haslink="{has_link}">
-            <div class="league-badge">{league_name}</div>
+            <div class="league-badge" dir="ltr">
+                <img src="{league_logo}" alt="{league_name}">
+                <span>{league_name}</span>
+            </div>
             <div class="teams-wrapper">
                 <div class="team"><img src="{home_logo}"><span>{home_team}</span></div>
                 <div class="match-info">
                     <div class="match-time">{display_time}</div>
-                    <div class="channel-tag" dir="ltr"><img src="https://cdn-icons-png.flaticon.com/512/807/807214.png"> Kurd365 Live</div>
+                    <div class="channel-tag" dir="ltr">
+                        <!-- لۆگۆکەی خۆت لەناو بۆکسی کەناڵەکە -->
+                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
+                        Kurd365 Live
+                    </div>
                 </div>
                 <div class="team"><img src="{away_logo}"><span>{away_team}</span></div>
             </div>
@@ -245,7 +261,7 @@ html_content += """
 with open("index.html", "w", encoding="utf-8") as file:
     file.write(html_content)
 
-manifest_json = """{
+manifest_json = f"""{{
   "name": "Kurd365 Live",
   "short_name": "Kurd365",
   "start_url": "./index.html",
@@ -253,18 +269,18 @@ manifest_json = """{
   "background_color": "#080808",
   "theme_color": "#0d0d0d",
   "icons": [
-    {
-      "src": "https://cdn-icons-png.flaticon.com/512/807/807214.png",
+    {{
+      "src": "https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png",
       "sizes": "192x192",
       "type": "image/png"
-    },
-    {
-      "src": "https://cdn-icons-png.flaticon.com/512/807/807214.png",
+    }},
+    {{
+      "src": "https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png",
       "sizes": "512x512",
       "type": "image/png"
-    }
+    }}
   ]
-}"""
+}}"""
 with open("manifest.json", "w", encoding="utf-8") as file:
     file.write(manifest_json)
 
