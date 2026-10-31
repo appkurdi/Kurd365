@@ -59,65 +59,71 @@ html_content = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0d0d0d">
+    <meta name="theme-color" content="#080808">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Kurd365">
     
-    <!-- لۆگۆ تایبەتەکەی خۆت کرایە ئایکۆنی ئەپەکە -->
     <link rel="apple-touch-icon" href="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png">
     <link rel="icon" type="image/png" href="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png">
     
     <title>Kurd365 - ئەپی وەرزشی</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
         :root { --bg-color: #080808; --card-bg: rgba(26, 26, 28, 0.6); --card-border: rgba(255, 255, 255, 0.06); --text-main: #ffffff; --text-sub: #9ca3af; --accent: #00f2fe; --accent-gradient: linear-gradient(135deg, #4facfe, #00f2fe); --live-btn: linear-gradient(135deg, #ff0844, #ffb199); }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-top: 85px; padding-bottom: 85px; min-height: 100vh; }
         
-        .header { position: fixed; top: 0; left: 0; width: 100%; height: 65px; z-index: 100; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); }
-        .header-content { max-width: 500px; margin: 0 auto; padding: 0 15px; height: 100%; display: flex; justify-content: space-between; align-items: center; }
+        /* لابردنی بۆشایی سەرەوە بۆ ئەوەی ڤیدیۆکە بچێتە سەرەوەی شاشەکە */
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-top: 0; padding-bottom: 85px; min-height: 100vh; }
+        
+        /* دیزاینی بەشی ڤیدیۆکەی سەرەوە (Hero Section) */
+        .hero-section { position: relative; width: 100%; height: 250px; overflow: hidden; display: flex; flex-direction: column; }
+        .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translateX(-50%) translateY(-50%); z-index: 1; object-fit: cover; opacity: 0.6; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,1) 100%); z-index: 2; }
+        
+        .hero-content { position: relative; z-index: 3; width: 100%; max-width: 500px; margin: 0 auto; padding: 20px 15px; display: flex; justify-content: space-between; align-items: flex-start; margin-top: env(safe-area-inset-top); }
         .logo-wrapper { display: flex; align-items: center; gap: 8px; }
-        .header-logo { width: 32px; height: 32px; object-fit: contain; filter: drop-shadow(0 2px 5px rgba(0,242,254,0.3)); }
-        .header h1 { font-size: 22px; font-weight: 900; letter-spacing: 0.5px; color: #fff; margin: 0; display: flex; align-items: center; font-family: system-ui, -apple-system, sans-serif;}
-        .header h1 .highlight { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .live-indicator { display: flex; align-items: center; gap: 6px; background: rgba(255, 8, 68, 0.1); border: 1px solid rgba(255, 8, 68, 0.2); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 800; color: #ff0844; letter-spacing: 1px; }
+        .header-logo { width: 35px; height: 35px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,242,254,0.4)); }
+        .hero-content h1 { font-size: 26px; font-weight: 900; letter-spacing: 0.5px; color: #fff; margin: 0; display: flex; align-items: center; font-family: system-ui, -apple-system, sans-serif; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .hero-content h1 .highlight { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .live-indicator { display: flex; align-items: center; gap: 6px; background: rgba(255, 8, 68, 0.2); border: 1px solid rgba(255, 8, 68, 0.3); padding: 5px 12px; border-radius: 15px; font-size: 11px; font-weight: 800; color: #ff0844; letter-spacing: 1px; backdrop-filter: blur(5px); box-shadow: 0 2px 10px rgba(255, 8, 68, 0.2); }
         .pulse-dot { width: 6px; height: 6px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }
         
-        .container { max-width: 500px; margin: 0 auto; padding: 0 12px; }
-        .date-title { font-size: 14px; font-weight: 700; margin-top: 5px; margin-bottom: 15px; color: var(--text-sub); display: flex; align-items: center; gap: 8px;}
-        .date-title::before { content: ''; display: block; width: 3px; height: 14px; background: var(--accent); border-radius: 4px; }
+        /* هێنانە سەرەوەی یارییەکان بۆ ئەوەی بکەونە سەر سێبەری ڤیدیۆکە */
+        .container { max-width: 500px; margin: -50px auto 0; padding: 0 12px; position: relative; z-index: 10; }
+        .date-title { font-size: 15px; font-weight: 800; margin-bottom: 15px; color: #fff; display: flex; align-items: center; gap: 8px; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
+        .date-title::before { content: ''; display: block; width: 4px; height: 16px; background: var(--accent); border-radius: 4px; box-shadow: 0 0 8px var(--accent); }
         
-        .match-card { background: var(--card-bg); border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); overflow: hidden; transition: transform 0.2s ease; }
+        .match-card { background: var(--card-bg); border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); overflow: hidden; transition: transform 0.2s ease; }
         .match-card:active { transform: scale(0.98); }
         
-        .league-badge { display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.02); padding: 8px; border-bottom: 1px solid var(--card-border); }
-        .league-badge img { width: 22px; height: 22px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
+        .league-badge { display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.03); padding: 8px; border-bottom: 1px solid var(--card-border); }
+        .league-badge img { width: 20px; height: 20px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
         .league-badge span { font-size: 12px; font-weight: 800; color: var(--text-sub); font-family: system-ui, sans-serif; letter-spacing: 0.3px; }
         
-        .teams-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 10px; }
-        .team { display: flex; flex-direction: column; align-items: center; width: 32%; gap: 6px; }
-        .team img { width: 42px; height: 42px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
-        .team span { font-weight: 700; font-size: 11px; text-align: center; line-height: 1.3; }
+        .teams-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 15px 10px; }
+        .team { display: flex; flex-direction: column; align-items: center; width: 32%; gap: 8px; }
+        .team img { width: 45px; height: 45px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }
+        .team span { font-weight: 700; font-size: 11px; text-align: center; line-height: 1.4; }
         
         .match-info { width: 36%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .match-time { font-size: 18px; font-weight: 800; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}
+        .match-time { font-size: 20px; font-weight: 900; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}
         
-        .channel-tag { margin-top: 5px; font-size: 10px; font-weight: 700; background: rgba(0, 242, 254, 0.08); color: var(--accent); padding: 4px 10px; border-radius: 10px; border: 1px solid rgba(0, 242, 254, 0.15); text-align: center; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px;}
+        .channel-tag { margin-top: 6px; font-size: 10px; font-weight: 700; background: rgba(0, 242, 254, 0.08); color: var(--accent); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(0, 242, 254, 0.15); text-align: center; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px;}
         .channel-tag img { width: 14px; height: 14px; object-fit: contain; }
         
-        .action-area { padding: 10px; background: rgba(0,0,0,0.15); border-top: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; min-height: 48px; }
-        .countdown { font-size: 12px; font-weight: 700; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 5px 12px; border-radius: 15px;}
-        .btn-live { display: none; background: var(--live-btn); color: white; padding: 7px 22px; border-radius: 20px; font-size: 12px; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 3px 10px rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; transition: 0.2s; }
+        .action-area { padding: 12px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; min-height: 52px; }
+        .countdown { font-size: 13px; font-weight: 800; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 6px 14px; border-radius: 15px;}
+        .btn-live { display: none; background: var(--live-btn); color: white; padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; transition: 0.2s; }
         .btn-live:active { transform: scale(0.95); }
-        .btn-disabled { background: #1f2937; color: #6b7280; border: 1px solid #374151; box-shadow: none; animation: none; padding: 7px 22px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: not-allowed; display: none;}
-        .btn-finished { display: none; background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 7px 22px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid var(--card-border); }
+        .btn-disabled { background: #1f2937; color: #6b7280; border: 1px solid #374151; box-shadow: none; animation: none; padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 800; cursor: not-allowed; display: none;}
+        .btn-finished { display: none; background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--card-border); }
         
         @keyframes pulse-live { 0% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); } 70% { box-shadow: 0 0 0 8px rgba(255, 8, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); } }
         
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: rgba(12, 12, 12, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; align-items: center; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--text-sub); text-decoration: none; font-size: 10px; font-weight: 700; transition: 0.3s ease; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 65px; background: rgba(12, 12, 12, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; align-items: center; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-sub); text-decoration: none; font-size: 10px; font-weight: 700; transition: 0.3s ease; }
         .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
         .nav-item.active { color: var(--accent); }
         
@@ -131,10 +137,16 @@ html_content = """<!DOCTYPE html>
 </head>
 <body>
     
-    <div class="header">
-        <div class="header-content">
+    <!-- بەشی ڤیدیۆی سەرەوە -->
+    <div class="hero-section">
+        <!-- دەتوانیت لینکی ڤیدیۆکە لێرە بگۆڕیت بۆ ڤیدیۆی ڕۆناڵدۆ یان هەر ڤیدیۆیەک -->
+        <video class="hero-video" autoplay loop muted playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-soccer-player-kicking-the-ball-4043-large.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
             <div class="logo-wrapper">
-                <!-- لۆگۆ تایبەتەکەی خۆت لە هێدەر -->
                 <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Kurd365 Logo" class="header-logo">
                 <h1>Kurd<span class="highlight">365</span></h1>
             </div>
@@ -198,7 +210,6 @@ for match in matches:
                 <div class="match-info">
                     <div class="match-time">{display_time}</div>
                     <div class="channel-tag" dir="ltr">
-                        <!-- لۆگۆکەی خۆت لەناو بۆکسی کەناڵەکە -->
                         <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
                         Kurd365 Live
                     </div>
@@ -267,7 +278,7 @@ manifest_json = f"""{{
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#080808",
-  "theme_color": "#0d0d0d",
+  "theme_color": "#080808",
   "icons": [
     {{
       "src": "https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png",
