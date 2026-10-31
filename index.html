@@ -81,6 +81,7 @@
         .modal-title { color: white; font-weight: 700; font-size: 14px; }
         .close-modal { color: white; font-size: 26px; font-weight: 300; cursor: pointer; background: none; border: none; line-height: 1;}
         .modal-body { flex: 1; width: 100%; background: #000; position: relative; }
+        /* بەکارهێنانی sandbox بۆ ڕێگریکردن لە ڕیکلام و پەنجەرەی نوێ */
         .modal-body iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
@@ -779,7 +780,7 @@
             </div>
         </div>
     
-        <div class="match-card" data-time="1793476800000" data-haslink="false">
+        <div class="match-card" data-time="1793476800000" data-haslink="true">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="Premier League">
                 <span>Premier League</span>
@@ -797,7 +798,7 @@
             </div>
             <div class="action-area">
                 <div class="countdown"></div>
-                <button class="btn-disabled" disabled>لینک ئامادە نییە</button>
+                <button class="btn-live" onclick="openPlayer('https://as-goal.net/koora-news/european-football/aston-villa-takes-legal-action-against-jamie-carragher-on-the-orders-of-nassef-sawiris/', 'أستون فيلا - فولهام')">ڕاستەوخۆ 🔴</button>
                 <div class="btn-finished">یاری تەواوبوو</div>
             </div>
         </div>
@@ -833,7 +834,10 @@
     </div>
     <div id="videoModal" class="modal">
         <div class="modal-header"><div class="modal-title" id="modalTitle" dir="ltr">Live Match</div><button class="close-modal" onclick="closePlayer()">&times;</button></div>
-        <div class="modal-body"><iframe id="videoIframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no"></iframe></div>
+        <div class="modal-body">
+            <!-- زیادکردنی sandbox بۆ ڕێگریکردن لە ڕیکلام (تەنها ڕێگە بە کارکردنی سکرێپت و ڤیدیۆ دەدات) -->
+            <iframe id="videoIframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+        </div>
     </div>
     
     <script>
@@ -843,33 +847,25 @@
         
         if(hVideo) {
             hVideo.addEventListener('ended', function() {
-                // هەنگاوی ١: ڤیدیۆکە تەڵخ دەبێت و سکرینەکە تاریک دەبێت
                 hVideo.style.opacity = '0.1';
                 hOverlay.style.background = 'linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, rgba(8,8,8,1) 100%)';
                 
-                // هەنگاوی ٢: لۆگۆکە و نووسینەکە دەردەکەون
-                setTimeout(() => {
-                    endSc.classList.add('active');
-                }, 400);
+                setTimeout(() => { endSc.classList.add('active'); }, 400);
 
-                // هەنگاوی ٣: دوای 4 چرکە ئەنیمەیشنەکە لادەچێت و ڤیدیۆکە دووبارە دەست پێ دەکاتەوە
                 setTimeout(() => {
-                    endSc.classList.remove('active'); // شاردنەوەی لۆگۆکە
-                    
+                    endSc.classList.remove('active');
                     setTimeout(() => {
-                        hVideo.style.opacity = '0.75'; // گەڕاندنەوەی ڕووناکی ڤیدیۆکە
+                        hVideo.style.opacity = '0.75';
                         hOverlay.style.background = 'linear-gradient(to bottom, rgba(8,8,8,0.2) 0%, rgba(8,8,8,1) 100%)';
-                        hVideo.currentTime = 0; // گەڕانەوە بۆ سەرەتای ڤیدیۆکە
-                        hVideo.play(); // لێدانی دووبارەی ڤیدیۆکە
-                    }, 1000); // چاوەڕێ دەکات تا لۆگۆکە بەتەواوی دیار نامێنێت
-                    
-                }, 4000); // لۆگۆکە 4 چرکە دەمێنێتەوە
+                        hVideo.currentTime = 0;
+                        hVideo.play();
+                    }, 1000);
+                }, 4000);
             });
         }
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+        
         function updateUI() {
             const now = new Date().getTime();
             document.querySelectorAll('.match-card').forEach(card => {
