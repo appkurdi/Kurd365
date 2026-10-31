@@ -2,8 +2,7 @@ name: Update Live Matches
 
 on:
   schedule:
-    # ئەمە وادەکات هەموو 15 خولەک جارێک کۆدەکە کار بکات
-    - cron: '*/15 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch: 
 
 permissions:
@@ -35,5 +34,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
-          git commit -m "گەڕانی ئۆتۆماتیکی بۆ لینکی نوێ (هەر 15 خولەک)" || echo "هیچ لینکێکی نوێ نییە"
+          git commit -m "گەڕانی ئۆتۆماتیکی (هەر 5 خولەک)" || echo "هیچ لینکێکی نوێ نییە"
           git push
