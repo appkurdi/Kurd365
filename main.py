@@ -21,8 +21,13 @@ except Exception as e:
 
 def get_smart_stream_link(team_a, team_b):
     sources = [
-        "https://syriashdab.com/", "https://score808.live/", "https://yalla-shoot.video/",
-        "https://live.kora-star.tv/", "https://www.kooora365.com/", "https://as-goal.com/"
+        "https://www.livesports088.is/",
+        "https://syriashdab.com/", 
+        "https://score808.live/", 
+        "https://yalla-shoot.video/",
+        "https://live.kora-star.tv/", 
+        "https://www.kooora365.com/", 
+        "https://as-goal.com/"
     ]
     ignore_words = ["نادي", "ال", "اف", "سي", "فريق"]
     words_a = [w for w in team_a.split() if len(w) > 2 and w not in ignore_words]
@@ -33,22 +38,32 @@ def get_smart_stream_link(team_a, team_b):
             req = requests.get(base_url, headers=headers, timeout=8)
             soup = BeautifulSoup(req.text, 'html.parser')
             match_page_url = ""
+            
+            # گەڕان بەدوای یارییەکەدا
             for a_tag in soup.find_all('a', href=True):
                 text = a_tag.get_text(separator=' ', strip=True)
                 href = a_tag['href']
                 match_found = any(w in text for w in words_a + words_b)
-                if match_found and ("facebook" not in href and "twitter" not in href):
+                if match_found and not any(bad in href for bad in ["facebook", "twitter", "bet"]):
                     match_page_url = href if href.startswith('http') else base_url.rstrip('/') + '/' + href.lstrip('/')
                     break
             
+            # چوونە قووڵایی پەڕەکە بۆ هێنانی ڤیدیۆی ئەسڵی (Deep Scraping)
             if match_page_url:
                 page_req = requests.get(match_page_url, headers=headers, timeout=8)
                 page_soup = BeautifulSoup(page_req.text, 'html.parser')
+                
+                best_src = ""
                 for iframe in page_soup.find_all('iframe'):
-                    src = iframe.get('src', '')
-                    if src and "facebook" not in src and "twitter" not in src and "youtube" not in src:
-                        return src
-                return match_page_url
+                    src = iframe.get('src') or iframe.get('data-src') or ""
+                    # فلتەرکردنی ڕیکلامەکان
+                    if src and not any(bad in src.lower() for bad in ["facebook", "twitter", "youtube", "ads", "betting", "banner"]):
+                        if src.startswith('//'):
+                            src = 'https:' + src
+                        best_src = src
+                        break # دۆزینەوەی باشترین و پاکترین لینک
+                
+                return best_src if best_src else match_page_url
         except: continue
     return ""
 
@@ -135,6 +150,7 @@ html_content = """<!DOCTYPE html>
         .modal-title { color: white; font-weight: 700; font-size: 14px; }
         .close-modal { color: white; font-size: 26px; font-weight: 300; cursor: pointer; background: none; border: none; line-height: 1;}
         .modal-body { flex: 1; width: 100%; background: #000; position: relative; }
+        /* بەکارهێنانی sandbox بۆ ڕێگریکردن لە ڕیکلام و پەنجەرەی نوێ */
         .modal-body iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
@@ -244,7 +260,10 @@ html_content += """
     </div>
     <div id="videoModal" class="modal">
         <div class="modal-header"><div class="modal-title" id="modalTitle" dir="ltr">Live Match</div><button class="close-modal" onclick="closePlayer()">&times;</button></div>
-        <div class="modal-body"><iframe id="videoIframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no"></iframe></div>
+        <div class="modal-body">
+            <!-- زیادکردنی sandbox بۆ ڕێگریکردن لە ڕیکلام (تەنها ڕێگە بە کارکردنی سکرێپت و ڤیدیۆ دەدات) -->
+            <iframe id="videoIframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+        </div>
     </div>
     
     <script>
@@ -254,33 +273,25 @@ html_content += """
         
         if(hVideo) {
             hVideo.addEventListener('ended', function() {
-                // هەنگاوی ١: ڤیدیۆکە تەڵخ دەبێت و سکرینەکە تاریک دەبێت
                 hVideo.style.opacity = '0.1';
                 hOverlay.style.background = 'linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, rgba(8,8,8,1) 100%)';
                 
-                // هەنگاوی ٢: لۆگۆکە و نووسینەکە دەردەکەون
-                setTimeout(() => {
-                    endSc.classList.add('active');
-                }, 400);
+                setTimeout(() => { endSc.classList.add('active'); }, 400);
 
-                // هەنگاوی ٣: دوای 4 چرکە ئەنیمەیشنەکە لادەچێت و ڤیدیۆکە دووبارە دەست پێ دەکاتەوە
                 setTimeout(() => {
-                    endSc.classList.remove('active'); // شاردنەوەی لۆگۆکە
-                    
+                    endSc.classList.remove('active');
                     setTimeout(() => {
-                        hVideo.style.opacity = '0.75'; // گەڕاندنەوەی ڕووناکی ڤیدیۆکە
+                        hVideo.style.opacity = '0.75';
                         hOverlay.style.background = 'linear-gradient(to bottom, rgba(8,8,8,0.2) 0%, rgba(8,8,8,1) 100%)';
-                        hVideo.currentTime = 0; // گەڕانەوە بۆ سەرەتای ڤیدیۆکە
-                        hVideo.play(); // لێدانی دووبارەی ڤیدیۆکە
-                    }, 1000); // چاوەڕێ دەکات تا لۆگۆکە بەتەواوی دیار نامێنێت
-                    
-                }, 4000); // لۆگۆکە 4 چرکە دەمێنێتەوە
+                        hVideo.currentTime = 0;
+                        hVideo.play();
+                    }, 1000);
+                }, 4000);
             });
         }
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+        
         function updateUI() {
             const now = new Date().getTime();
             document.querySelectorAll('.match-card').forEach(card => {
@@ -308,5 +319,15 @@ html_content += """
 </html>
 """
 
+sw_js = """
+const CACHE_NAME = 'kurd365-cache-v1';
+const urlsToCache = [ './', './index.html', './manifest.json', './video.mp4', 'https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png' ];
+self.addEventListener('install', event => { self.skipWaiting(); event.waitUntil( caches.open(CACHE_NAME).then(cache => { return cache.addAll(urlsToCache); }) ); });
+self.addEventListener('fetch', event => { event.respondWith( caches.match(event.request).then(response => { if (response) { return response; } return fetch(event.request); }) ); });
+"""
+
 with open("index.html", "w", encoding="utf-8") as file:
     file.write(html_content)
+
+with open("sw.js", "w", encoding="utf-8") as file:
+    file.write(sw_js)
