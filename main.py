@@ -116,7 +116,6 @@ html_content = """<!DOCTYPE html>
         .match-info { width: 36%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .match-time { font-size: 20px; font-weight: 900; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}
         
-        /* دیزاینی نوێ بۆ ئەنجامەکان */
         .match-score { font-size: 22px; font-weight: 900; color: var(--text-main); font-family: system-ui, sans-serif; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         .match-minute { font-size: 11px; font-weight: 700; color: #ff0844; background: rgba(255,8,68,0.1); padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(255,8,68,0.2); }
         .match-ft { color: var(--text-sub); background: rgba(255,255,255,0.05); border-color: var(--card-border); }
@@ -208,14 +207,31 @@ for match in matches:
     home_logo = f"https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/{match['homeCompetitor']['id']}"
     away_logo = f"https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/{match['awayCompetitor']['id']}"
     
-    # دەرهێنانی ئەنجام و کاتی یارییەکە
-    status_group = match.get('statusGroup', 1) # 1=پێش یاری، 2=لە کاتی یاری، 3=تەواوبوو
-    home_score = match['homeCompetitor'].get('score', -1)
-    away_score = match['awayCompetitor'].get('score', -1)
-    game_time_str = match.get('gameTimeDisplay', '')
+    # 1. چارەسەری فۆرماتی گۆڵەکان: گۆڕین بۆ ژمارەی تەواو
+    home_score_raw = match['homeCompetitor'].get('score', -1)
+    away_score_raw = match['awayCompetitor'].get('score', -1)
     
+    try:
+        home_score = int(float(home_score_raw))
+        away_score = int(float(away_score_raw))
+    except:
+        home_score = -1
+        away_score = -1
+
+    status_group = match.get('statusGroup', 1)
+    game_time_str = str(match.get('gameTimeDisplay', match.get('gameTime', '')))
+    
+    # 2. چارەسەری هەڵەی تەواوبوونی یاری: ئەگەر گۆڵ هەبوو یان خولەک هەبوو، بیکە بە لایڤ
+    if status_group == 1 and home_score != -1:
+        status_group = 2
+        
+    if "'" in game_time_str or "+" in game_time_str or game_time_str.isdigit() or "HT" in game_time_str.upper():
+        status_group = 2
+        
     if status_group == 2:
-        score_html = f'<div class="match-score" dir="ltr">{home_score} - {away_score}</div><div class="match-minute" dir="ltr">{game_time_str} <span class="pulse-dot-small"></span></div>'
+        display_minute = f"{game_time_str}'" if game_time_str.isdigit() else game_time_str
+        if not display_minute: display_minute = "ڕاستەوخۆ"
+        score_html = f'<div class="match-score" dir="ltr">{home_score} - {away_score}</div><div class="match-minute" dir="ltr">{display_minute} <span class="pulse-dot-small"></span></div>'
     elif status_group == 3:
         score_html = f'<div class="match-score" dir="ltr">{home_score} - {away_score}</div><div class="match-minute match-ft">تەواوبوو</div>'
     else:
@@ -305,10 +321,9 @@ html_content += """
                 const hL = card.getAttribute('data-haslink') === 'true';
                 const tEl = card.querySelector('.countdown'), lB = card.querySelector('.btn-live'), dB = card.querySelector('.btn-disabled'), fB = card.querySelector('.btn-finished');
                 
-                // کۆدی نوێ بۆ چارەسەرکردنی کێشەی کات و دوگمەکان
                 if (status === 3) {
                     tEl.style.display = 'none'; if(lB) lB.style.display = 'none'; if(dB) dB.style.display = 'none'; fB.style.display = 'inline-block';
-                } else if (status === 2 || (diff <= 0 && diff > -7200000)) {
+                } else if (status === 2) {
                     tEl.style.display = 'none'; fB.style.display = 'none'; 
                     if(hL && lB) { lB.style.display = 'inline-block'; if(dB) dB.style.display = 'none'; }
                     else if(dB) { dB.style.display = 'inline-block'; if(lB) lB.style.display = 'none'; }
@@ -317,6 +332,12 @@ html_content += """
                         let h = Math.floor(diff / 3600000), m = Math.floor((diff % 3600000) / 60000), s = Math.floor((diff % 60000) / 1000);
                         tEl.innerHTML = `⏳ ${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
                         tEl.style.display = 'inline-block'; if(lB) lB.style.display = 'none'; if(dB) dB.style.display = 'none'; fB.style.display = 'none';
+                    } else if (diff <= 0 && diff > -9000000) { // لە کاتی یاریدایە ئەگەر کەمتر لە 2.5 کاتژمێری پێچووبێت و کۆتایی نەهاتبێت
+                        tEl.style.display = 'none'; fB.style.display = 'none'; 
+                        if(hL && lB) { lB.style.display = 'inline-block'; if(dB) dB.style.display = 'none'; }
+                        else if(dB) { dB.style.display = 'inline-block'; if(lB) lB.style.display = 'none'; }
+                    } else {
+                        tEl.style.display = 'none'; if(lB) lB.style.display = 'none'; if(dB) dB.style.display = 'none'; fB.style.display = 'inline-block';
                     }
                 }
             });
