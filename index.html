@@ -58,7 +58,8 @@
         .match-info { width: 36%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .match-time { font-size: 20px; font-weight: 900; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}
         
-        .match-score { font-size: 22px; font-weight: 900; color: var(--text-main); font-family: system-ui, sans-serif; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); transition: all 0.3s ease;}
+        /* دڵنیابوونەوە لە ئاڕاستەی LTR بۆ ئەنجامەکان */
+        .match-score { font-size: 22px; font-weight: 900; color: var(--text-main); font-family: system-ui, sans-serif; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); transition: all 0.3s ease; direction: ltr !important; unicode-bidi: bidi-override; }
         
         .match-minute { font-size: 11px; font-weight: 700; color: #ff0844; background: rgba(255,8,68,0.1); padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; border: 1px solid rgba(255,8,68,0.2); transition: all 0.3s ease; direction: ltr !important; unicode-bidi: bidi-override; }
         
@@ -77,6 +78,7 @@
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-sub); text-decoration: none; font-size: 10px; font-weight: 700; transition: 0.3s ease; }
         .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
         .nav-item.active { color: var(--accent); }
+        
     </style>
     <script>
         const API_URL = "https://webws.365scores.com/web/games/current/?appTypeId=5&langId=27&timezoneName=Asia/Baghdad&competitions=7,11,17,25,34,572,573,6822";
@@ -226,244 +228,6 @@
             </div>
             <div class="action-area">
                 <div class="countdown" data-time="1793451600000"></div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4806848" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/6822" alt="Iraq Stars League">
-                <span>Iraq Stars League</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/8250"><span>نفط ميسان</span></div>
-                <div class="match-info" id="info-4806848">
-                    <div class="match-score" id="score-4806848" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4806848"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 81'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/11273"><span>زاخو</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4732649" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/17" alt="Serie A">
-                <span>Serie A</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/245"><span>بولونيا</span></div>
-                <div class="match-info" id="info-4732649">
-                    <div class="match-score" id="score-4732649" dir="ltr">1 - 1</div><div class="match-minute" id="minute-4732649"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 56'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/293"><span>مونزا</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4806849" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/6822" alt="Iraq Stars League">
-                <span>Iraq Stars League</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/8248"><span>الزوراء</span></div>
-                <div class="match-info" id="info-4806849">
-                    <div class="match-score" id="score-4806849" dir="ltr">0 - 2</div><div class="match-minute" id="minute-4806849"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 51'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/69086"><span>ديالى</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4755355" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="Bundesliga">
-                <span>Bundesliga</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/335"><span>شالكة</span></div>
-                <div class="match-info" id="info-4755355">
-                    <div class="match-score" id="score-4755355" dir="ltr">1 - 0</div><div class="match-minute" id="minute-4755355"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 45'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/7171"><span>لايبزيج</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4755356" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="Bundesliga">
-                <span>Bundesliga</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/332"><span>فيردر بريمن</span></div>
-                <div class="match-info" id="info-4755356">
-                    <div class="match-score" id="score-4755356" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755356"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 45+1'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/351"><span>هوفنهايم</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4755357" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="Bundesliga">
-                <span>Bundesliga</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/349"><span>بوروسيا مونشنجلادباخ</span></div>
-                <div class="match-info" id="info-4755357">
-                    <div class="match-score" id="score-4755357" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755357"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 45+1'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/366"><span>بادربورن</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4755359" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="Bundesliga">
-                <span>Bundesliga</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/358"><span>أوغسبورغ</span></div>
-                <div class="match-info" id="info-4755359">
-                    <div class="match-score" id="score-4755359" dir="ltr">0 - 1</div><div class="match-minute" id="minute-4755359"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 45+1'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/354"><span>فرايبورج</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4755361" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="Bundesliga">
-                <span>Bundesliga</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/333"><span>باير ليفركوزن</span></div>
-                <div class="match-info" id="info-4755361">
-                    <div class="match-score" id="score-4755361" dir="ltr">2 - 1</div><div class="match-minute" id="minute-4755361"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 45+1'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/338"><span>شتوتجارت</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4742013" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="Premier League">
-                <span>Premier League</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/110"><span>مانشستر سيتي</span></div>
-                <div class="match-info" id="info-4742013">
-                    <div class="match-score" id="score-4742013" dir="ltr">1 - 0</div><div class="match-minute" id="minute-4742013"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 15'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/38"><span>برايتون</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4742015" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="Premier League">
-                <span>Premier League</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/11"><span>هال سيتي</span></div>
-                <div class="match-info" id="info-4742015">
-                    <div class="match-score" id="score-4742015" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4742015"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 14'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/9"><span>إبسويتش تاون</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4742016" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="Premier League">
-                <span>Premier League</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/24"><span>كوفنتري سيتي</span></div>
-                <div class="match-info" id="info-4742016">
-                    <div class="match-score" id="score-4742016" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4742016"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 15'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/117"><span>سندرلاند</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4742018" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="Premier League">
-                <span>Premier League</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/63"><span>برينتفورد</span></div>
-                <div class="match-info" id="info-4742018">
-                    <div class="match-score" id="score-4742018" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4742018"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 15'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/29"><span>نوتنجهام فورست</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4742020" data-status="2">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="Premier League">
-                <span>Premier League</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/50"><span>بورنموث</span></div>
-                <div class="match-info" id="info-4742020">
-                    <div class="match-score" id="score-4742020" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4742020"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 16'</div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/36"><span>ليدز يونايتد</span></div>
-            </div>
-            <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
-            </div>
-        </div>
-    
-        <div class="match-card" data-match-id="4750803" data-status="1">
-            <div class="league-badge" dir="ltr">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/11" alt="La Liga">
-                <span>La Liga</span>
-            </div>
-            <div class="teams-wrapper">
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/174"><span>رايو فاييكانو</span></div>
-                <div class="match-info" id="info-4750803">
-                    <div class="match-time" id="score-4750803">18:15</div><div id="minute-4750803" style="display:none;"></div>
-                </div>
-                <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/158"><span>سيلتا فيجو</span></div>
-            </div>
-            <div class="action-area">
-                <div class="countdown" data-time="1793459700000"></div>
             </div>
         </div>
     
@@ -704,9 +468,18 @@
                             
                             let gameTime = (game.gameTimeDisplay || game.gameTime || '').toString();
                             
-                            if (homeScore === -1 || awayScore === -1) { statusGroup = 1; }
-                            else if (statusGroup === 1 && homeScore >= 0) { statusGroup = 2; }
-                            if (gameTime.includes("'") || gameTime.includes("+") || gameTime.match(/^\d+$/) || gameTime.toUpperCase().includes("HT")) { statusGroup = 2; }
+                            // مەرجی توندتر بۆ زانینی تەواوبوونی یاری لە کاتی سەیرکردندا
+                            if (statusGroup === 3 || gameTime.toUpperCase().includes("FT") || gameTime.includes("کۆتایی") || gameTime === "90'") {
+                                statusGroup = 3;
+                            } else if (homeScore === -1 || awayScore === -1) { 
+                                statusGroup = 1; 
+                            } else if (statusGroup === 1 && homeScore >= 0) { 
+                                statusGroup = 2; 
+                            }
+                            
+                            if (statusGroup !== 3 && (gameTime.includes("'") || gameTime.includes("+") || gameTime.match(/^\d+$/) || gameTime.toUpperCase().includes("HT"))) { 
+                                statusGroup = 2; 
+                            }
                             
                             const actionArea = cardEl.querySelector('.action-area');
 
@@ -714,7 +487,8 @@
                                 let displayMinute = gameTime.match(/^\d+$/) ? `${gameTime}'` : gameTime;
                                 if (!displayMinute) displayMinute = "ڕاستەوخۆ";
                                 
-                                const newScore = `${awayScore} - ${homeScore}`;
+                                // ڕێکخستنی ئەنجام بۆ home - away
+                                const newScore = `${homeScore} - ${awayScore}`;
                                 
                                 if (scoreEl.innerText !== newScore && scoreEl.innerText.includes('-')) {
                                     scoreEl.classList.remove('score-updated');
@@ -725,7 +499,7 @@
                                 scoreEl.innerText = newScore;
                                 scoreEl.className = 'match-score'; 
                                 
-                                minuteEl.innerHTML = `<span class="pulse-dot-small" style="margin-left: 4px;"></span> ${displayMinute}`;
+                                minuteEl.innerHTML = `<span class="pulse-dot-small" style="margin-right: 4px;"></span> ${displayMinute}`;
                                 minuteEl.className = 'match-minute';
                                 minuteEl.style.display = 'inline-flex';
                                 cardEl.setAttribute('data-status', '2');
@@ -734,7 +508,7 @@
                                     actionArea.innerHTML = `<div class="btn-live-status">لە کاتی یاریدایە</div>`;
                                 }
                             } 
-                            // ئەگەر یارییەکە لەکاتی سەیرکردنی بەکارهێنەردا تەواو بوو، با بە شێوەیەکی نەرم ون بێت (Fade out)
+                            // ئەگەر یارییەکە تەواو بوو، با کارتی یارییەکە بشاردرێتەوە
                             else if (statusGroup === 3) {
                                 cardEl.style.opacity = '0';
                                 cardEl.style.transform = 'scale(0.8)';
