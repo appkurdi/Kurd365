@@ -2,7 +2,6 @@ import requests
 from datetime import datetime, timedelta, timezone
 import json
 
-# تەنیا ڕێکخستنی کات و بەروار
 baghdad_tz = timezone(timedelta(hours=3))
 today_date = datetime.now(baghdad_tz).strftime('%Y-%m-%d')
 
@@ -65,7 +64,7 @@ html_content = f"""<!DOCTYPE html>
         .date-title {{ font-size: 15px; font-weight: 800; margin-bottom: 15px; color: #fff; display: flex; align-items: center; gap: 8px; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }}
         .date-title::before {{ content: ''; display: block; width: 4px; height: 16px; background: var(--accent); border-radius: 4px; box-shadow: 0 0 8px var(--accent); }}
         
-        .match-card {{ background: var(--card-bg); border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); overflow: hidden; transition: transform 0.2s ease; }}
+        .match-card {{ background: var(--card-bg); border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); overflow: hidden; transition: all 0.5s ease; }}
         
         .league-badge {{ display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.03); padding: 8px; border-bottom: 1px solid var(--card-border); }}
         .league-badge img {{ width: 20px; height: 20px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }}
@@ -80,18 +79,17 @@ html_content = f"""<!DOCTYPE html>
         .match-time {{ font-size: 20px; font-weight: 900; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}}
         
         .match-score {{ font-size: 22px; font-weight: 900; color: var(--text-main); font-family: system-ui, sans-serif; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); transition: all 0.3s ease;}}
-        .match-minute {{ font-size: 11px; font-weight: 700; color: #ff0844; background: rgba(255,8,68,0.1); padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(255,8,68,0.2); transition: all 0.3s ease;}}
-        .match-ft {{ color: var(--text-sub); background: rgba(255,255,255,0.05); border-color: var(--card-border); }}
+        
+        .match-minute {{ font-size: 11px; font-weight: 700; color: #ff0844; background: rgba(255,8,68,0.1); padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; border: 1px solid rgba(255,8,68,0.2); transition: all 0.3s ease; direction: ltr !important; unicode-bidi: bidi-override; }}
+        
         .pulse-dot-small {{ width: 5px; height: 5px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }}
         .score-updated {{ animation: flash-score 1s ease-out; }}
         @keyframes flash-score {{ 0% {{ color: #00f2fe; transform: scale(1.1); }} 100% {{ color: var(--text-main); transform: scale(1); }} }}
 
         .action-area {{ padding: 12px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; min-height: 52px; }}
         
-        /* دیزاینی نوێ بۆ دۆخی یارییەکان لە شوێنی دوگمەی لایڤ */
         .countdown {{ font-size: 13px; font-weight: 800; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 6px 14px; border-radius: 15px; border: 1px solid rgba(0, 242, 254, 0.15);}}
         .btn-live-status {{ background: rgba(255, 8, 68, 0.15); color: #ff0844; padding: 6px 20px; border-radius: 20px; font-size: 13px; font-weight: 800; border: 1px solid rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; }}
-        .btn-finished {{ background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 6px 20px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--card-border); }}
         
         @keyframes pulse-live {{ 0% {{ box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); }} 70% {{ box-shadow: 0 0 0 8px rgba(255, 8, 68, 0); }} 100% {{ box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); }} }}
         
@@ -99,7 +97,6 @@ html_content = f"""<!DOCTYPE html>
         .nav-item {{ display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-sub); text-decoration: none; font-size: 10px; font-weight: 700; transition: 0.3s ease; }}
         .nav-item svg {{ width: 22px; height: 22px; fill: currentColor; }}
         .nav-item.active {{ color: var(--accent); }}
-        
     </style>
     <script>
         const API_URL = "{url}";
@@ -188,15 +185,15 @@ for match in matches:
     if "'" in game_time_str or "+" in game_time_str or game_time_str.isdigit() or "HT" in game_time_str.upper():
         status_group = 2
         
+    # ئەگەر یارییەکە تەواو بووبێت (status_group == 3)، هەرگیز کارتی بۆ دروست مەکە
+    if status_group == 3:
+        continue
+        
     if status_group == 2:
         display_minute = f"{game_time_str}'" if game_time_str.isdigit() else game_time_str
         if not display_minute: display_minute = "ڕاستەوخۆ"
-        score_html = f'<div class="match-score" id="score-{match_id}" dir="ltr">{away_score} - {home_score}</div><div class="match-minute" id="minute-{match_id}" dir="ltr">{display_minute} <span class="pulse-dot-small"></span></div>'
-        # دۆخی ڕاستەوخۆ لە جیاتی دوگمەی لینک
+        score_html = f'<div class="match-score" id="score-{match_id}" dir="ltr">{away_score} - {home_score}</div><div class="match-minute" id="minute-{match_id}"><span class="pulse-dot-small" style="margin-left: 4px;"></span> {display_minute}</div>'
         action_html = f'<div class="btn-live-status">لە کاتی یاریدایە</div>'
-    elif status_group == 3:
-        score_html = f'<div class="match-score" id="score-{match_id}" dir="ltr">{away_score} - {home_score}</div><div class="match-minute match-ft" id="minute-{match_id}">تەواوبوو</div>'
-        action_html = f'<div class="btn-finished">کۆتایی هات</div>'
     else:
         score_html = f'<div class="match-time" id="score-{match_id}">{display_time}</div><div id="minute-{match_id}" style="display:none;"></div>'
         action_html = f'<div class="countdown" data-time="{match_timestamp}"></div>'
@@ -223,7 +220,8 @@ for match in matches:
     """
 
 if matches_added == 0:
-    html_content += """<div style="text-align:center; margin-top:40px; color:var(--text-sub); font-size:14px;"><h3>هیچ یارییەکی گرنگ بۆ ئەمڕۆ نییە</h3></div>"""
+    # گۆڕینی تێکستی بەتاڵ بۆ ئەوەی گونجاو بێت، چونکە یارییە تەواوبووەکان پیشان نادرێن
+    html_content += """<div style="text-align:center; margin-top:40px; color:var(--text-sub); font-size:14px;"><h3>هیچ یارییەکی ڕاستەوخۆ یان چاوەڕوانکراو نەماوە</h3></div>"""
 
 html_content += """
     </div>
@@ -314,28 +312,23 @@ html_content += """
                                 scoreEl.innerText = newScore;
                                 scoreEl.className = 'match-score'; 
                                 
-                                minuteEl.innerHTML = `${displayMinute} <span class="pulse-dot-small"></span>`;
+                                minuteEl.innerHTML = `<span class="pulse-dot-small" style="margin-left: 4px;"></span> ${displayMinute}`;
                                 minuteEl.className = 'match-minute';
                                 minuteEl.style.display = 'inline-flex';
                                 cardEl.setAttribute('data-status', '2');
 
-                                // گۆڕینی دوگمەی خوارەوە بۆ دۆخی لایڤ بەبێ دەستکاری پەڕەکە
                                 if(actionArea && !actionArea.querySelector('.btn-live-status')) {
                                     actionArea.innerHTML = `<div class="btn-live-status">لە کاتی یاریدایە</div>`;
                                 }
                             } 
+                            // ئەگەر یارییەکە لەکاتی سەیرکردنی بەکارهێنەردا تەواو بوو، با بە شێوەیەکی نەرم ون بێت (Fade out)
                             else if (statusGroup === 3) {
-                                scoreEl.innerText = `${awayScore} - ${homeScore}`;
-                                scoreEl.className = 'match-score';
-                                minuteEl.innerHTML = `تەواوبوو`;
-                                minuteEl.className = 'match-minute match-ft';
-                                minuteEl.style.display = 'inline-flex';
+                                cardEl.style.opacity = '0';
+                                cardEl.style.transform = 'scale(0.8)';
+                                setTimeout(() => {
+                                    cardEl.style.display = 'none';
+                                }, 500);
                                 cardEl.setAttribute('data-status', '3');
-
-                                // گۆڕینی دوگمەی خوارەوە بۆ تەواوبوو
-                                if(actionArea && !actionArea.querySelector('.btn-finished')) {
-                                    actionArea.innerHTML = `<div class="btn-finished">کۆتایی هات</div>`;
-                                }
                             }
                         }
                     });
