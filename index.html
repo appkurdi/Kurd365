@@ -44,7 +44,7 @@
         .date-title { font-size: 15px; font-weight: 800; margin-bottom: 15px; color: #fff; display: flex; align-items: center; gap: 8px; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
         .date-title::before { content: ''; display: block; width: 4px; height: 16px; background: var(--accent); border-radius: 4px; box-shadow: 0 0 8px var(--accent); }
         
-        .match-card { background: var(--card-bg); border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); overflow: hidden; transition: transform 0.2s ease; }
+        .match-card { background: var(--card-bg); border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); overflow: hidden; transition: all 0.5s ease; }
         
         .league-badge { display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.03); padding: 8px; border-bottom: 1px solid var(--card-border); }
         .league-badge img { width: 20px; height: 20px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
@@ -59,18 +59,17 @@
         .match-time { font-size: 20px; font-weight: 900; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}
         
         .match-score { font-size: 22px; font-weight: 900; color: var(--text-main); font-family: system-ui, sans-serif; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); transition: all 0.3s ease;}
-        .match-minute { font-size: 11px; font-weight: 700; color: #ff0844; background: rgba(255,8,68,0.1); padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(255,8,68,0.2); transition: all 0.3s ease;}
-        .match-ft { color: var(--text-sub); background: rgba(255,255,255,0.05); border-color: var(--card-border); }
+        
+        .match-minute { font-size: 11px; font-weight: 700; color: #ff0844; background: rgba(255,8,68,0.1); padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; border: 1px solid rgba(255,8,68,0.2); transition: all 0.3s ease; direction: ltr !important; unicode-bidi: bidi-override; }
+        
         .pulse-dot-small { width: 5px; height: 5px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }
         .score-updated { animation: flash-score 1s ease-out; }
         @keyframes flash-score { 0% { color: #00f2fe; transform: scale(1.1); } 100% { color: var(--text-main); transform: scale(1); } }
 
         .action-area { padding: 12px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; min-height: 52px; }
         
-        /* دیزاینی نوێ بۆ دۆخی یارییەکان لە شوێنی دوگمەی لایڤ */
         .countdown { font-size: 13px; font-weight: 800; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 6px 14px; border-radius: 15px; border: 1px solid rgba(0, 242, 254, 0.15);}
         .btn-live-status { background: rgba(255, 8, 68, 0.15); color: #ff0844; padding: 6px 20px; border-radius: 20px; font-size: 13px; font-weight: 800; border: 1px solid rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; }
-        .btn-finished { background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 6px 20px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--card-border); }
         
         @keyframes pulse-live { 0% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); } 70% { box-shadow: 0 0 0 8px rgba(255, 8, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); } }
         
@@ -78,7 +77,6 @@
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-sub); text-decoration: none; font-size: 10px; font-weight: 700; transition: 0.3s ease; }
         .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
         .nav-item.active { color: var(--accent); }
-        
     </style>
     <script>
         const API_URL = "https://webws.365scores.com/web/games/current/?appTypeId=5&langId=27&timezoneName=Asia/Baghdad&competitions=7,11,17,25,34,572,573,6822";
@@ -129,7 +127,7 @@
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4750805" data-status="2">
+        <div class="match-card" data-match-id="4750805" data-status="4">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/11" alt="La Liga">
                 <span>La Liga</span>
@@ -137,16 +135,16 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/150"><span>ليفانتي</span></div>
                 <div class="match-info" id="info-4750805">
-                    <div class="match-score" id="score-4750805" dir="ltr">2 - 0</div><div class="match-minute" id="minute-4750805" dir="ltr">82' <span class="pulse-dot-small"></span></div>
+                    <div class="match-time" id="score-4750805">16:00</div><div id="minute-4750805" style="display:none;"></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/134"><span>أتلتيكو مدريد</span></div>
             </div>
             <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
+                <div class="countdown" data-time="1793451600000"></div>
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4763404" data-status="2">
+        <div class="match-card" data-match-id="4763404" data-status="4">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/34" alt="Ligue 1">
                 <span>Ligue 1</span>
@@ -154,16 +152,16 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/7568"><span>هافيلسة</span></div>
                 <div class="match-info" id="info-4763404">
-                    <div class="match-score" id="score-4763404" dir="ltr">1 - 1</div><div class="match-minute" id="minute-4763404" dir="ltr">83' <span class="pulse-dot-small"></span></div>
+                    <div class="match-time" id="score-4763404">16:00</div><div id="minute-4763404" style="display:none;"></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/369"><span>إنغولشتات</span></div>
             </div>
             <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
+                <div class="countdown" data-time="1793451600000"></div>
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4763406" data-status="2">
+        <div class="match-card" data-match-id="4763406" data-status="4">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/34" alt="Ligue 1">
                 <span>Ligue 1</span>
@@ -171,16 +169,16 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/414"><span>يان ريغنسبورغ</span></div>
                 <div class="match-info" id="info-4763406">
-                    <div class="match-score" id="score-4763406" dir="ltr">1 - 2</div><div class="match-minute" id="minute-4763406" dir="ltr">80' <span class="pulse-dot-small"></span></div>
+                    <div class="match-time" id="score-4763406">16:00</div><div id="minute-4763406" style="display:none;"></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/344"><span>هانزا روستوك</span></div>
             </div>
             <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
+                <div class="countdown" data-time="1793451600000"></div>
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4763407" data-status="2">
+        <div class="match-card" data-match-id="4763407" data-status="4">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/34" alt="Ligue 1">
                 <span>Ligue 1</span>
@@ -188,16 +186,16 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/407"><span>فيرل</span></div>
                 <div class="match-info" id="info-4763407">
-                    <div class="match-score" id="score-4763407" dir="ltr">2 - 1</div><div class="match-minute" id="minute-4763407" dir="ltr">82' <span class="pulse-dot-small"></span></div>
+                    <div class="match-time" id="score-4763407">16:00</div><div id="minute-4763407" style="display:none;"></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/356"><span>فيهين فيسبادن</span></div>
             </div>
             <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
+                <div class="countdown" data-time="1793451600000"></div>
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4763409" data-status="2">
+        <div class="match-card" data-match-id="4763409" data-status="4">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/34" alt="Ligue 1">
                 <span>Ligue 1</span>
@@ -205,16 +203,16 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/347"><span>دويسبورج</span></div>
                 <div class="match-info" id="info-4763409">
-                    <div class="match-score" id="score-4763409" dir="ltr">2 - 3</div><div class="match-minute" id="minute-4763409" dir="ltr">81' <span class="pulse-dot-small"></span></div>
+                    <div class="match-time" id="score-4763409">16:00</div><div id="minute-4763409" style="display:none;"></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/409"><span>شتوتغارت (2)</span></div>
             </div>
             <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
+                <div class="countdown" data-time="1793451600000"></div>
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4763411" data-status="2">
+        <div class="match-card" data-match-id="4763411" data-status="4">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/34" alt="Ligue 1">
                 <span>Ligue 1</span>
@@ -222,12 +220,12 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/9934"><span>هوفنهايم (2)</span></div>
                 <div class="match-info" id="info-4763411">
-                    <div class="match-score" id="score-4763411" dir="ltr">1 - 0</div><div class="match-minute" id="minute-4763411" dir="ltr">85' <span class="pulse-dot-small"></span></div>
+                    <div class="match-time" id="score-4763411">16:00</div><div id="minute-4763411" style="display:none;"></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/9715"><span>فيكتوريا كولن</span></div>
             </div>
             <div class="action-area">
-                <div class="btn-live-status">لە کاتی یاریدایە</div>
+                <div class="countdown" data-time="1793451600000"></div>
             </div>
         </div>
     
@@ -239,7 +237,7 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/8250"><span>نفط ميسان</span></div>
                 <div class="match-info" id="info-4806848">
-                    <div class="match-score" id="score-4806848" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4806848" dir="ltr">47' <span class="pulse-dot-small"></span></div>
+                    <div class="match-score" id="score-4806848" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4806848"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 67'</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/11273"><span>زاخو</span></div>
             </div>
@@ -256,7 +254,7 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/245"><span>بولونيا</span></div>
                 <div class="match-info" id="info-4732649">
-                    <div class="match-score" id="score-4732649" dir="ltr">1 - 1</div><div class="match-minute" id="minute-4732649" dir="ltr">41' <span class="pulse-dot-small"></span></div>
+                    <div class="match-score" id="score-4732649" dir="ltr">1 - 1</div><div class="match-minute" id="minute-4732649"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 45'</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/293"><span>مونزا</span></div>
             </div>
@@ -273,7 +271,7 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/8248"><span>الزوراء</span></div>
                 <div class="match-info" id="info-4806849">
-                    <div class="match-score" id="score-4806849" dir="ltr">0 - 2</div><div class="match-minute" id="minute-4806849" dir="ltr">41' <span class="pulse-dot-small"></span></div>
+                    <div class="match-score" id="score-4806849" dir="ltr">0 - 2</div><div class="match-minute" id="minute-4806849"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 45'</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/69086"><span>ديالى</span></div>
             </div>
@@ -290,7 +288,7 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/335"><span>شالكة</span></div>
                 <div class="match-info" id="info-4755355">
-                    <div class="match-score" id="score-4755355" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755355" dir="ltr">11' <span class="pulse-dot-small"></span></div>
+                    <div class="match-score" id="score-4755355" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755355"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 31'</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/7171"><span>لايبزيج</span></div>
             </div>
@@ -307,7 +305,7 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/332"><span>فيردر بريمن</span></div>
                 <div class="match-info" id="info-4755356">
-                    <div class="match-score" id="score-4755356" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755356" dir="ltr">11' <span class="pulse-dot-small"></span></div>
+                    <div class="match-score" id="score-4755356" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755356"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 31'</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/351"><span>هوفنهايم</span></div>
             </div>
@@ -324,7 +322,7 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/349"><span>بوروسيا مونشنجلادباخ</span></div>
                 <div class="match-info" id="info-4755357">
-                    <div class="match-score" id="score-4755357" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755357" dir="ltr">11' <span class="pulse-dot-small"></span></div>
+                    <div class="match-score" id="score-4755357" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755357"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 31'</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/366"><span>بادربورن</span></div>
             </div>
@@ -341,7 +339,7 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/358"><span>أوغسبورغ</span></div>
                 <div class="match-info" id="info-4755359">
-                    <div class="match-score" id="score-4755359" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755359" dir="ltr">11' <span class="pulse-dot-small"></span></div>
+                    <div class="match-score" id="score-4755359" dir="ltr">0 - 1</div><div class="match-minute" id="minute-4755359"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 31'</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/354"><span>فرايبورج</span></div>
             </div>
@@ -358,7 +356,7 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/333"><span>باير ليفركوزن</span></div>
                 <div class="match-info" id="info-4755361">
-                    <div class="match-score" id="score-4755361" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755361" dir="ltr">11' <span class="pulse-dot-small"></span></div>
+                    <div class="match-score" id="score-4755361" dir="ltr">2 - 1</div><div class="match-minute" id="minute-4755361"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 31'</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/338"><span>شتوتجارت</span></div>
             </div>
@@ -418,7 +416,7 @@
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4742018" data-status="1">
+        <div class="match-card" data-match-id="4742018" data-status="2">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="Premier League">
                 <span>Premier League</span>
@@ -426,16 +424,16 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/63"><span>برينتفورد</span></div>
                 <div class="match-info" id="info-4742018">
-                    <div class="match-time" id="score-4742018">18:00</div><div id="minute-4742018" style="display:none;"></div>
+                    <div class="match-score" id="score-4742018" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4742018"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 1'</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/29"><span>نوتنجهام فورست</span></div>
             </div>
             <div class="action-area">
-                <div class="countdown" data-time="1793458800000"></div>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4742020" data-status="1">
+        <div class="match-card" data-match-id="4742020" data-status="2">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="Premier League">
                 <span>Premier League</span>
@@ -443,12 +441,12 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/50"><span>بورنموث</span></div>
                 <div class="match-info" id="info-4742020">
-                    <div class="match-time" id="score-4742020">18:00</div><div id="minute-4742020" style="display:none;"></div>
+                    <div class="match-score" id="score-4742020" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4742020"><span class="pulse-dot-small" style="margin-left: 4px;"></span> 1'</div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/36"><span>ليدز يونايتد</span></div>
             </div>
             <div class="action-area">
-                <div class="countdown" data-time="1793458800000"></div>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
@@ -727,28 +725,23 @@
                                 scoreEl.innerText = newScore;
                                 scoreEl.className = 'match-score'; 
                                 
-                                minuteEl.innerHTML = `${displayMinute} <span class="pulse-dot-small"></span>`;
+                                minuteEl.innerHTML = `<span class="pulse-dot-small" style="margin-left: 4px;"></span> ${displayMinute}`;
                                 minuteEl.className = 'match-minute';
                                 minuteEl.style.display = 'inline-flex';
                                 cardEl.setAttribute('data-status', '2');
 
-                                // گۆڕینی دوگمەی خوارەوە بۆ دۆخی لایڤ بەبێ دەستکاری پەڕەکە
                                 if(actionArea && !actionArea.querySelector('.btn-live-status')) {
                                     actionArea.innerHTML = `<div class="btn-live-status">لە کاتی یاریدایە</div>`;
                                 }
                             } 
+                            // ئەگەر یارییەکە لەکاتی سەیرکردنی بەکارهێنەردا تەواو بوو، با بە شێوەیەکی نەرم ون بێت (Fade out)
                             else if (statusGroup === 3) {
-                                scoreEl.innerText = `${awayScore} - ${homeScore}`;
-                                scoreEl.className = 'match-score';
-                                minuteEl.innerHTML = `تەواوبوو`;
-                                minuteEl.className = 'match-minute match-ft';
-                                minuteEl.style.display = 'inline-flex';
+                                cardEl.style.opacity = '0';
+                                cardEl.style.transform = 'scale(0.8)';
+                                setTimeout(() => {
+                                    cardEl.style.display = 'none';
+                                }, 500);
                                 cardEl.setAttribute('data-status', '3');
-
-                                // گۆڕینی دوگمەی خوارەوە بۆ تەواوبوو
-                                if(actionArea && !actionArea.querySelector('.btn-finished')) {
-                                    actionArea.innerHTML = `<div class="btn-finished">کۆتایی هات</div>`;
-                                }
                             }
                         }
                     });
