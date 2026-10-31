@@ -62,19 +62,15 @@
         .match-minute { font-size: 11px; font-weight: 700; color: #ff0844; background: rgba(255,8,68,0.1); padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(255,8,68,0.2); transition: all 0.3s ease;}
         .match-ft { color: var(--text-sub); background: rgba(255,255,255,0.05); border-color: var(--card-border); }
         .pulse-dot-small { width: 5px; height: 5px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }
-        /* ئەنیمەیشنی گۆڕینی ئەنجام */
         .score-updated { animation: flash-score 1s ease-out; }
         @keyframes flash-score { 0% { color: #00f2fe; transform: scale(1.1); } 100% { color: var(--text-main); transform: scale(1); } }
 
-        .channel-tag { margin-top: 6px; font-size: 10px; font-weight: 700; background: rgba(0, 242, 254, 0.08); color: var(--accent); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(0, 242, 254, 0.15); text-align: center; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px;}
-        .channel-tag img { width: 14px; height: 14px; object-fit: contain; }
-        
         .action-area { padding: 12px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; min-height: 52px; }
-        .countdown { font-size: 13px; font-weight: 800; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 6px 14px; border-radius: 15px;}
-        .btn-live { background: var(--live-btn); color: white; padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; transition: 0.2s; }
-        .btn-live:active { transform: scale(0.95); }
-        .btn-disabled { background: #1f2937; color: #6b7280; border: 1px solid #374151; box-shadow: none; animation: none; padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 800; cursor: not-allowed; }
-        .btn-finished { background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--card-border); }
+        
+        /* دیزاینی نوێ بۆ دۆخی یارییەکان لە شوێنی دوگمەی لایڤ */
+        .countdown { font-size: 13px; font-weight: 800; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 6px 14px; border-radius: 15px; border: 1px solid rgba(0, 242, 254, 0.15);}
+        .btn-live-status { background: rgba(255, 8, 68, 0.15); color: #ff0844; padding: 6px 20px; border-radius: 20px; font-size: 13px; font-weight: 800; border: 1px solid rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; }
+        .btn-finished { background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 6px 20px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--card-border); }
         
         @keyframes pulse-live { 0% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); } 70% { box-shadow: 0 0 0 8px rgba(255, 8, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); } }
         
@@ -83,14 +79,7 @@
         .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
         .nav-item.active { color: var(--accent); }
         
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(15,15,15,0.95); border-bottom: 1px solid #222;}
-        .modal-title { color: white; font-weight: 700; font-size: 14px; }
-        .close-modal { color: white; font-size: 26px; font-weight: 300; cursor: pointer; background: none; border: none; line-height: 1;}
-        .modal-body { flex: 1; width: 100%; background: #000; position: relative; }
-        .modal-body iframe { width: 100%; height: 100%; border: none; }
     </style>
-    <!-- پارامێتەری پێویست بۆ جاڤاسکڕیپت -->
     <script>
         const API_URL = "https://webws.365scores.com/web/games/current/?appTypeId=5&langId=27&timezoneName=Asia/Baghdad&competitions=7,11,17,25,34,572,573,6822";
     </script>
@@ -123,7 +112,7 @@
     <div class="container" id="matchesContainer">
         <div class="date-title">یارییەکانی ئەمڕۆ</div>
 
-        <div class="match-card" data-match-id="4742017" data-status="2">
+        <div class="match-card" data-match-id="4742017" data-status="4">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="Premier League">
                 <span>Premier League</span>
@@ -131,16 +120,12 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/106"><span>تشيلسي</span></div>
                 <div class="match-info" id="info-4742017">
-                    <div class="match-score" id="score-4742017" dir="ltr">2 - 0</div><div class="match-minute" id="minute-4742017" dir="ltr">88' <span class="pulse-dot-small"></span></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-time" id="score-4742017">15:30</div><div id="minute-4742017" style="display:none;"></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/105"><span>مانشستر يونايتد</span></div>
             </div>
             <div class="action-area">
-                <button class="btn-live" onclick="openPlayer('https://as-goal.net/koora-news/european-football/manchester-citys-official-lineup-to-face-brighton/', 'تشيلسي - مانشستر يونايتد')">ڕاستەوخۆ 🔴</button>
+                <div class="countdown" data-time="1793449800000"></div>
             </div>
         </div>
     
@@ -152,16 +137,12 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/150"><span>ليفانتي</span></div>
                 <div class="match-info" id="info-4750805">
-                    <div class="match-score" id="score-4750805" dir="ltr">0 - 1</div><div class="match-minute" id="minute-4750805" dir="ltr">59' <span class="pulse-dot-small"></span></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4750805" dir="ltr">2 - 0</div><div class="match-minute" id="minute-4750805" dir="ltr">79' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/134"><span>أتلتيكو مدريد</span></div>
             </div>
             <div class="action-area">
-                <button class="btn-live" onclick="openPlayer('https://as-goal.net/koora-news/european-football/real-madrid-match-schedule-for-november-2026/', 'ليفانتي - أتلتيكو مدريد')">ڕاستەوخۆ 🔴</button>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
@@ -173,16 +154,12 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/7568"><span>هافيلسة</span></div>
                 <div class="match-info" id="info-4763404">
-                    <div class="match-score" id="score-4763404" dir="ltr">1 - 1</div><div class="match-minute" id="minute-4763404" dir="ltr">59' <span class="pulse-dot-small"></span></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4763404" dir="ltr">1 - 1</div><div class="match-minute" id="minute-4763404" dir="ltr">79' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/369"><span>إنغولشتات</span></div>
             </div>
             <div class="action-area">
-                <button class="btn-disabled" disabled>لینک ئامادە نییە</button>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
@@ -194,16 +171,12 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/414"><span>يان ريغنسبورغ</span></div>
                 <div class="match-info" id="info-4763406">
-                    <div class="match-score" id="score-4763406" dir="ltr">2 - 1</div><div class="match-minute" id="minute-4763406" dir="ltr">56' <span class="pulse-dot-small"></span></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4763406" dir="ltr">1 - 2</div><div class="match-minute" id="minute-4763406" dir="ltr">76' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/344"><span>هانزا روستوك</span></div>
             </div>
             <div class="action-area">
-                <button class="btn-disabled" disabled>لینک ئامادە نییە</button>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
@@ -215,16 +188,12 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/407"><span>فيرل</span></div>
                 <div class="match-info" id="info-4763407">
-                    <div class="match-score" id="score-4763407" dir="ltr">1 - 2</div><div class="match-minute" id="minute-4763407" dir="ltr">58' <span class="pulse-dot-small"></span></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4763407" dir="ltr">2 - 1</div><div class="match-minute" id="minute-4763407" dir="ltr">78' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/356"><span>فيهين فيسبادن</span></div>
             </div>
             <div class="action-area">
-                <button class="btn-disabled" disabled>لینک ئامادە نییە</button>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
@@ -236,16 +205,12 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/347"><span>دويسبورج</span></div>
                 <div class="match-info" id="info-4763409">
-                    <div class="match-score" id="score-4763409" dir="ltr">3 - 1</div><div class="match-minute" id="minute-4763409" dir="ltr">57' <span class="pulse-dot-small"></span></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4763409" dir="ltr">2 - 3</div><div class="match-minute" id="minute-4763409" dir="ltr">77' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/409"><span>شتوتغارت (2)</span></div>
             </div>
             <div class="action-area">
-                <button class="btn-disabled" disabled>لینک ئامادە نییە</button>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
@@ -257,16 +222,12 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/9934"><span>هوفنهايم (2)</span></div>
                 <div class="match-info" id="info-4763411">
-                    <div class="match-score" id="score-4763411" dir="ltr">0 - 1</div><div class="match-minute" id="minute-4763411" dir="ltr">61' <span class="pulse-dot-small"></span></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4763411" dir="ltr">1 - 0</div><div class="match-minute" id="minute-4763411" dir="ltr">81' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/9715"><span>فيكتوريا كولن</span></div>
             </div>
             <div class="action-area">
-                <button class="btn-disabled" disabled>لینک ئامادە نییە</button>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
@@ -278,16 +239,12 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/8250"><span>نفط ميسان</span></div>
                 <div class="match-info" id="info-4806848">
-                    <div class="match-score" id="score-4806848" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4806848" dir="ltr">43' <span class="pulse-dot-small"></span></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4806848" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4806848" dir="ltr">45' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/11273"><span>زاخو</span></div>
             </div>
             <div class="action-area">
-                <button class="btn-disabled" disabled>لینک ئامادە نییە</button>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
@@ -299,16 +256,12 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/245"><span>بولونيا</span></div>
                 <div class="match-info" id="info-4732649">
-                    <div class="match-score" id="score-4732649" dir="ltr">0 - 1</div><div class="match-minute" id="minute-4732649" dir="ltr">17' <span class="pulse-dot-small"></span></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4732649" dir="ltr">1 - 1</div><div class="match-minute" id="minute-4732649" dir="ltr">37' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/293"><span>مونزا</span></div>
             </div>
             <div class="action-area">
-                <button class="btn-disabled" disabled>لینک ئامادە نییە</button>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
@@ -320,20 +273,16 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/8248"><span>الزوراء</span></div>
                 <div class="match-info" id="info-4806849">
-                    <div class="match-score" id="score-4806849" dir="ltr">1 - 0</div><div class="match-minute" id="minute-4806849" dir="ltr">17' <span class="pulse-dot-small"></span></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4806849" dir="ltr">0 - 2</div><div class="match-minute" id="minute-4806849" dir="ltr">37' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/69086"><span>ديالى</span></div>
             </div>
             <div class="action-area">
-                <button class="btn-disabled" disabled>لینک ئامادە نییە</button>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4755355" data-status="1">
+        <div class="match-card" data-match-id="4755355" data-status="2">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="Bundesliga">
                 <span>Bundesliga</span>
@@ -341,20 +290,16 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/335"><span>شالكة</span></div>
                 <div class="match-info" id="info-4755355">
-                    <div class="match-time" id="score-4755355">17:30</div><div id="minute-4755355" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4755355" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755355" dir="ltr">7' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/7171"><span>لايبزيج</span></div>
             </div>
             <div class="action-area">
-                <div class="countdown" data-time="1793457000000"></div>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4755356" data-status="1">
+        <div class="match-card" data-match-id="4755356" data-status="2">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="Bundesliga">
                 <span>Bundesliga</span>
@@ -362,20 +307,16 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/332"><span>فيردر بريمن</span></div>
                 <div class="match-info" id="info-4755356">
-                    <div class="match-time" id="score-4755356">17:30</div><div id="minute-4755356" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4755356" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755356" dir="ltr">8' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/351"><span>هوفنهايم</span></div>
             </div>
             <div class="action-area">
-                <div class="countdown" data-time="1793457000000"></div>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4755357" data-status="1">
+        <div class="match-card" data-match-id="4755357" data-status="2">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="Bundesliga">
                 <span>Bundesliga</span>
@@ -383,20 +324,16 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/349"><span>بوروسيا مونشنجلادباخ</span></div>
                 <div class="match-info" id="info-4755357">
-                    <div class="match-time" id="score-4755357">17:30</div><div id="minute-4755357" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4755357" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755357" dir="ltr">8' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/366"><span>بادربورن</span></div>
             </div>
             <div class="action-area">
-                <div class="countdown" data-time="1793457000000"></div>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4755359" data-status="1">
+        <div class="match-card" data-match-id="4755359" data-status="2">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="Bundesliga">
                 <span>Bundesliga</span>
@@ -404,20 +341,16 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/358"><span>أوغسبورغ</span></div>
                 <div class="match-info" id="info-4755359">
-                    <div class="match-time" id="score-4755359">17:30</div><div id="minute-4755359" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4755359" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755359" dir="ltr">8' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/354"><span>فرايبورج</span></div>
             </div>
             <div class="action-area">
-                <div class="countdown" data-time="1793457000000"></div>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
-        <div class="match-card" data-match-id="4755361" data-status="1">
+        <div class="match-card" data-match-id="4755361" data-status="2">
             <div class="league-badge" dir="ltr">
                 <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="Bundesliga">
                 <span>Bundesliga</span>
@@ -425,16 +358,12 @@
             <div class="teams-wrapper">
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/333"><span>باير ليفركوزن</span></div>
                 <div class="match-info" id="info-4755361">
-                    <div class="match-time" id="score-4755361">17:30</div><div id="minute-4755361" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
+                    <div class="match-score" id="score-4755361" dir="ltr">0 - 0</div><div class="match-minute" id="minute-4755361" dir="ltr">8' <span class="pulse-dot-small"></span></div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/338"><span>شتوتجارت</span></div>
             </div>
             <div class="action-area">
-                <div class="countdown" data-time="1793457000000"></div>
+                <div class="btn-live-status">لە کاتی یاریدایە</div>
             </div>
         </div>
     
@@ -447,10 +376,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/110"><span>مانشستر سيتي</span></div>
                 <div class="match-info" id="info-4742013">
                     <div class="match-time" id="score-4742013">18:00</div><div id="minute-4742013" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/38"><span>برايتون</span></div>
             </div>
@@ -468,10 +393,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/11"><span>هال سيتي</span></div>
                 <div class="match-info" id="info-4742015">
                     <div class="match-time" id="score-4742015">18:00</div><div id="minute-4742015" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/9"><span>إبسويتش تاون</span></div>
             </div>
@@ -489,10 +410,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/24"><span>كوفنتري سيتي</span></div>
                 <div class="match-info" id="info-4742016">
                     <div class="match-time" id="score-4742016">18:00</div><div id="minute-4742016" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/117"><span>سندرلاند</span></div>
             </div>
@@ -510,10 +427,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/63"><span>برينتفورد</span></div>
                 <div class="match-info" id="info-4742018">
                     <div class="match-time" id="score-4742018">18:00</div><div id="minute-4742018" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/29"><span>نوتنجهام فورست</span></div>
             </div>
@@ -531,10 +444,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/50"><span>بورنموث</span></div>
                 <div class="match-info" id="info-4742020">
                     <div class="match-time" id="score-4742020">18:00</div><div id="minute-4742020" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/36"><span>ليدز يونايتد</span></div>
             </div>
@@ -552,10 +461,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/174"><span>رايو فاييكانو</span></div>
                 <div class="match-info" id="info-4750803">
                     <div class="match-time" id="score-4750803">18:15</div><div id="minute-4750803" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/158"><span>سيلتا فيجو</span></div>
             </div>
@@ -573,10 +478,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/9266"><span>فورتونا كولن</span></div>
                 <div class="match-info" id="info-4763403">
                     <div class="match-time" id="score-4763403">18:30</div><div id="minute-4763403" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/11828"><span>فارزبورغر كيكرز</span></div>
             </div>
@@ -594,10 +495,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/15981"><span>الكرخ</span></div>
                 <div class="match-info" id="info-4806856">
                     <div class="match-time" id="score-4806856">19:00</div><div id="minute-4806856" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/78841"><span>الغراف</span></div>
             </div>
@@ -615,10 +512,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/8246"><span>الشرطة</span></div>
                 <div class="match-info" id="info-4806850">
                     <div class="match-time" id="score-4806850">19:30</div><div id="minute-4806850" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/67500"><span>نوروز</span></div>
             </div>
@@ -636,10 +529,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/229"><span>أودينيزي</span></div>
                 <div class="match-info" id="info-4732641">
                     <div class="match-time" id="score-4732641">20:00</div><div id="minute-4732641" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/225"><span>روما</span></div>
             </div>
@@ -657,10 +546,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/114"><span>توتنهام هوتسبر</span></div>
                 <div class="match-info" id="info-4742029">
                     <div class="match-time" id="score-4742029">20:30</div><div id="minute-4742029" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/10"><span>كريستال بالاس</span></div>
             </div>
@@ -678,10 +563,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/146"><span>ريال بيتيس</span></div>
                 <div class="match-info" id="info-4750809">
                     <div class="match-time" id="score-4750809">20:30</div><div id="minute-4750809" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/152"><span>مالقا</span></div>
             </div>
@@ -699,10 +580,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/331"><span>بايرن ميونخ</span></div>
                 <div class="match-info" id="info-4755364">
                     <div class="match-time" id="score-4755364">20:30</div><div id="minute-4755364" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/341"><span>بوروسيا دورتموند</span></div>
             </div>
@@ -720,10 +597,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/227"><span>ميلان</span></div>
                 <div class="match-info" id="info-4732643">
                     <div class="match-time" id="score-4732643">22:45</div><div id="minute-4732643" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/224"><span>إنتر ميلان</span></div>
             </div>
@@ -741,10 +614,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/109"><span>أستون فيلا</span></div>
                 <div class="match-info" id="info-4742019">
                     <div class="match-time" id="score-4742019">23:00</div><div id="minute-4742019" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/120"><span>فولهام</span></div>
             </div>
@@ -762,10 +631,6 @@
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/132"><span>برشلونة</span></div>
                 <div class="match-info" id="info-4750807">
                     <div class="match-time" id="score-4750807">23:00</div><div id="minute-4750807" style="display:none;"></div>
-                    <div class="channel-tag" dir="ltr">
-                        <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
-                        Kurd365 Live
-                    </div>
                 </div>
                 <div class="team"><img src="https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/168"><span>ألافيس</span></div>
             </div>
@@ -778,13 +643,7 @@
     <div class="bottom-nav">
         <a href="#" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M12 3L4 9v12h5v-7h6v7h5V9z"/></svg><span>یارییەکان</span></a>
         <a href="https://t.me/mtv_ibrahim_app" target="_blank" class="nav-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.97 1.25-5.56 3.67-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.41-1.43-.87.03-.24.36-.48 1-.74 3.92-1.7 6.54-2.83 7.86-3.38 3.74-1.56 4.51-1.83 5.02-1.84.11 0 .36.03.52.16.13.11.17.26.19.37.02.05.02.26.01.4z"/></svg><span>تێلیگرام</span></a>
-        <a href="#" class="nav-item" onclick="alert('Kurd365 Live App\nپەخشی ڕاستەوخۆ')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg><span>دەربارە</span></a>
-    </div>
-    <div id="videoModal" class="modal">
-        <div class="modal-header"><div class="modal-title" id="modalTitle" dir="ltr">Live Match</div><button class="close-modal" onclick="closePlayer()">&times;</button></div>
-        <div class="modal-body">
-            <iframe id="videoIframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" scrolling="no" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
-        </div>
+        <a href="#" class="nav-item" onclick="alert('Kurd365 Live App\nتایبەت بە ئەنجامی یارییەکان')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg><span>دەربارە</span></a>
     </div>
     
     <script>
@@ -825,13 +684,9 @@
             });
         }
         updateUI(); setInterval(updateUI, 1000);
-        function openPlayer(link, title) { document.getElementById('modalTitle').innerText = title; document.getElementById('videoIframe').src = link; document.getElementById('videoModal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-        function closePlayer() { document.getElementById('videoModal').style.display = 'none'; document.getElementById('videoIframe').src = ""; document.body.style.overflow = 'auto'; }
         
-        // --- سیستەمی نوێکردنەوەی ڕاستەوخۆ (هەر 10 چرکە جارێک) ---
         async function fetchLiveScores() {
             try {
-                // ناردنی داواکاری ڕاستەوخۆ بۆ سێرڤەری 365
                 const response = await fetch(API_URL);
                 const data = await response.json();
                 
@@ -843,7 +698,6 @@
                         const cardEl = document.querySelector(`.match-card[data-match-id="${matchId}"]`);
                         
                         if (scoreEl && minuteEl && cardEl) {
-                            const currentStatus = parseInt(cardEl.getAttribute('data-status'));
                             let statusGroup = game.statusGroup || 1;
                             
                             let homeScore = -1, awayScore = -1;
@@ -856,35 +710,45 @@
                             else if (statusGroup === 1 && homeScore >= 0) { statusGroup = 2; }
                             if (gameTime.includes("'") || gameTime.includes("+") || gameTime.match(/^\d+$/) || gameTime.toUpperCase().includes("HT")) { statusGroup = 2; }
                             
-                            // ئەگەر یارییەکە لایڤ بێت
+                            const actionArea = cardEl.querySelector('.action-area');
+
                             if (statusGroup === 2) {
                                 let displayMinute = gameTime.match(/^\d+$/) ? `${gameTime}'` : gameTime;
                                 if (!displayMinute) displayMinute = "ڕاستەوخۆ";
                                 
-                                const newScore = `${homeScore} - ${awayScore}`;
-                                // ئەگەر گۆڵێک کرا، ئەنیمەیشنی بۆ بکە
+                                const newScore = `${awayScore} - ${homeScore}`;
+                                
                                 if (scoreEl.innerText !== newScore && scoreEl.innerText.includes('-')) {
                                     scoreEl.classList.remove('score-updated');
-                                    void scoreEl.offsetWidth; // Trigger reflow
+                                    void scoreEl.offsetWidth; 
                                     scoreEl.classList.add('score-updated');
                                 }
                                 
                                 scoreEl.innerText = newScore;
-                                scoreEl.className = 'match-score'; // گۆڕینی دیزاین لە کاتژمێرەوە بۆ ئەنجام
+                                scoreEl.className = 'match-score'; 
                                 
                                 minuteEl.innerHTML = `${displayMinute} <span class="pulse-dot-small"></span>`;
                                 minuteEl.className = 'match-minute';
                                 minuteEl.style.display = 'inline-flex';
                                 cardEl.setAttribute('data-status', '2');
+
+                                // گۆڕینی دوگمەی خوارەوە بۆ دۆخی لایڤ بەبێ دەستکاری پەڕەکە
+                                if(actionArea && !actionArea.querySelector('.btn-live-status')) {
+                                    actionArea.innerHTML = `<div class="btn-live-status">لە کاتی یاریدایە</div>`;
+                                }
                             } 
-                            // ئەگەر یارییەکە تەواو بوو
                             else if (statusGroup === 3) {
-                                scoreEl.innerText = `${homeScore} - ${awayScore}`;
+                                scoreEl.innerText = `${awayScore} - ${homeScore}`;
                                 scoreEl.className = 'match-score';
                                 minuteEl.innerHTML = `تەواوبوو`;
                                 minuteEl.className = 'match-minute match-ft';
                                 minuteEl.style.display = 'inline-flex';
                                 cardEl.setAttribute('data-status', '3');
+
+                                // گۆڕینی دوگمەی خوارەوە بۆ تەواوبوو
+                                if(actionArea && !actionArea.querySelector('.btn-finished')) {
+                                    actionArea.innerHTML = `<div class="btn-finished">کۆتایی هات</div>`;
+                                }
                             }
                         }
                     });
@@ -894,9 +758,7 @@
             }
         }
 
-        // کارپێکردنی سیستەمی لایڤەکە هەموو 10 چرکە جارێک
         setInterval(fetchLiveScores, 10000);
-        // هەرکە پەڕەکە کرایەوە یەکجار داوای بکە
         setTimeout(fetchLiveScores, 2000);
     </script>
 </body>
