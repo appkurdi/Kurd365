@@ -73,16 +73,22 @@ html_content = """<!DOCTYPE html>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
         :root { --bg-color: #080808; --card-bg: rgba(26, 26, 28, 0.6); --card-border: rgba(255, 255, 255, 0.06); --text-main: #ffffff; --text-sub: #9ca3af; --accent: #00f2fe; --accent-gradient: linear-gradient(135deg, #4facfe, #00f2fe); --live-btn: linear-gradient(135deg, #ff0844, #ffb199); }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-top: 70px; padding-bottom: 85px; min-height: 100vh; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-top: 85px; padding-bottom: 85px; min-height: 100vh; }
         
-        .header { position: fixed; top: 0; left: 0; width: 100%; height: 55px; z-index: 100; background: rgba(8, 8, 8, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--card-border); }
-        .header h1 { font-size: 22px; font-weight: 800; letter-spacing: 1px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* دیزاینی نوێی هێدەرەکە */
+        .header { position: fixed; top: 0; left: 0; width: 100%; height: 65px; z-index: 100; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); }
+        .header-content { max-width: 500px; margin: 0 auto; padding: 0 15px; height: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .logo-wrapper { display: flex; align-items: center; gap: 8px; }
+        .header-logo { width: 26px; height: 26px; filter: drop-shadow(0 2px 4px rgba(0,242,254,0.3)); }
+        .header h1 { font-size: 22px; font-weight: 900; letter-spacing: 0.5px; color: #fff; margin: 0; display: flex; align-items: center; font-family: system-ui, -apple-system, sans-serif;}
+        .header h1 .highlight { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .live-indicator { display: flex; align-items: center; gap: 6px; background: rgba(255, 8, 68, 0.1); border: 1px solid rgba(255, 8, 68, 0.2); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 800; color: #ff0844; letter-spacing: 1px; }
+        .pulse-dot { width: 6px; height: 6px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }
         
         .container { max-width: 500px; margin: 0 auto; padding: 0 12px; }
-        .date-title { font-size: 14px; font-weight: 700; margin-top: 10px; margin-bottom: 15px; color: var(--text-sub); display: flex; align-items: center; gap: 8px;}
+        .date-title { font-size: 14px; font-weight: 700; margin-top: 5px; margin-bottom: 15px; color: var(--text-sub); display: flex; align-items: center; gap: 8px;}
         .date-title::before { content: ''; display: block; width: 3px; height: 14px; background: var(--accent); border-radius: 4px; }
         
-        /* دیزاینی نوێی کارتەکان - کۆمپاکت و ناسکتر */
         .match-card { background: var(--card-bg); border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); overflow: hidden; transition: transform 0.2s ease; }
         .match-card:active { transform: scale(0.98); }
         
@@ -99,12 +105,10 @@ html_content = """<!DOCTYPE html>
         .channel-tag { margin-top: 5px; font-size: 9.5px; font-weight: 700; background: rgba(0, 242, 254, 0.08); color: var(--accent); padding: 4px 10px; border-radius: 10px; border: 1px solid rgba(0, 242, 254, 0.15); text-align: center; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 4px;}
         .channel-tag img { width: 12px; height: 12px; }
         
-        /* بەشی خوارەوەی کارتەکە بچووککرایەوە */
         .action-area { padding: 10px; background: rgba(0,0,0,0.15); border-top: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; min-height: 48px; }
         
         .countdown { font-size: 12px; font-weight: 700; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 5px 12px; border-radius: 15px;}
         
-        /* قەبارەی دوگمەکان گونجێنرا */
         .btn-live { display: none; background: var(--live-btn); color: white; padding: 7px 22px; border-radius: 20px; font-size: 12px; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 3px 10px rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; transition: 0.2s; }
         .btn-live:active { transform: scale(0.95); }
         .btn-disabled { background: #1f2937; color: #6b7280; border: 1px solid #374151; box-shadow: none; animation: none; padding: 7px 22px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: not-allowed; display: none;}
@@ -112,13 +116,11 @@ html_content = """<!DOCTYPE html>
         
         @keyframes pulse-live { 0% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); } 70% { box-shadow: 0 0 0 8px rgba(255, 8, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); } }
         
-        /* شریتی خوارەوە (Bottom Navigation) */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: rgba(12, 12, 12, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; align-items: center; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--text-sub); text-decoration: none; font-size: 10px; font-weight: 700; transition: 0.3s ease; }
         .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
         .nav-item.active { color: var(--accent); }
         
-        /* مۆدێڵی پلەیەر */
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; }
         .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(15,15,15,0.95); border-bottom: 1px solid #222;}
         .modal-title { color: white; font-weight: 700; font-size: 14px; }
@@ -128,7 +130,20 @@ html_content = """<!DOCTYPE html>
     </style>
 </head>
 <body>
-    <div class="header"><h1>Kurd365</h1></div>
+    
+    <!-- هێدەری نوێ و پڕۆفیشناڵ -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo-wrapper">
+                <img src="https://cdn-icons-png.flaticon.com/512/807/807214.png" alt="Logo" class="header-logo">
+                <h1>Kurd<span class="highlight">365</span></h1>
+            </div>
+            <div class="live-indicator">
+                <span class="pulse-dot"></span> LIVE
+            </div>
+        </div>
+    </div>
+    
     <div class="container">
         <div class="date-title">یارییەکانی ئەمڕۆ</div>
 """
