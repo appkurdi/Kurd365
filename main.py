@@ -74,11 +74,9 @@ html_content = """<!DOCTYPE html>
         :root { --bg-color: #080808; --card-bg: rgba(26, 26, 28, 0.6); --card-border: rgba(255, 255, 255, 0.06); --text-main: #ffffff; --text-sub: #9ca3af; --accent: #00f2fe; --accent-gradient: linear-gradient(135deg, #4facfe, #00f2fe); --live-btn: linear-gradient(135deg, #ff0844, #ffb199); }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
-        /* لابردنی بۆشایی سەرەوە بۆ ئەوەی ڤیدیۆکە بچێتە سەرەوەی شاشەکە */
         body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-top: 0; padding-bottom: 85px; min-height: 100vh; }
         
-        /* دیزاینی بەشی ڤیدیۆکەی سەرەوە (Hero Section) */
-        .hero-section { position: relative; width: 100%; height: 250px; overflow: hidden; display: flex; flex-direction: column; }
+        .hero-section { position: relative; width: 100%; height: 250px; overflow: hidden; display: flex; flex-direction: column; background-color: #111; }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translateX(-50%) translateY(-50%); z-index: 1; object-fit: cover; opacity: 0.6; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,1) 100%); z-index: 2; }
         
@@ -90,7 +88,6 @@ html_content = """<!DOCTYPE html>
         .live-indicator { display: flex; align-items: center; gap: 6px; background: rgba(255, 8, 68, 0.2); border: 1px solid rgba(255, 8, 68, 0.3); padding: 5px 12px; border-radius: 15px; font-size: 11px; font-weight: 800; color: #ff0844; letter-spacing: 1px; backdrop-filter: blur(5px); box-shadow: 0 2px 10px rgba(255, 8, 68, 0.2); }
         .pulse-dot { width: 6px; height: 6px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }
         
-        /* هێنانە سەرەوەی یارییەکان بۆ ئەوەی بکەونە سەر سێبەری ڤیدیۆکە */
         .container { max-width: 500px; margin: -50px auto 0; padding: 0 12px; position: relative; z-index: 10; }
         .date-title { font-size: 15px; font-weight: 800; margin-bottom: 15px; color: #fff; display: flex; align-items: center; gap: 8px; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
         .date-title::before { content: ''; display: block; width: 4px; height: 16px; background: var(--accent); border-radius: 4px; box-shadow: 0 0 8px var(--accent); }
@@ -137,11 +134,10 @@ html_content = """<!DOCTYPE html>
 </head>
 <body>
     
-    <!-- بەشی ڤیدیۆی سەرەوە -->
     <div class="hero-section">
-        <!-- دەتوانیت لینکی ڤیدیۆکە لێرە بگۆڕیت بۆ ڤیدیۆی ڕۆناڵدۆ یان هەر ڤیدیۆیەک -->
+        <!-- ڤیدیۆکە لەناو گیتھەبی خۆتەوە دەخوێنێتەوە -->
         <video class="hero-video" autoplay loop muted playsinline>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-soccer-player-kicking-the-ball-4043-large.mp4" type="video/mp4">
+            <source src="video.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         
@@ -271,33 +267,3 @@ html_content += """
 
 with open("index.html", "w", encoding="utf-8") as file:
     file.write(html_content)
-
-manifest_json = f"""{{
-  "name": "Kurd365 Live",
-  "short_name": "Kurd365",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#080808",
-  "theme_color": "#080808",
-  "icons": [
-    {{
-      "src": "https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png",
-      "sizes": "192x192",
-      "type": "image/png"
-    }},
-    {{
-      "src": "https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }}
-  ]
-}}"""
-with open("manifest.json", "w", encoding="utf-8") as file:
-    file.write(manifest_json)
-
-sw_js = """
-self.addEventListener('install', (e) => { self.skipWaiting(); });
-self.addEventListener('fetch', (e) => { });
-"""
-with open("sw.js", "w", encoding="utf-8") as file:
-    file.write(sw_js)
