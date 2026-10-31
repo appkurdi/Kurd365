@@ -20,10 +20,7 @@ except Exception as e:
     data = {}
 
 def get_smart_stream_link(team_a, team_b):
-    # لێرەدا تەنها ئەو ماڵپەڕەی تۆ داوات کرد هێڵراوەتەوە
-    sources = [
-        "https://www.livesports088.is/"
-    ]
+    sources = ["https://www.livesports088.is/"]
     ignore_words = ["نادي", "ال", "اف", "سي", "فريق"]
     words_a = [w for w in team_a.split() if len(w) > 2 and w not in ignore_words]
     words_b = [w for w in team_b.split() if len(w) > 2 and w not in ignore_words]
@@ -34,7 +31,6 @@ def get_smart_stream_link(team_a, team_b):
             soup = BeautifulSoup(req.text, 'html.parser')
             match_page_url = ""
             
-            # گەڕان بەدوای یارییەکەدا
             for a_tag in soup.find_all('a', href=True):
                 text = a_tag.get_text(separator=' ', strip=True)
                 href = a_tag['href']
@@ -43,7 +39,6 @@ def get_smart_stream_link(team_a, team_b):
                     match_page_url = href if href.startswith('http') else base_url.rstrip('/') + '/' + href.lstrip('/')
                     break
             
-            # چوونە قووڵایی پەڕەکە بۆ هێنانی ڤیدیۆی ئەسڵی (Deep Scraping)
             if match_page_url:
                 page_req = requests.get(match_page_url, headers=headers, timeout=8)
                 page_soup = BeautifulSoup(page_req.text, 'html.parser')
@@ -51,12 +46,11 @@ def get_smart_stream_link(team_a, team_b):
                 best_src = ""
                 for iframe in page_soup.find_all('iframe'):
                     src = iframe.get('src') or iframe.get('data-src') or ""
-                    # فلتەرکردنی ڕیکلامەکان
                     if src and not any(bad in src.lower() for bad in ["facebook", "twitter", "youtube", "ads", "betting", "banner"]):
                         if src.startswith('//'):
                             src = 'https:' + src
                         best_src = src
-                        break # دۆزینەوەی باشترین و پاکترین لینک
+                        break 
                 
                 return best_src if best_src else match_page_url
         except: continue
@@ -109,7 +103,6 @@ html_content = """<!DOCTYPE html>
         .date-title::before { content: ''; display: block; width: 4px; height: 16px; background: var(--accent); border-radius: 4px; box-shadow: 0 0 8px var(--accent); }
         
         .match-card { background: var(--card-bg); border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); overflow: hidden; transition: transform 0.2s ease; }
-        .match-card:active { transform: scale(0.98); }
         
         .league-badge { display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.03); padding: 8px; border-bottom: 1px solid var(--card-border); }
         .league-badge img { width: 20px; height: 20px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
@@ -123,6 +116,12 @@ html_content = """<!DOCTYPE html>
         .match-info { width: 36%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .match-time { font-size: 20px; font-weight: 900; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}
         
+        /* دیزاینی نوێ بۆ ئەنجامەکان */
+        .match-score { font-size: 22px; font-weight: 900; color: var(--text-main); font-family: system-ui, sans-serif; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .match-minute { font-size: 11px; font-weight: 700; color: #ff0844; background: rgba(255,8,68,0.1); padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(255,8,68,0.2); }
+        .match-ft { color: var(--text-sub); background: rgba(255,255,255,0.05); border-color: var(--card-border); }
+        .pulse-dot-small { width: 5px; height: 5px; background-color: #ff0844; border-radius: 50%; animation: pulse-live 1.5s infinite; }
+
         .channel-tag { margin-top: 6px; font-size: 10px; font-weight: 700; background: rgba(0, 242, 254, 0.08); color: var(--accent); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(0, 242, 254, 0.15); text-align: center; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px;}
         .channel-tag img { width: 14px; height: 14px; object-fit: contain; }
         
@@ -209,6 +208,19 @@ for match in matches:
     home_logo = f"https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/{match['homeCompetitor']['id']}"
     away_logo = f"https://imagecache.365scores.com/image/upload/f_auto,w_96,h_96,c_limit,q_auto/v2/Competitors/{match['awayCompetitor']['id']}"
     
+    # دەرهێنانی ئەنجام و کاتی یارییەکە
+    status_group = match.get('statusGroup', 1) # 1=پێش یاری، 2=لە کاتی یاری، 3=تەواوبوو
+    home_score = match['homeCompetitor'].get('score', -1)
+    away_score = match['awayCompetitor'].get('score', -1)
+    game_time_str = match.get('gameTimeDisplay', '')
+    
+    if status_group == 2:
+        score_html = f'<div class="match-score" dir="ltr">{home_score} - {away_score}</div><div class="match-minute" dir="ltr">{game_time_str} <span class="pulse-dot-small"></span></div>'
+    elif status_group == 3:
+        score_html = f'<div class="match-score" dir="ltr">{home_score} - {away_score}</div><div class="match-minute match-ft">تەواوبوو</div>'
+    else:
+        score_html = f'<div class="match-time">{display_time}</div>'
+    
     stream_link = get_smart_stream_link(home_team, away_team)
     matches_added += 1
 
@@ -218,7 +230,7 @@ for match in matches:
         btn_html, has_link = f"""<button class="btn-live" onclick="openPlayer('{stream_link}', '{home_team} - {away_team}')">ڕاستەوخۆ 🔴</button>""", "true"
 
     html_content += f"""
-        <div class="match-card" data-time="{match_timestamp}" data-haslink="{has_link}">
+        <div class="match-card" data-time="{match_timestamp}" data-haslink="{has_link}" data-status="{status_group}">
             <div class="league-badge" dir="ltr">
                 <img src="{league_logo}" alt="{league_name}">
                 <span>{league_name}</span>
@@ -226,7 +238,7 @@ for match in matches:
             <div class="teams-wrapper">
                 <div class="team"><img src="{home_logo}"><span>{home_team}</span></div>
                 <div class="match-info">
-                    <div class="match-time">{display_time}</div>
+                    {score_html}
                     <div class="channel-tag" dir="ltr">
                         <img src="https://i.postimg.cc/YSMK1q9K/1000015352-removebg-preview-(1).png" alt="Icon"> 
                         Kurd365 Live
@@ -237,7 +249,7 @@ for match in matches:
             <div class="action-area">
                 <div class="countdown"></div>
                 {btn_html}
-                <div class="btn-finished">یاری تەواوبوو</div>
+                <div class="btn-finished">کۆتایی هات</div>
             </div>
         </div>
     """
@@ -289,18 +301,23 @@ html_content += """
             const now = new Date().getTime();
             document.querySelectorAll('.match-card').forEach(card => {
                 const diff = parseInt(card.getAttribute('data-time')) - now;
+                const status = parseInt(card.getAttribute('data-status'));
                 const hL = card.getAttribute('data-haslink') === 'true';
                 const tEl = card.querySelector('.countdown'), lB = card.querySelector('.btn-live'), dB = card.querySelector('.btn-disabled'), fB = card.querySelector('.btn-finished');
-                if (diff > 0) {
-                    let h = Math.floor(diff / 3600000), m = Math.floor((diff % 3600000) / 60000), s = Math.floor((diff % 60000) / 1000);
-                    tEl.innerHTML = `⏳ ${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
-                    tEl.style.display = 'inline-block'; if(lB) lB.style.display = 'none'; if(dB) dB.style.display = 'none'; fB.style.display = 'none';
-                } else if (diff <= 0 && diff > -7200000) { 
+                
+                // کۆدی نوێ بۆ چارەسەرکردنی کێشەی کات و دوگمەکان
+                if (status === 3) {
+                    tEl.style.display = 'none'; if(lB) lB.style.display = 'none'; if(dB) dB.style.display = 'none'; fB.style.display = 'inline-block';
+                } else if (status === 2 || (diff <= 0 && diff > -7200000)) {
                     tEl.style.display = 'none'; fB.style.display = 'none'; 
                     if(hL && lB) { lB.style.display = 'inline-block'; if(dB) dB.style.display = 'none'; }
                     else if(dB) { dB.style.display = 'inline-block'; if(lB) lB.style.display = 'none'; }
                 } else {
-                    tEl.style.display = 'none'; if(lB) lB.style.display = 'none'; if(dB) dB.style.display = 'none'; fB.style.display = 'inline-block';
+                    if (diff > 0) {
+                        let h = Math.floor(diff / 3600000), m = Math.floor((diff % 3600000) / 60000), s = Math.floor((diff % 60000) / 1000);
+                        tEl.innerHTML = `⏳ ${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
+                        tEl.style.display = 'inline-block'; if(lB) lB.style.display = 'none'; if(dB) dB.style.display = 'none'; fB.style.display = 'none';
+                    }
                 }
             });
         }
