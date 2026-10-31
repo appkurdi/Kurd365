@@ -58,7 +58,6 @@ html_content = """<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
-    <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0d0d0d">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -66,42 +65,64 @@ html_content = """<!DOCTYPE html>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Kurd365">
     
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/807/807214.png">
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/807/807214.png">
+    
     <title>Kurd365 - ئەپی وەرزشی</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
-        :root { --bg-color: #080808; --card-bg: rgba(26, 26, 28, 0.7); --card-border: rgba(255, 255, 255, 0.08); --text-main: #ffffff; --text-sub: #9ca3af; --accent: #00f2fe; --accent-gradient: linear-gradient(135deg, #4facfe, #00f2fe); --live-btn: linear-gradient(135deg, #ff0844, #ffb199); }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+        :root { --bg-color: #080808; --card-bg: rgba(26, 26, 28, 0.6); --card-border: rgba(255, 255, 255, 0.06); --text-main: #ffffff; --text-sub: #9ca3af; --accent: #00f2fe; --accent-gradient: linear-gradient(135deg, #4facfe, #00f2fe); --live-btn: linear-gradient(135deg, #ff0844, #ffb199); }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-top: 80px; padding-bottom: 90px; min-height: 100vh; }
-        .header { position: fixed; top: 0; left: 0; width: 100%; height: 65px; z-index: 100; background: rgba(8, 8, 8, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--card-border); }
-        .header h1 { font-size: 26px; font-weight: 900; letter-spacing: 1px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .container { max-width: 600px; margin: 0 auto; padding: 0 15px; }
-        .date-title { font-size: 16px; font-weight: 800; margin-bottom: 20px; color: var(--text-sub); display: flex; align-items: center; gap: 8px;}
-        .date-title::before { content: ''; display: block; width: 4px; height: 16px; background: var(--accent); border-radius: 4px; }
-        .match-card { background: var(--card-bg); border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--card-border); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); overflow: hidden; transition: transform 0.2s ease; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-top: 70px; padding-bottom: 85px; min-height: 100vh; }
+        
+        .header { position: fixed; top: 0; left: 0; width: 100%; height: 55px; z-index: 100; background: rgba(8, 8, 8, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--card-border); }
+        .header h1 { font-size: 22px; font-weight: 800; letter-spacing: 1px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .container { max-width: 500px; margin: 0 auto; padding: 0 12px; }
+        .date-title { font-size: 14px; font-weight: 700; margin-top: 10px; margin-bottom: 15px; color: var(--text-sub); display: flex; align-items: center; gap: 8px;}
+        .date-title::before { content: ''; display: block; width: 3px; height: 14px; background: var(--accent); border-radius: 4px; }
+        
+        /* دیزاینی نوێی کارتەکان - کۆمپاکت و ناسکتر */
+        .match-card { background: var(--card-bg); border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); overflow: hidden; transition: transform 0.2s ease; }
         .match-card:active { transform: scale(0.98); }
-        .league-badge { background: rgba(255,255,255,0.03); padding: 10px; font-size: 12px; font-weight: 800; color: var(--text-sub); text-align: center; border-bottom: 1px solid var(--card-border); }
-        .teams-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 20px 15px; }
-        .team { display: flex; flex-direction: column; align-items: center; width: 33%; gap: 10px; }
-        .team img { width: 55px; height: 55px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }
-        .team span { font-weight: 800; font-size: 13px; text-align: center; line-height: 1.4; }
-        .match-info { width: 34%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .match-time { font-size: 24px; font-weight: 900; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}
-        .channel-tag { margin-top: 8px; font-size: 10px; font-weight: 700; background: rgba(0, 242, 254, 0.1); color: var(--accent); padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(0, 242, 254, 0.2); text-align: center; white-space: nowrap; }
-        .action-area { padding: 15px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; min-height: 65px; }
-        .countdown { font-size: 14px; font-weight: 800; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 8px 16px; border-radius: 20px;}
-        .btn-live { display: none; background: var(--live-btn); color: white; padding: 10px 28px; border-radius: 30px; font-size: 14px; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 8, 68, 0.4); animation: pulse-live 2s infinite; transition: 0.2s; }
+        
+        .league-badge { background: rgba(255,255,255,0.02); padding: 6px; font-size: 11px; font-weight: 700; color: var(--text-sub); text-align: center; border-bottom: 1px solid var(--card-border); }
+        
+        .teams-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 10px; }
+        .team { display: flex; flex-direction: column; align-items: center; width: 32%; gap: 6px; }
+        .team img { width: 42px; height: 42px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+        .team span { font-weight: 700; font-size: 11px; text-align: center; line-height: 1.3; }
+        
+        .match-info { width: 36%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .match-time { font-size: 18px; font-weight: 800; font-family: system-ui, -apple-system, sans-serif; letter-spacing: 0.5px;}
+        
+        .channel-tag { margin-top: 5px; font-size: 9.5px; font-weight: 700; background: rgba(0, 242, 254, 0.08); color: var(--accent); padding: 4px 10px; border-radius: 10px; border: 1px solid rgba(0, 242, 254, 0.15); text-align: center; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 4px;}
+        .channel-tag img { width: 12px; height: 12px; }
+        
+        /* بەشی خوارەوەی کارتەکە بچووککرایەوە */
+        .action-area { padding: 10px; background: rgba(0,0,0,0.15); border-top: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; min-height: 48px; }
+        
+        .countdown { font-size: 12px; font-weight: 700; color: var(--accent); direction: ltr; display: none; background: rgba(0, 242, 254, 0.05); padding: 5px 12px; border-radius: 15px;}
+        
+        /* قەبارەی دوگمەکان گونجێنرا */
+        .btn-live { display: none; background: var(--live-btn); color: white; padding: 7px 22px; border-radius: 20px; font-size: 12px; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 3px 10px rgba(255, 8, 68, 0.3); animation: pulse-live 2s infinite; transition: 0.2s; }
         .btn-live:active { transform: scale(0.95); }
-        .btn-disabled { background: #1f2937; color: #6b7280; border: 1px solid #374151; box-shadow: none; animation: none; padding: 10px 28px; border-radius: 30px; font-size: 14px; font-weight: 800; cursor: not-allowed; display: none;}
-        .btn-finished { display: none; background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 10px 28px; border-radius: 30px; font-size: 14px; font-weight: 700; border: 1px solid var(--card-border); }
-        @keyframes pulse-live { 0% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 8, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); } }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 70px; background: rgba(15, 15, 15, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; align-items: center; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-sub); text-decoration: none; font-size: 11px; font-weight: 700; transition: 0.3s ease; }
-        .nav-item svg { width: 24px; height: 24px; fill: currentColor; }
+        .btn-disabled { background: #1f2937; color: #6b7280; border: 1px solid #374151; box-shadow: none; animation: none; padding: 7px 22px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: not-allowed; display: none;}
+        .btn-finished { display: none; background: rgba(255, 255, 255, 0.05); color: var(--text-sub); padding: 7px 22px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid var(--card-border); }
+        
+        @keyframes pulse-live { 0% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); } 70% { box-shadow: 0 0 0 8px rgba(255, 8, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); } }
+        
+        /* شریتی خوارەوە (Bottom Navigation) */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: rgba(12, 12, 12, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; align-items: center; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--text-sub); text-decoration: none; font-size: 10px; font-weight: 700; transition: 0.3s ease; }
+        .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
         .nav-item.active { color: var(--accent); }
+        
+        /* مۆدێڵی پلەیەر */
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(20,20,20,0.9); border-bottom: 1px solid #333;}
-        .modal-title { color: white; font-weight: 800; font-size: 15px; }
-        .close-modal { color: white; font-size: 30px; font-weight: 300; cursor: pointer; background: none; border: none; line-height: 1;}
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(15,15,15,0.95); border-bottom: 1px solid #222;}
+        .modal-title { color: white; font-weight: 700; font-size: 14px; }
+        .close-modal { color: white; font-size: 26px; font-weight: 300; cursor: pointer; background: none; border: none; line-height: 1;}
         .modal-body { flex: 1; width: 100%; background: #000; position: relative; }
         .modal-body iframe { width: 100%; height: 100%; border: none; }
     </style>
@@ -128,8 +149,6 @@ for match in matches:
     league_id = match.get('competitionId')
     league_name = kurdish_leagues.get(league_id)
     if not league_name: continue
-
-    channel_name = match.get('tvNetworks', [{'name': 'beIN Sports'}])[0].get('name') if match.get('tvNetworks') else "beIN Sports 📺"
     
     home_team = match['homeCompetitor']['name']
     away_team = match['awayCompetitor']['name']
@@ -151,7 +170,7 @@ for match in matches:
                 <div class="team"><img src="{home_logo}"><span>{home_team}</span></div>
                 <div class="match-info">
                     <div class="match-time">{display_time}</div>
-                    <div class="channel-tag" dir="ltr">{channel_name}</div>
+                    <div class="channel-tag" dir="ltr"><img src="https://cdn-icons-png.flaticon.com/512/807/807214.png"> Kurd365 Live</div>
                 </div>
                 <div class="team"><img src="{away_logo}"><span>{away_team}</span></div>
             </div>
@@ -164,7 +183,7 @@ for match in matches:
     """
 
 if matches_added == 0:
-    html_content += """<div style="text-align:center; margin-top:50px; color:var(--text-sub);"><h3>هیچ یارییەکی گرنگ بۆ ئەمڕۆ نییە</h3></div>"""
+    html_content += """<div style="text-align:center; margin-top:40px; color:var(--text-sub); font-size:14px;"><h3>هیچ یارییەکی گرنگ بۆ ئەمڕۆ نییە</h3></div>"""
 
 html_content += """
     </div>
@@ -208,7 +227,6 @@ html_content += """
 </html>
 """
 
-# فایلەکان دروست دەکەین
 with open("index.html", "w", encoding="utf-8") as file:
     file.write(html_content)
 
@@ -221,12 +239,12 @@ manifest_json = """{
   "theme_color": "#0d0d0d",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/1165/1165187.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/807/807214.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/1165/1165187.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/807/807214.png",
       "sizes": "512x512",
       "type": "image/png"
     }
